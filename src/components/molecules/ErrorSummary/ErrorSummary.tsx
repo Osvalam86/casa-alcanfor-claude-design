@@ -16,8 +16,9 @@ type ErrorSummaryProps = {
 }
 
 /**
- * Resumen tras enviar: role="alert" con nombre tomado del título visible y enlaces
- * a cada campo. Al activar un enlace, el foco va directo al control.
+ * Resumen tras enviar. Sin role="alert": el formulario le mueve el foco (tabIndex=-1) y el lector
+ * anuncia su nombre (aria-labelledby al título visible) una sola vez. role="group" es el rol mínimo
+ * que admite nombre: en un <div> sin rol, aria-labelledby se ignora. Cada enlace lleva al campo.
  */
 export function ErrorSummary({ title, items, ref, className }: ErrorSummaryProps) {
   const titleId = useId()
@@ -33,7 +34,7 @@ export function ErrorSummary({ title, items, ref, className }: ErrorSummaryProps
     <div
       ref={ref}
       tabIndex={-1}
-      role="alert"
+      role="group"
       aria-labelledby={titleId}
       className={cn('rounded-xs border border-error bg-error-surface px-5 py-4', className)}
     >

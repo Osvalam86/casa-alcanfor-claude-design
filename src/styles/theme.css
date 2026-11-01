@@ -200,6 +200,9 @@
   --spacing-trust: clamp(48px, 6vw, 96px);
   --spacing-hero-top: clamp(32px, 5vw, 64px);
   --spacing-card-top: clamp(72px, 7vw, 96px);
+  --spacing-footer: clamp(56px, 7vw, 96px);
+  --spacing-arch-1: clamp(24px, 4vw, 48px);
+  --spacing-arch-2: clamp(56px, 7vw, 96px);
   --spacing-quote: clamp(32px, 4vw, 48px);
   --spacing-quote-x: clamp(24px, 4vw, 64px);
   --spacing-panel: clamp(20px, 4vw, 48px);
@@ -294,6 +297,24 @@
 }
 @utility duration-slower {
   transition-duration: var(--duration-slower);
+}
+
+/* Filas de la galería: 150px en móvil, fluidas desde sm */
+@utility auto-rows-gallery-sm {
+  grid-auto-rows: 150px;
+}
+@utility auto-rows-gallery {
+  grid-auto-rows: clamp(180px, 18vw, 260px);
+}
+
+/* Foto ampliada del lightbox: deja espacio para la barra superior y el pie */
+@utility max-h-lightbox {
+  max-height: calc(100dvh - 200px);
+}
+
+/* Barra fija inferior en móvil: respeta el área segura del dispositivo */
+@utility pb-safe {
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
 }
 
 /* Trazo de 1.5px (monograma, spinner): mismo grosor que los íconos */
