@@ -1,0 +1,319 @@
+/*
+ * Tokens de Casa Alcanfor, extraídos de design/Casa Alcanfor Design System.dc.html.
+ * Nivel 1 · primitivos en :root (no generan utilidades).
+ * Nivel 2 · semánticos en @theme inline (generan utilidades).
+ * Nivel 3 · utilidades compuestas con @utility.
+ */
+
+/* ── 1 · Primitivos ─────────────────────────────────────────────── */
+:root {
+  --ivory-0: #fffdf9;
+  --ivory-50: #f7f2ea;
+  --ivory-100: #efe7da;
+
+  --sand-100: #e2dacb;
+  --sand-200: #dccfbd;
+  --sand-300: #d9c4a2;
+  --sand-400: #d6ccbd;
+  --sand-500: #b9ad9e;
+  --sand-600: #7d7266;
+
+  --taupe-500: #857a6e;
+
+  --charcoal-600: #4a423b;
+  --charcoal-800: #3a3430;
+  --charcoal-900: #1e1a17;
+  --charcoal-950: #161311;
+
+  --gold-400: #c9a46a;
+  --gold-700: #7a5c30;
+  --gold-800: #5e4624;
+
+  --sage-50: #e4ebe6;
+  --sage-500: #6e8572;
+  --sage-900: #2f3e36;
+
+  --green-700: #2e6b4a;
+  --red-50: #f8ece8;
+  --red-700: #a3362b;
+  --blue-700: #2f5d7c;
+
+  --black: #000;
+
+  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+
+  --scroll-offset: 80px;
+
+  /* Esquinas asimétricas de marca: solo las consumen las utilidades rounded-corner* (no generan rounded-*) */
+  --corner: 48px;
+  --corner-lg: 96px;
+
+  /* Color de foco: depende de la superficie, por eso vive fuera de @theme (se usa como outline-(--focus-ring)) */
+  --focus-ring: var(--gold-700);
+}
+
+/* Superficies oscuras: el anillo de foco pasa a dorado claro (gold-700 sobre sage-900 = 1.83:1) */
+[data-surface='inverse'] {
+  --focus-ring: var(--gold-400);
+}
+
+/* ── 2 · Semánticos ─────────────────────────────────────────────── */
+@theme inline {
+  /* Reinicia la paleta por defecto de Tailwind: solo existen los tokens del proyecto */
+  --color-*: initial;
+
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Superficies */
+  --color-surface: var(--ivory-50);
+  --color-surface-alt: var(--ivory-100);
+  --color-surface-inverse: var(--sage-900);
+  --color-surface-deep: var(--charcoal-900);
+  --color-surface-field: var(--ivory-0);
+  --color-surface-placeholder: var(--sand-300);
+  --color-surface-placeholder-dark: var(--charcoal-800);
+
+  /* Texto */
+  --color-text: var(--charcoal-900);
+  --color-text-muted: var(--charcoal-600);
+  --color-text-inverse: var(--ivory-50);
+  --color-text-inverse-muted: var(--sand-100);
+
+  /* Acento */
+  --color-accent: var(--gold-700);
+  --color-accent-strong: var(--gold-800);
+  --color-accent-inverse: var(--gold-400);
+
+  /* Acciones */
+  --color-action: var(--charcoal-900);
+  --color-action-hover: var(--charcoal-600);
+  --color-action-active: var(--black);
+
+  /* Bordes */
+  --color-border: var(--sand-200);
+  --color-border-ui: var(--taupe-500);
+  --color-border-decor: var(--sage-500);
+  --color-border-inverse: color-mix(in srgb, var(--gold-400) 40%, transparent);
+  --color-border-inverse-soft: color-mix(in srgb, var(--gold-400) 28%, transparent);
+  --color-border-inverse-faint: color-mix(in srgb, var(--gold-400) 16%, transparent);
+  --color-border-overlay: color-mix(in srgb, var(--ivory-50) 50%, transparent);
+
+  /* Estados */
+  --color-success: var(--green-700);
+  --color-error: var(--red-700);
+  --color-error-surface: var(--red-50);
+  --color-info: var(--blue-700);
+  --color-info-surface: var(--sage-50);
+  --color-info-text: var(--sage-900);
+  --color-disabled-surface: var(--sand-400);
+  --color-disabled-border: var(--sand-500);
+  --color-disabled-text: var(--sand-600);
+
+  /* Overlays */
+  --color-overlay: color-mix(in srgb, var(--charcoal-900) 45%, transparent);
+  --color-overlay-strong: color-mix(in srgb, var(--charcoal-950) 94%, transparent);
+  --color-scrim-header: color-mix(in srgb, var(--ivory-50) 97%, transparent);
+  --color-image-tint: color-mix(in srgb, var(--gold-700) 28%, transparent);
+
+  /* ── Tipografía ── */
+  --font-display: 'Cormorant Garamond', ui-serif, Georgia, serif;
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+
+  --text-display-xl: clamp(56px, 3.2vw + 42px, 88px);
+  --text-display-xl--line-height: 1.05;
+  --text-display-xl--letter-spacing: -0.01em;
+  --text-display-l: clamp(40px, 2.4vw + 30px, 64px);
+  --text-display-l--line-height: 1.05;
+  --text-h2: clamp(32px, 1.6vw + 26px, 48px);
+  --text-h2--line-height: 1.15;
+  --text-h3: clamp(24px, 0.8vw + 21px, 32px);
+  --text-h3--line-height: 1.15;
+  --text-h3-card: clamp(28px, 1vw + 24px, 40px);
+  --text-h3-card--line-height: 1.15;
+  --text-h4: clamp(20px, 0.4vw + 18px, 24px);
+  --text-h4--line-height: 1.15;
+  --text-quote: clamp(24px, 1vw + 20px, 34px);
+  --text-quote--line-height: 1.3;
+
+  --text-quote-mark: 96px;
+  --text-quote-mark--line-height: 0.5;
+  --text-step: 72px;
+  --text-step--line-height: 1;
+  --text-price-xl: 64px;
+  --text-price-xl--line-height: 1;
+  --text-price: 56px;
+  --text-price--line-height: 1;
+  --text-stat-lg: 48px;
+  --text-stat-lg--line-height: 1;
+  --text-stat: 40px;
+  --text-stat--line-height: 1;
+  --text-display-sm: 32px;
+  --text-display-sm--line-height: 1.15;
+  --text-title-lg: 28px;
+  --text-title-lg--line-height: 1.15;
+  --text-quote-sm: 26px;
+  --text-quote-sm--line-height: 1.3;
+  --text-title: 24px;
+  --text-title--line-height: 1.15;
+  --text-spec: 22px;
+  --text-spec--line-height: 1.2;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.6;
+  --text-body: 16px;
+  --text-body--line-height: 1.6;
+  --text-ui: 15px;
+  --text-ui--line-height: 1;
+  --text-sm: 14px;
+  --text-sm--line-height: 1.4;
+  --text-xs: 13px;
+  --text-xs--line-height: 1.4;
+  --text-overline: 12px;
+  --text-overline--line-height: 1.4;
+  --text-overline--letter-spacing: 0.16em;
+  --text-micro: 9px;
+  --text-micro--line-height: 1;
+  --text-micro--letter-spacing: 0.2em;
+
+  --leading-none: 1;
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.4;
+  --leading-relaxed: 1.5;
+  --leading-loose: 1.6;
+
+  --tracking-overline: 0.16em;
+  --tracking-badge: 0.08em;
+  --tracking-brand: 0.2em;
+  --tracking-logo: 0.04em;
+  --tracking-display: -0.01em;
+  --tracking-stars: 2px;
+
+  /* ── Espaciado (base 4) ── */
+  --spacing: 0.25rem;
+  --spacing-section: clamp(64px, 8vw, 128px);
+  --spacing-section-lg: clamp(80px, 10vw, 128px);
+  --spacing-gutter: clamp(20px, 4vw, 48px);
+  --spacing-head: clamp(32px, 4vw, 64px);
+  --spacing-card: clamp(24px, 3vw, 40px);
+  --spacing-split: clamp(40px, 5vw, 80px);
+  --spacing-trust: clamp(48px, 6vw, 96px);
+  --spacing-hero-top: clamp(32px, 5vw, 64px);
+  --spacing-card-top: clamp(72px, 7vw, 96px);
+  --spacing-quote: clamp(32px, 4vw, 48px);
+  --spacing-quote-x: clamp(24px, 4vw, 64px);
+  --spacing-panel: clamp(20px, 4vw, 48px);
+
+  /* ── Forma ── */
+  --radius-xs: 2px;
+  --radius-md: 8px;
+  --radius-full: 999px;
+
+  /* ── Sombra ── */
+  --shadow-1: 0 8px 24px rgb(30 26 23 / 0.08);
+  --shadow-2: 0 16px 48px rgb(30 26 23 / 0.14);
+  --shadow-up: 0 -8px 24px rgb(30 26 23 / 0.08);
+
+  /* ── Movimiento ── */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --duration-slower: 700ms;
+
+  /* ── Layout ── */
+  --breakpoint-sm: 37.5rem; /* 600px */
+  --breakpoint-md: 48rem; /* 768px */
+  --breakpoint-lg: 64rem; /* 1024px */
+
+  --container-page: 1280px;
+  --container-measure-xs: 40ch;
+  --container-measure-sm: 48ch;
+  --container-measure: 52ch;
+  --container-measure-md: 56ch;
+  --container-measure-lg: 68ch;
+
+  --aspect-portrait: 4 / 5;
+  --aspect-photo: 3 / 2;
+  --aspect-wide: 16 / 9;
+  --aspect-map: 4 / 3;
+
+  /* Mínimos de los grids auto-fit del diseño (D2) */
+  --grid-min-150: 150px;
+  --grid-min-200: 200px;
+  --grid-min-220: 220px;
+  --grid-min-230: 230px;
+  --grid-min-240: 240px;
+  --grid-min-300: 300px;
+  --grid-min-320: 320px;
+  --grid-min-340: 340px;
+  --grid-min-380: 380px;
+  --grid-min-420: 420px;
+  --grid-min-460: 460px;
+}
+
+/* ── 3 · Utilidades compuestas ──────────────────────────────────── */
+
+/* Grids que se reacomodan solos: grid-fit-300 → repeat(auto-fit, minmax(min(100%, 300px), 1fr)) */
+@utility grid-fit-* {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, --value(--grid-min-*)), 1fr));
+}
+@utility grid-fill-* {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, --value(--grid-min-*)), 1fr));
+}
+
+/* Formas de marca */
+@utility rounded-arch {
+  border-radius: var(--radius-full) var(--radius-full) var(--radius-md) var(--radius-md);
+}
+@utility rounded-arch-sm {
+  border-radius: var(--radius-full) var(--radius-full) var(--radius-xs) var(--radius-xs);
+}
+@utility rounded-arch-top {
+  border-radius: var(--radius-full) var(--radius-full) 0 0;
+}
+@utility rounded-corner {
+  border-radius: var(--radius-md) var(--corner) var(--radius-md) var(--radius-md);
+}
+@utility rounded-corner-lg {
+  border-radius: var(--radius-md) var(--corner-lg) var(--radius-md) var(--radius-md);
+}
+@utility rounded-corner-bl {
+  border-radius: var(--radius-md) var(--radius-md) var(--corner-lg) var(--radius-md);
+}
+
+/* Duraciones como tokens: duration-base, duration-slow… */
+@utility duration-fast {
+  transition-duration: var(--duration-fast);
+}
+@utility duration-base {
+  transition-duration: var(--duration-base);
+}
+@utility duration-slow {
+  transition-duration: var(--duration-slow);
+}
+@utility duration-slower {
+  transition-duration: var(--duration-slower);
+}
+
+/* Trazo de 1.5px (monograma, spinner): mismo grosor que los íconos */
+@utility border-stroke {
+  border-width: 1.5px;
+}
+
+/* Textura de papel del body */
+@utility bg-noise {
+  background-image: var(--noise);
+}
+
+/* Subrayado animado de los TextLink (data-ul del diseño) */
+@utility underline-grow {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size var(--duration-slow) var(--ease-out-expo);
+}
+@utility underline-shown {
+  background-size: 100% 1px;
+}

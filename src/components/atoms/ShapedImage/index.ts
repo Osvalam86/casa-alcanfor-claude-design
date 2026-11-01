@@ -1,0 +1,1 @@
+export { ShapedImage } from './ShapedImage'

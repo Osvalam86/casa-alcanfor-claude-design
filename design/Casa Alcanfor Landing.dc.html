@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Casa Alcanfor · Jardín &amp; Salón de Eventos en Zapopan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth;scroll-padding-top:80px;-webkit-text-size-adjust:100%}
+body{margin:0;background-color:#F7F2EA;color:#1E1A17;font-family:'Manrope',sans-serif;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E")}
+*,*::before,*::after{box-sizing:border-box}
+a{color:#7A5C30}a:hover{color:#1E1A17}
+img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit}
+:focus-visible{outline:3px solid #7A5C30;outline-offset:3px}
+[data-dark] :focus-visible{outline-color:#C9A46A}
+[tabindex="-1"]:focus{outline:none}
+[data-zoom] [data-zoom-img]{transition:transform 700ms cubic-bezier(0.22,1,0.36,1)}
+[data-zoom]:hover [data-zoom-img]{transform:scale(1.04)}
+[data-zoom] [data-ul]{background-image:linear-gradient(currentColor,currentColor);background-size:0% 1px;background-repeat:no-repeat;background-position:0 100%;transition:background-size 400ms cubic-bezier(0.22,1,0.36,1)}
+[data-zoom]:hover [data-ul],[data-zoom] [data-ul]:focus-visible{background-size:100% 1px}
+input[type="date"]::-webkit-calendar-picker-indicator{opacity:.7;cursor:pointer}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</helmet>
+
+<a href="#main" style="position:fixed;left:16px;top:-80px;z-index:200;background:#1E1A17;color:#F7F2EA;padding:12px 20px;font:600 14px/1.4 'Manrope',sans-serif;border-radius:2px;text-decoration:none;transition:top 150ms" style-focus="top:16px">Saltar al contenido</a>
+
+<header data-component="SiteHeader" style="position:sticky;top:0;z-index:50;background:{{ headerBg }};box-shadow:{{ headerShadow }};transition:background 400ms cubic-bezier(0.22,1,0.36,1),box-shadow 400ms,padding 400ms;padding:{{ headerPad }}">
+  <div style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="#top" onClick="{{ nav.top }}" aria-label="Casa Alcanfor, inicio" data-component="Logo" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:#1E1A17;min-height:44px">
+      <span aria-hidden="true" style="width:30px;height:38px;border:1.5px solid #7A5C30;border-bottom-width:1.5px;border-radius:999px 999px 2px 2px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;font:600 13px/1 'Cormorant Garamond',serif;color:#7A5C30;letter-spacing:.04em">CA</span>
+      <span style="display:flex;flex-direction:column;line-height:1"><span style="font:600 24px/1 'Cormorant Garamond',serif;letter-spacing:.01em">Casa Alcanfor</span><span style="font:600 9px/1 'Manrope',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4A423B;margin-top:5px">Jardín &amp; Salón</span></span>
+    </a>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Principal" style="display:flex;align-items:center;gap:32px">
+        <ul style="list-style:none;margin:0;padding:0;display:flex;gap:28px">
+          <li><a href="#eventos" onClick="{{ nav.eventos }}" data-component="NavLink" style="font:500 15px/1 'Manrope',sans-serif;color:#1E1A17;text-decoration:none;padding:12px 0;display:inline-block" style-hover="color:#7A5C30">Eventos</a></li>
+          <li><a href="#espacios" onClick="{{ nav.espacios }}" style="font:500 15px/1 'Manrope',sans-serif;color:#1E1A17;text-decoration:none;padding:12px 0;display:inline-block" style-hover="color:#7A5C30">Espacios</a></li>
+          <li><a href="#paquetes" onClick="{{ nav.paquetes }}" style="font:500 15px/1 'Manrope',sans-serif;color:#1E1A17;text-decoration:none;padding:12px 0;display:inline-block" style-hover="color:#7A5C30">Paquetes</a></li>
+          <li><a href="#galeria" onClick="{{ nav.galeria }}" style="font:500 15px/1 'Manrope',sans-serif;color:#1E1A17;text-decoration:none;padding:12px 0;display:inline-block" style-hover="color:#7A5C30">Galería</a></li>
+          <li><a href="#preguntas" onClick="{{ nav.preguntas }}" style="font:500 15px/1 'Manrope',sans-serif;color:#1E1A17;text-decoration:none;padding:12px 0;display:inline-block" style-hover="color:#7A5C30">Preguntas</a></li>
+        </ul>
+        <a href="#contacto" onClick="{{ visit }}" data-component="Button" style="display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border:1px solid #7A5C30;color:#7A5C30;border-radius:2px;font:600 14px/1 'Manrope',sans-serif;text-decoration:none;transition:background 250ms,color 250ms" style-hover="background:#7A5C30;color:#F7F2EA">Agenda tu visita</a>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+      <button type="button" onClick="{{ openMenu }}" aria-expanded="{{ menuExpanded }}" aria-controls="menu-movil" aria-label="Abrir menú" data-component="IconButton" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid #857A6E;border-radius:999px;color:#1E1A17;cursor:pointer">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 9h16M4 15h16"></path></svg>
+      </button>
+    </sc-if>
+  </div>
+</header>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:120;background:rgba(30,26,23,.45)" onClick="{{ closeAll }}"></div>
+  <div id="menu-movil" ref="{{ menuRef }}" role="dialog" aria-modal="true" aria-label="Menú" data-component="MobileMenu" style="position:fixed;top:0;right:0;bottom:0;z-index:121;width:min(100%,400px);background:#F7F2EA;padding:20px 24px 32px;display:flex;flex-direction:column;gap:32px;box-shadow:0 16px 48px rgba(30,26,23,.14)">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span style="font:600 22px/1 'Cormorant Garamond',serif">Casa Alcanfor</span>
+      <button type="button" onClick="{{ closeAll }}" aria-label="Cerrar menú" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid #857A6E;border-radius:999px;color:#1E1A17;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+    </div>
+    <nav aria-label="Menú móvil">
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
+        <li><a href="#eventos" onClick="{{ nav.eventos }}" style="display:block;padding:14px 0;border-bottom:1px solid #DCCFBD;font:500 32px/1.15 'Cormorant Garamond',serif;color:#1E1A17;text-decoration:none">Eventos</a></li>
+        <li><a href="#espacios" onClick="{{ nav.espacios }}" style="display:block;padding:14px 0;border-bottom:1px solid #DCCFBD;font:500 32px/1.15 'Cormorant Garamond',serif;color:#1E1A17;text-decoration:none">Espacios</a></li>
+        <li><a href="#paquetes" onClick="{{ nav.paquetes }}" style="display:block;padding:14px 0;border-bottom:1px solid #DCCFBD;font:500 32px/1.15 'Cormorant Garamond',serif;color:#1E1A17;text-decoration:none">Paquetes</a></li>
+        <li><a href="#galeria" onClick="{{ nav.galeria }}" style="display:block;padding:14px 0;border-bottom:1px solid #DCCFBD;font:500 32px/1.15 'Cormorant Garamond',serif;color:#1E1A17;text-decoration:none">Galería</a></li>
+        <li><a href="#preguntas" onClick="{{ nav.preguntas }}" style="display:block;padding:14px 0;border-bottom:1px solid #DCCFBD;font:500 32px/1.15 'Cormorant Garamond',serif;color:#1E1A17;text-decoration:none">Preguntas</a></li>
+      </ul>
+    </nav>
+    <div style="margin-top:auto;display:flex;flex-direction:column;gap:12px">
+      <a href="#contacto" onClick="{{ nav.contacto }}" style="display:flex;align-items:center;justify-content:center;min-height:52px;background:#1E1A17;color:#F7F2EA;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;text-decoration:none">Consulta disponibilidad</a>
+      <a href="#contacto" onClick="{{ visit }}" style="display:flex;align-items:center;justify-content:center;min-height:52px;border:1px solid #7A5C30;color:#7A5C30;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;text-decoration:none">Agenda tu visita</a>
+    </div>
+  </div>
+</sc-if>
+
+<main id="main" tabindex="-1">
+
+<section id="top" data-component="Hero" data-screen-label="Hero" aria-labelledby="hero-h" style="padding:clamp(32px,5vw,64px) 0 0;overflow:hidden">
+  <div style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:clamp(40px,5vw,80px);align-items:center">
+      <div style="display:flex;flex-direction:column;gap:24px;max-width:620px">
+        <p data-reveal="" style="margin:0;font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#7A5C30">Jardín &amp; Salón de eventos en Zapopan</p>
+        <h1 id="hero-h" data-reveal="" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(56px,3.2vw + 42px,88px);line-height:1.05;letter-spacing:-.01em;color:#1E1A17;text-wrap:balance">Celebra donde cada momento se vuelve <em style="font-style:italic;color:#7A5C30">recuerdo</em></h1>
+        <p data-reveal="" style="margin:0;font:400 18px/1.6 'Manrope',sans-serif;color:#4A423B;max-width:56ch;text-wrap:pretty">Bodas, XV años, bautizos y eventos que se viven sin preocupaciones. Espacios de ensueño, un coordinador contigo de principio a fin y precio cerrado desde el primer día.</p>
+        <div data-reveal="" style="display:flex;flex-wrap:wrap;gap:12px">
+          <a href="#contacto" onClick="{{ nav.contacto }}" data-component="Button" style="display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 28px;background:#1E1A17;color:#F7F2EA;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;text-decoration:none;transition:background 250ms" style-hover="background:#4A423B;color:#F7F2EA">Consulta disponibilidad<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+          <button type="button" onClick="{{ openTour }}" data-component="Button" style="display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 22px;background:transparent;color:#1E1A17;border:0;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;cursor:pointer" style-hover="color:#7A5C30">
+            <span aria-hidden="true" style="width:36px;height:36px;border:1px solid #7A5C30;border-radius:999px;display:flex;align-items:center;justify-content:center;color:#7A5C30"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5l11 7-11 7z"></path></svg></span>Recorre el salón
+          </button>
+        </div>
+
+        <form data-component="AvailabilityQuickCheck" data-reveal="" onSubmit="{{ qcSubmit }}" novalidate="" aria-labelledby="qc-title" style="margin-top:8px;background:#EFE7DA;border-radius:8px;padding:20px;box-shadow:0 8px 24px rgba(30,26,23,.08);display:flex;flex-direction:column;gap:14px">
+          <p id="qc-title" style="margin:0;font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#4A423B">Verifica tu fecha</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px;align-items:end">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label for="qc-tipo" style="font:600 13px/1.3 'Manrope',sans-serif;color:#1E1A17">¿Qué celebras?</label>
+              <select id="qc-tipo" name="tipo" value="{{ qc.tipo }}" onChange="{{ onQc }}" style="min-height:48px;padding:0 12px;border:1px solid #857A6E;border-radius:2px;background:#F7F2EA;color:#1E1A17;font:400 15px 'Manrope',sans-serif;width:100%">
+                <option value="">Elige</option>
+                <option>Boda</option><option>XV años</option><option>Bautizo o primera comunión</option><option>Cumpleaños o aniversario</option><option>Baby shower o graduación</option><option>Evento corporativo</option>
+              </select>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label for="qc-fecha" style="font:600 13px/1.3 'Manrope',sans-serif;color:#1E1A17">Fecha tentativa</label>
+              <input id="qc-fecha" name="fecha" type="date" min="{{ today }}" value="{{ qc.fecha }}" onChange="{{ onQc }}" style="min-height:48px;padding:0 10px;border:1px solid #857A6E;border-radius:2px;background:#F7F2EA;color:#1E1A17;font:400 15px 'Manrope',sans-serif;width:100%">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label for="qc-inv" style="font:600 13px/1.3 'Manrope',sans-serif;color:#1E1A17">Invitados</label>
+              <div data-component="NumberStepper" style="display:flex;align-items:stretch;border:1px solid #857A6E;border-radius:2px;background:#F7F2EA;min-height:48px">
+                <button type="button" onClick="{{ qcDec }}" aria-label="Quitar 10 invitados" style="width:44px;border:0;background:transparent;color:#1E1A17;cursor:pointer;font:500 20px/1 'Manrope',sans-serif">−</button>
+                <input id="qc-inv" name="inv" type="number" inputmode="numeric" min="10" max="450" step="10" value="{{ qc.inv }}" onChange="{{ onQc }}" style="width:100%;min-width:0;border:0;background:transparent;text-align:center;color:#1E1A17;font:600 15px 'Manrope',sans-serif;-moz-appearance:textfield">
+                <button type="button" onClick="{{ qcInc }}" aria-label="Sumar 10 invitados" style="width:44px;border:0;background:transparent;color:#1E1A17;cursor:pointer;font:500 20px/1 'Manrope',sans-serif">+</button>
+              </div>
+            </div>
+            <button type="submit" data-component="Button" style="min-height:48px;padding:0 20px;background:#1E1A17;color:#F7F2EA;border:0;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;cursor:pointer;transition:background 250ms" style-hover="background:#4A423B">Ver fechas libres</button>
+          </div>
+          <div aria-live="polite" style="display:contents">
+            <sc-if value="{{ qcErr }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:0;display:flex;gap:8px;align-items:flex-start;font:500 14px/1.5 'Manrope',sans-serif;color:#A3362B"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5v.01"></path></svg>{{ qcErr }}</p>
+            </sc-if>
+          </div>
+          <p style="margin:0;font:400 14px/1.5 'Manrope',sans-serif;color:#4A423B">Respuesta en menos de 2 horas en horario de oficina. Sin compromiso.</p>
+        </form>
+      </div>
+
+      <div data-reveal="" style="position:relative;justify-self:center;width:min(100%,520px);padding:0 0 40px 0">
+        <div aria-hidden="true" style="position:absolute;top:-20px;right:-20px;width:100%;aspect-ratio:4/5;border:1px solid #6E8572;border-radius:999px 999px 8px 8px"></div>
+        <div style="position:relative;aspect-ratio:4/5;border-radius:999px 999px 8px 8px;overflow:hidden;box-shadow:0 16px 48px rgba(30,26,23,.14)">
+          <div ref="{{ heroImg }}" role="img" aria-label="Pasillo de ceremonia al aire libre iluminado entre sillas blancas" style="position:absolute;inset:-8% 0;background:#D9C4A2 url(https://images.unsplash.com/photo-1607861884586-c7cfaed16290?auto=format&fit=crop&w=1200&q=70) center/cover no-repeat;transform:scale(1.08);will-change:transform"></div>
+          <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(201,164,106,.0) 40%,rgba(122,92,48,.28) 100%)"></div>
+          
+        </div>
+        <div style="position:absolute;left:-24px;bottom:0;width:44%;aspect-ratio:3/2;border-radius:8px 48px 8px 8px;overflow:hidden;border:6px solid #F7F2EA;box-shadow:0 8px 24px rgba(30,26,23,.08)">
+          <div role="img" aria-label="Detalle de mesa con flores blancas y velas" style="position:absolute;inset:0;background:#D9C4A2 url(https://images.unsplash.com/photo-1769812344099-8e52466aea8e?auto=format&fit=crop&w=700&q=70) center/cover no-repeat"></div>
+          
+        </div>
+      </div>
+    </div>
+
+    <div data-component="TrustBar" style="margin-top:clamp(48px,6vw,96px);border-top:1px solid #DCCFBD;padding:28px 0 clamp(48px,6vw,96px)">
+      <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:24px">
+        <li data-reveal="" data-component="StatItem" style="display:flex;align-items:baseline;gap:12px"><span style="font:500 40px/1 'Cormorant Garamond',serif;color:#1E1A17">+1,200</span><span style="font:500 15px/1.4 'Manrope',sans-serif;color:#4A423B">eventos realizados</span></li>
+        <li data-reveal="" style="display:flex;align-items:baseline;gap:12px"><span style="font:500 40px/1 'Cormorant Garamond',serif;color:#1E1A17">450</span><span style="font:500 15px/1.4 'Manrope',sans-serif;color:#4A423B">Hasta 450 invitados</span></li>
+        <li data-reveal="" style="display:flex;align-items:baseline;gap:12px"><span style="font:500 40px/1 'Cormorant Garamond',serif;color:#1E1A17">4.9 <span aria-hidden="true" style="color:#7A5C30;font-size:28px">★</span></span><span style="font:500 15px/1.4 'Manrope',sans-serif;color:#4A423B">en Google (320 reseñas)</span></li>
+      </ul>
+      <p style="margin:16px 0 0;font:400 12px/1.4 'Manrope',sans-serif;color:#4A423B">Cifras de ejemplo · demo</p>
+    </div>
+  </div>
+</section>
+
+<section id="eventos" tabindex="-1" data-component="EventTypesGrid" data-screen-label="Eventos" aria-labelledby="ev-h" style="padding:clamp(64px,8vw,128px) 0;background:#EFE7DA">
+  <div style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(32px,4vw,64px)">
+      <div style="display:flex;flex-direction:column;gap:12px;max-width:640px">
+        <p data-reveal="" style="margin:0;font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#7A5C30">Para cada celebración</p>
+        <h2 id="ev-h" data-reveal="" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,1.6vw + 26px,48px);line-height:1.15;color:#1E1A17;text-wrap:balance">Un mismo lugar, mil maneras de celebrar</h2>
+      </div>
+      <div aria-hidden="true" data-component="Divider" style="display:flex;align-items:center;gap:12px;color:#6E8572;flex:0 1 240px"><span style="flex:1;height:1px;background:#6E8572"></span><span style="width:8px;height:8px;border:1px solid #6E8572;transform:rotate(45deg)"></span><span style="flex:1;height:1px;background:#6E8572"></span></div>
+    </div>
+    <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:clamp(24px,3vw,32px) 24px">
+      <li data-reveal="" data-zoom="" data-component="EventTypeCard" style="grid-column:{{ featSpan }};grid-row:{{ featSpan }};display:flex;flex-direction:column;gap:16px">
+        <div style="position:relative;flex:1;min-height:360px;border-radius:999px 999px 8px 8px;overflow:hidden">
+          <div data-zoom-img="" role="img" aria-label="Novios abrazados frente a una reja de hierro forjado" style="position:absolute;inset:0;background:#D9C4A2 url(https://images.unsplash.com/photo-1704455305845-d5f66a560e6f?auto=format&fit=crop&w=1200&q=70) center/cover no-repeat"></div>
+          
+        </div>
+        <h3 style="margin:0;font:500 clamp(28px,1vw + 24px,40px)/1.15 'Cormorant Garamond',serif;color:#1E1A17">Bodas</h3>
+        <p style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#4A423B;max-width:52ch">El sí que soñaste, con jardín al atardecer y salón para la fiesta.</p>
+        <a href="#galeria" onClick="{{ ideas.bodas }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;min-height:44px;font:600 15px/1 'Manrope',sans-serif;color:#7A5C30;text-decoration:none"><span data-ul="" style="padding-bottom:4px">Ver ideas para bodas</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </li>
+      <li data-reveal="" data-zoom="" style="display:flex;flex-direction:column;gap:12px">
+        <div style="position:relative;aspect-ratio:3/2;border-radius:8px 48px 8px 8px;overflow:hidden"><div data-zoom-img="" role="img" aria-label="Pareja bailando en la pista iluminada del salón" style="position:absolute;inset:0;background:#D9C4A2 url(https://images.unsplash.com/photo-1714972383570-44ddc9738355?auto=format&fit=crop&w=900&q=70) center/cover no-repeat"></div></div>
+        <h3 style="margin:8px 0 0;font:500 28px/1.15 'Cormorant Garamond',serif;color:#1E1A17">XV años</h3>
+        <p style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#4A423B">Una noche a su medida, con pista, luces y el vals que siempre imaginó.</p>
+        <a href="#galeria" onClick="{{ ideas.xv }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;min-height:44px;font:600 15px/1 'Manrope',sans-serif;color:#7A5C30;text-decoration:none"><span data-ul="" style="padding-bottom:4px">Ver ideas para XV años</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </li>
+      <li data-reveal="" data-zoom="" style="display:flex;flex-direction:column;gap:12px">
+        <div style="position:relative;aspect-ratio:3/2;border-radius:8px 48px 8px 8px;overflow:hidden"><div data-zoom-img="" role="img" aria-label="Mesa montada con vajilla blanca para una comida familiar" style="position:absolute;inset:0;background:#D9C4A2 url(https://images.unsplash.com/photo-1561593367-66c79c2294e6?auto=format&fit=crop&w=900&q=70) center/cover no-repeat"></div></div>
+        <h3 style="margin:8px 0 0;font:500 28px/1.15 'Cormorant Garamond',serif;color:#1E1A17">Bautizos y primeras comuniones</h3>
+        <p style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#4A423B">Reuniones familiares cálidas, cómodas para todas las edades.</p>
+        <a href="#galeria" onClick="{{ ideas.bautizos }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;min-height:44px;font:600 15px/1 'Manrope',sans-serif;color:#7A5C30;text-decoration:none"><span data-ul="" style="padding-bottom:4px">Ver ideas para bautizos</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </li>
+      <li data-reveal="" data-zoom="" style="display:flex;flex-direction:column;gap:12px">
+        <div style="position:relative;aspect-ratio:3/2;border-radius:8px 48px 8px 8px;overflow:hidden"><div data-zoom-img="" role="img" aria-label="Invitados levantando sus copas en un brindis" style="position:absolute;inset:0;background:#D9C4A2 url(https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=900&q=70) center/cover no-repeat"></div></div>
+        <h3 style="margin:8px 0 0;font:500 28px/1.15 'Cormorant Garamond',serif;color:#1E1A17">Cumpleaños y aniversarios</h3>
+        <p style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#4A423B">Brinda por los años vividos con quienes más quieres.</p>
+        <a href="#galeria" onClick="{{ ideas.todos }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;min-height:44px;font:600 15px/1 'Manrope',sans-serif;color:#7A5C30;text-decoration:none"><span data-ul="" style="padding-bottom:4px">Ver ideas para cumpleaños</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </li>
+      <li data-reveal="" data-zoom="" style="display:flex;flex-direction:column;gap:12px">
+        <div style="position:relative;aspect-ratio:3/2;border-radius:8px 48px 8px 8px;overflow:hidden"><div data-zoom-img="" role="img" aria-label="Jardín con luces colgantes entre los árboles durante el día" style="position:absolute;inset:0;background:#D9C4A2 url(https://images.unsplash.com/photo-1786550765782-64143480ba12?auto=format&fit=crop&w=900&q=70) center/cover no-repeat"></div></div>
+        <h3 style="margin:8px 0 0;font:500 28px/1.15 'Cormorant Garamond',serif;color:#1E1A17">Baby shower y graduaciones</h3>
+        <p style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#4A423B">Celebraciones a medio día con menús ligeros y ambiente relajado.</p>
+        <a href="#galeria" onClick="{{ ideas.todos }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;min-height:44px;font:600 15px/1 'Manrope',sans-serif;color:#7A5C30;text-decoration:none"><span data-ul="" style="padding-bottom:4px">Ver ideas para baby shower</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </li>
+      <li data-reveal="" data-zoom="" style="display:flex;flex-direction:column;gap:12px">
+        <div style="position:relative;aspect-ratio:3/2;border-radius:8px 48px 8px 8px;overflow:hidden"><div data-zoom-img="" role="img" aria-label="Ponente en escenario frente a un auditorio lleno" style="position:absolute;inset:0;background:#D9C4A2 url(https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=900&q=70) center/cover no-repeat"></div></div>
+        <h3 style="margin:8px 0 0;font:500 28px/1.15 'Cormorant Garamond',serif;color:#1E1A17">Corporativos</h3>
+        <p style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#4A423B">Cenas de fin de año, lanzamientos y convenciones con soporte técnico incluido.</p>
+        <a href="#galeria" onClick="{{ ideas.corp }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;min-height:44px;font:600 15px/1 'Manrope',sans-serif;color:#7A5C30;text-decoration:none"><span data-ul="" style="padding-bottom:4px">Ver ideas para corporativos</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section data-dark="" data-component="ValueProposition" data-screen-label="Propuesta de valor" aria-labelledby="vp-h" style="padding:clamp(64px,8vw,128px) 0;background:#2F3E36;color:#F7F2EA;position:relative;overflow:hidden">
+  <div aria-hidden="true" style="position:absolute;right:-120px;top:-120px;width:420px;height:520px;border:1px solid rgba(201,164,106,.28);border-radius:999px 999px 0 0"></div>
+  <div style="position:relative;max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(40px,6vw,96px);align-items:center">
+    <div data-reveal="" style="position:relative;max-width:480px;width:100%">
+      <div style="position:relative;aspect-ratio:4/5;border-radius:999px 999px 8px 8px;overflow:hidden">
+        <div role="img" aria-label="Salón montado con mesas y sillas vestidas en blanco" style="position:absolute;inset:0;background:#D9C4A2 url(https://images.unsplash.com/photo-1707333514312-39cf7658479c?auto=format&fit=crop&w=1000&q=70) center/cover no-repeat"></div>
+        
+      </div>
+      <div data-component="StatItem" style="position:absolute;right:-16px;bottom:32px;background:#F7F2EA;color:#1E1A17;border-radius:8px;padding:16px 20px;box-shadow:0 16px 48px rgba(30,26,23,.14);display:flex;flex-direction:column;gap:2px">
+        <span style="font:500 48px/1 'Cormorant Garamond',serif">14</span><span style="font:500 14px/1.4 'Manrope',sans-serif;color:#4A423B">años de experiencia · demo</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:40px">
+      <h2 id="vp-h" data-reveal="" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(40px,2.4vw + 30px,64px);line-height:1.05;color:#F7F2EA;text-wrap:balance">Tú disfrutas, nosotros nos encargamos</h2>
+      <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:32px">
+        <li data-reveal="" data-component="FeatureItem" style="display:flex;flex-direction:column;gap:10px;border-top:1px solid rgba(201,164,106,.4);padding-top:20px">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A46A" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7"></rect><rect x="13" y="4" width="7" height="7"></rect><rect x="4" y="13" width="7" height="7"></rect><rect x="13" y="13" width="7" height="7"></rect></svg>
+          <h3 style="margin:0;font:600 18px/1.3 'Manrope',sans-serif;color:#F7F2EA">Todo en un solo lugar</h3>
+          <p style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#E2DACB">Banquete, mobiliario, iluminación, audio y montaje en un paquete.</p>
+        </li>
+        <li data-reveal="" style="display:flex;flex-direction:column;gap:10px;border-top:1px solid rgba(201,164,106,.4);padding-top:20px">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A46A" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"></path></svg>
+          <h3 style="margin:0;font:600 18px/1.3 'Manrope',sans-serif;color:#F7F2EA">Un coordinador para ti</h3>
+          <p style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#E2DACB">Una persona que conoce tu evento y responde tus dudas desde la primera visita hasta el último invitado.</p>
+        </li>
+        <li data-reveal="" style="display:flex;flex-direction:column;gap:10px;border-top:1px solid rgba(201,164,106,.4);padding-top:20px">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A46A" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 12V4h8l8 8-8 8z"></path><circle cx="8.5" cy="8.5" r="1.2"></circle></svg>
+          <h3 style="margin:0;font:600 18px/1.3 'Manrope',sans-serif;color:#F7F2EA">Precio cerrado, sin sorpresas</h3>
+          <p style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#E2DACB">Lo que cotizas es lo que pagas. Sin cargos ocultos al final.</p>
+        </li>
+        <li data-reveal="" style="display:flex;flex-direction:column;gap:10px;border-top:1px solid rgba(201,164,106,.4);padding-top:20px">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A46A" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v8M8 12h8"></path></svg>
+          <h3 style="margin:0;font:600 18px/1.3 'Manrope',sans-serif;color:#F7F2EA">Pensado para todos</h3>
+          <p style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#E2DACB">Estacionamiento con valet, rampas, elevador y baños accesibles.</p>
+        </li>
+      </ul>
+      <div data-reveal="" style="display:flex;flex-wrap:wrap;align-items:center;gap:20px">
+        <a href="#contacto" onClick="{{ nav.contacto }}" style="display:inline-flex;align-items:center;min-height:52px;padding:0 28px;background:#F7F2EA;color:#1E1A17;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;text-decoration:none;transition:background 250ms" style-hover="background:#EFE7DA;color:#1E1A17">Consulta disponibilidad</a>
+        <span style="font:500 14px/1.4 'Manrope',sans-serif;color:#E2DACB"><span aria-hidden="true" style="color:#C9A46A">★★★★★</span> 4.9 en Google · 320 reseñas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="espacios" tabindex="-1" data-component="SpacesShowcase" data-screen-label="Espacios" aria-labelledby="sp-h" style="padding:clamp(64px,8vw,128px) 0">
+  <div style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px)">
+    <div style="display:flex;flex-direction:column;gap:12px;max-width:680px;margin-bottom:clamp(32px,4vw,56px)">
+      <p data-reveal="" style="margin:0;font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#7A5C30">Espacios combinables</p>
+      <h2 id="sp-h" data-reveal="" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,1.6vw + 26px,48px);line-height:1.15;color:#1E1A17;text-wrap:balance">Tres espacios que se adaptan a tu celebración</h2>
+    </div>
+    <div data-reveal="" role="tablist" aria-label="Espacios de Casa Alcanfor" onKeyDown="{{ tabKey }}" style="display:flex;gap:8px;overflow-x:auto;border-bottom:1px solid #DCCFBD;margin-bottom:32px">
+      <sc-for list="{{ spaceTabs }}" as="t" hint-placeholder-count="3">
+        <button type="button" role="tab" id="{{ t.tabId }}" aria-selected="{{ t.selected }}" aria-controls="sp-panel" tabindex="{{ t.tabindex }}" onClick="{{ t.select }}" style="flex:none;min-height:56px;padding:12px 4px;margin-right:24px;background:transparent;border:0;border-bottom:2px solid {{ t.line }};color:{{ t.color }};font:600 16px/1.2 'Manrope',sans-serif;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:4px;transition:color 250ms,border-color 250ms">{{ t.name }}<span style="font:400 13px/1.2 'Manrope',sans-serif;color:#4A423B">{{ t.cap }}</span></button>
+      </sc-for>
+    </div>
+    <div id="sp-panel" role="tabpanel" aria-labelledby="{{ space.tabId }}" tabindex="0" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(32px,5vw,64px);align-items:center">
+      <div style="position:relative;aspect-ratio:16/9;border-radius:8px 96px 8px 8px;overflow:hidden;grid-column:{{ spaceImgSpan }}">
+        <div role="img" aria-label="{{ space.alt }}" style="position:absolute;inset:0;background:#D9C4A2 url({{ space.src }}) center/cover no-repeat;transition:opacity 400ms"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <h3 style="margin:0;font:500 clamp(24px,.8vw + 21px,32px)/1.15 'Cormorant Garamond',serif;color:#1E1A17">{{ space.name }}</h3>
+        <p style="margin:0;font:400 18px/1.6 'Manrope',sans-serif;color:#4A423B;max-width:48ch">{{ space.desc }}</p>
+        <dl style="margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid #DCCFBD">
+          <sc-for list="{{ space.specs }}" as="s" hint-placeholder-count="4">
+            <div data-component="SpaceSpec" style="padding:16px 12px 16px 0;border-bottom:1px solid #DCCFBD;display:flex;flex-direction:column;gap:4px">
+              <dt style="font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#4A423B">{{ s.k }}</dt>
+              <dd style="margin:0;font:500 22px/1.2 'Cormorant Garamond',serif;color:#1E1A17">{{ s.v }}</dd>
+            </div>
+          </sc-for>
+        </dl>
+        <a href="#contacto" onClick="{{ visit }}" style="align-self:flex-start;display:inline-flex;align-items:center;min-height:52px;padding:0 24px;border:1px solid #7A5C30;color:#7A5C30;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;text-decoration:none;transition:background 250ms,color 250ms" style-hover="background:#7A5C30;color:#F7F2EA">Agenda una visita guiada</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="paquetes" tabindex="-1" data-component="PricingPackages" data-screen-label="Paquetes" aria-labelledby="pk-h" style="padding:clamp(64px,8vw,128px) 0;background:#EFE7DA">
+  <div style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px)">
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;margin:0 auto clamp(40px,5vw,64px);max-width:720px">
+      <p data-reveal="" style="margin:0;font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#7A5C30">Paquetes todo incluido</p>
+      <h2 id="pk-h" data-reveal="" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,1.6vw + 26px,48px);line-height:1.15;color:#1E1A17;text-wrap:balance">Paquetes claros para planear con tranquilidad</h2>
+      <p data-reveal="" style="margin:0;font:400 18px/1.6 'Manrope',sans-serif;color:#4A423B">Precios por invitado con IVA incluido. Personaliza cualquier paquete con tu coordinador.</p>
+    </div>
+    <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px;align-items:stretch">
+      <li data-reveal="" data-component="PackageCard" style="background:#F7F2EA;border:1px solid #DCCFBD;border-radius:8px;padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:24px">
+        <h3 style="margin:0;font:500 32px/1.15 'Cormorant Garamond',serif;color:#1E1A17">Esencial</h3>
+        <p data-component="PriceTag" style="margin:0;display:flex;flex-direction:column;gap:4px"><span style="font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#4A423B">Desde</span><span style="font:500 56px/1 'Cormorant Garamond',serif;color:#1E1A17">$690</span><span style="font:500 14px/1.4 'Manrope',sans-serif;color:#4A423B">por invitado</span></p>
+        <ul style="list-style:none;margin:0;padding:24px 0 0;border-top:1px solid #DCCFBD;display:flex;flex-direction:column;gap:12px;flex:1">
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif;color:#1E1A17"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A5C30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Banquete a 3 tiempos</li>
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif;color:#1E1A17"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A5C30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Mobiliario estándar</li>
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif;color:#1E1A17"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A5C30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Mantelería</li>
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif;color:#1E1A17"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A5C30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Audio básico</li>
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif;color:#1E1A17"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A5C30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>5 horas de evento</li>
+        </ul>
+        <button type="button" onClick="{{ quote.esencial }}" style="min-height:52px;padding:0 24px;background:transparent;border:1px solid #7A5C30;color:#7A5C30;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;cursor:pointer;transition:background 250ms,color 250ms" style-hover="background:#7A5C30;color:#F7F2EA">Cotiza este paquete</button>
+      </li>
+      <li data-reveal="" data-dark="" style="position:relative;background:#2F3E36;color:#F7F2EA;border-radius:999px 999px 8px 8px;padding:clamp(72px,7vw,96px) clamp(24px,3vw,40px) clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:24px;box-shadow:0 16px 48px rgba(30,26,23,.14)">
+        <span data-component="Badge" style="align-self:center;margin-top:-32px;display:inline-flex;align-items:center;min-height:28px;padding:0 14px;border-radius:999px;background:#C9A46A;color:#1E1A17;font:700 12px/1 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase">Más elegido</span>
+        <h3 style="margin:0;font:500 32px/1.15 'Cormorant Garamond',serif;color:#F7F2EA;text-align:center">Celebración</h3>
+        <p style="margin:0;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#E2DACB">Desde</span><span style="font:500 64px/1 'Cormorant Garamond',serif;color:#C9A46A">$950</span><span style="font:500 14px/1.4 'Manrope',sans-serif;color:#E2DACB">por invitado</span></p>
+        <ul style="list-style:none;margin:0;padding:24px 0 0;border-top:1px solid rgba(201,164,106,.4);display:flex;flex-direction:column;gap:12px;flex:1">
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A46A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Banquete a 4 tiempos</li>
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A46A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Mobiliario premium</li>
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A46A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Iluminación ambiental</li>
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A46A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>DJ</li>
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A46A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Coordinador dedicado</li>
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A46A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>6 horas de evento</li>
+        </ul>
+        <button type="button" onClick="{{ quote.celebracion }}" style="min-height:52px;padding:0 24px;background:#F7F2EA;border:0;color:#1E1A17;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;cursor:pointer;transition:background 250ms" style-hover="background:#EFE7DA">Cotiza este paquete</button>
+      </li>
+      <li data-reveal="" style="background:#F7F2EA;border:1px solid #DCCFBD;border-radius:8px;padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:24px">
+        <h3 style="margin:0;font:500 32px/1.15 'Cormorant Garamond',serif;color:#1E1A17">Gran Gala</h3>
+        <p style="margin:0;display:flex;flex-direction:column;gap:4px"><span style="font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#4A423B">Desde</span><span style="font:500 56px/1 'Cormorant Garamond',serif;color:#1E1A17">$1,350</span><span style="font:500 14px/1.4 'Manrope',sans-serif;color:#4A423B">por invitado</span></p>
+        <ul style="list-style:none;margin:0;padding:24px 0 0;border-top:1px solid #DCCFBD;display:flex;flex-direction:column;gap:12px;flex:1">
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif;color:#1E1A17"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A5C30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Banquete gourmet</li>
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif;color:#1E1A17"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A5C30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Barra libre nacional</li>
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif;color:#1E1A17"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A5C30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Decoración floral base</li>
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif;color:#1E1A17"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A5C30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Pista iluminada</li>
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif;color:#1E1A17"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A5C30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>DJ y animación</li>
+          <li style="display:flex;gap:10px;font:400 15px/1.5 'Manrope',sans-serif;color:#1E1A17"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A5C30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>7 horas de evento</li>
+        </ul>
+        <button type="button" onClick="{{ quote.gala }}" style="min-height:52px;padding:0 24px;background:transparent;border:1px solid #7A5C30;color:#7A5C30;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;cursor:pointer;transition:background 250ms,color 250ms" style-hover="background:#7A5C30;color:#F7F2EA">Cotiza este paquete</button>
+      </li>
+    </ul>
+    <p style="margin:32px auto 0;text-align:center;font:400 14px/1.6 'Manrope',sans-serif;color:#4A423B;max-width:68ch">Precios de referencia para 2027. Pueden variar según fecha y número de invitados.</p>
+  </div>
+</section>
+
+<section data-component="ProcessTimeline" data-screen-label="Cómo funciona" aria-labelledby="pr-h" style="padding:clamp(64px,8vw,128px) 0">
+  <div style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px)">
+    <div style="display:flex;flex-direction:column;gap:12px;max-width:640px;margin-bottom:clamp(40px,5vw,64px)">
+      <p data-reveal="" style="margin:0;font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#7A5C30">Cómo funciona</p>
+      <h2 id="pr-h" data-reveal="" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,1.6vw + 26px,48px);line-height:1.15;color:#1E1A17;text-wrap:balance">Así de fácil es reservar tu fecha</h2>
+    </div>
+    <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:40px 32px">
+      <li data-reveal="" data-component="ProcessStep" style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #6E8572;padding-top:24px">
+        <span aria-hidden="true" style="font:500 72px/1 'Cormorant Garamond',serif;color:#7A5C30">01</span>
+        <h3 style="margin:0;font:500 24px/1.15 'Cormorant Garamond',serif;color:#1E1A17"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Paso 1: </span>Cuéntanos tu idea</h3>
+        <p style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#4A423B">Elige fecha, tipo de evento e invitados.</p>
+      </li>
+      <li data-reveal="" style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #6E8572;padding-top:24px">
+        <span aria-hidden="true" style="font:500 72px/1 'Cormorant Garamond',serif;color:#7A5C30">02</span>
+        <h3 style="margin:0;font:500 24px/1.15 'Cormorant Garamond',serif;color:#1E1A17"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Paso 2: </span>Visita Casa Alcanfor</h3>
+        <p style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#4A423B">Recorre los espacios y prueba el menú con tu coordinador.</p>
+      </li>
+      <li data-reveal="" style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #6E8572;padding-top:24px">
+        <span aria-hidden="true" style="font:500 72px/1 'Cormorant Garamond',serif;color:#7A5C30">03</span>
+        <h3 style="margin:0;font:500 24px/1.15 'Cormorant Garamond',serif;color:#1E1A17"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Paso 3: </span>Aparta tu fecha</h3>
+        <p style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#4A423B">Asegúrala con un anticipo del 20% y paga el resto en mensualidades.</p>
+      </li>
+      <li data-reveal="" style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #6E8572;padding-top:24px">
+        <span aria-hidden="true" style="font:500 72px/1 'Cormorant Garamond',serif;color:#7A5C30">04</span>
+        <h3 style="margin:0;font:500 24px/1.15 'Cormorant Garamond',serif;color:#1E1A17"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Paso 4: </span>Celebra</h3>
+        <p style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#4A423B">Llega, disfruta y deja todo lo demás en nuestras manos.</p>
+      </li>
+    </ol>
+    <div data-reveal="" style="margin-top:clamp(40px,5vw,64px);display:flex;flex-wrap:wrap;gap:12px">
+      <a href="#contacto" onClick="{{ nav.contacto }}" style="display:inline-flex;align-items:center;min-height:52px;padding:0 28px;background:#1E1A17;color:#F7F2EA;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;text-decoration:none;transition:background 250ms" style-hover="background:#4A423B;color:#F7F2EA">Consulta disponibilidad</a>
+      <a href="#contacto" onClick="{{ visit }}" style="display:inline-flex;align-items:center;min-height:52px;padding:0 24px;border:1px solid #7A5C30;color:#7A5C30;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;text-decoration:none;transition:background 250ms,color 250ms" style-hover="background:#7A5C30;color:#F7F2EA">Agenda tu visita</a>
+    </div>
+  </div>
+</section>
+
+<section id="galeria" tabindex="-1" data-component="GalleryMasonry" data-screen-label="Galería" aria-labelledby="ga-h" style="padding:clamp(64px,8vw,128px) 0;background:#EFE7DA">
+  <div style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:32px">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <p data-reveal="" style="margin:0;font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#7A5C30">Galería</p>
+        <h2 id="ga-h" data-reveal="" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,1.6vw + 26px,48px);line-height:1.15;color:#1E1A17;text-wrap:balance">Momentos que ya sucedieron aquí</h2>
+      </div>
+      <div role="group" aria-label="Filtrar galería por tipo de evento" style="display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
+          <button type="button" aria-pressed="{{ f.pressed }}" onClick="{{ f.select }}" data-component="Chip" style="min-height:44px;padding:0 18px;border-radius:999px;border:1px solid {{ f.border }};background:{{ f.bg }};color:{{ f.color }};font:600 14px/1 'Manrope',sans-serif;cursor:pointer;transition:background 250ms,color 250ms">{{ f.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <p aria-live="polite" style="margin:0 0 20px;font:400 14px/1.4 'Manrope',sans-serif;color:#4A423B">{{ galleryCount }}</p>
+    <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ galCols }};grid-auto-rows:{{ galRow }};grid-auto-flow:dense;gap:20px">
+      <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="8">
+        <li style="grid-row:{{ g.rowSpan }};grid-column:{{ g.colSpan }};min-height:0">
+          <button type="button" data-zoom="" onClick="{{ g.open }}" aria-label="Ampliar foto: {{ g.alt }}" style="display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in;border-radius:{{ g.radius }};overflow:hidden;position:relative;height:100%">
+            <span data-zoom-img="" role="img" aria-label="{{ g.alt }}" style="position:absolute;inset:0;background:#D9C4A2 url({{ g.src }}) center/cover no-repeat"></span>
+          </button>
+        </li>
+      </sc-for>
+    </ul>
+  </div>
+</section>
+
+<section data-component="TestimonialsSection" data-screen-label="Testimonios" aria-labelledby="ts-h" style="padding:clamp(64px,8vw,128px) 0">
+  <div style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(40px,5vw,64px)">
+      <h2 id="ts-h" data-reveal="" style="margin:0;max-width:640px;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,1.6vw + 26px,48px);line-height:1.15;color:#1E1A17;text-wrap:balance">Lo que dicen quienes ya celebraron con nosotros</h2>
+      <p data-reveal="" data-component="RatingStars" style="margin:0;display:flex;align-items:center;gap:12px;font:500 15px/1.4 'Manrope',sans-serif;color:#4A423B"><span style="font:500 40px/1 'Cormorant Garamond',serif;color:#1E1A17">4.9</span><span><span aria-hidden="true" style="color:#7A5C30;letter-spacing:2px">★★★★★</span><br>320 reseñas en Google · demo</span></p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:24px">
+      <figure data-reveal="" data-component="TestimonialQuote" style="grid-column:1/-1;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(24px,4vw,64px);align-items:center;padding-bottom:clamp(32px,4vw,48px);border-bottom:1px solid #DCCFBD">
+        <div style="position:relative;aspect-ratio:3/2;border-radius:8px 8px 96px 8px;overflow:hidden;max-width:560px"><div role="img" aria-label="Andrea y Luis besándose el día de su boda" style="position:absolute;inset:0;background:#D9C4A2 url(https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1100&q=70) center/cover no-repeat"></div></div>
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <span aria-hidden="true" style="font:500 96px/.5 'Cormorant Garamond',serif;color:#7A5C30;height:40px">“</span>
+          <blockquote style="margin:0;font:500 clamp(24px,1vw + 20px,34px)/1.3 'Cormorant Garamond',serif;color:#1E1A17;text-wrap:pretty">Desde la primera visita supimos que era aquí. Nuestro coordinador estuvo en cada detalle y no tuvimos que preocuparnos por nada.</blockquote>
+          <figcaption style="display:flex;align-items:center;gap:14px"><span aria-hidden="true" data-component="Avatar" style="width:48px;height:48px;border-radius:999px;background:#2F3E36;color:#F7F2EA;display:flex;align-items:center;justify-content:center;font:600 16px/1 'Cormorant Garamond',serif">AL</span><span style="display:flex;flex-direction:column;gap:2px"><span style="font:600 15px/1.3 'Manrope',sans-serif;color:#1E1A17">Andrea y Luis</span><span style="font:400 14px/1.3 'Manrope',sans-serif;color:#4A423B">Boda, 280 invitados · <span aria-label="5 de 5 estrellas" style="color:#7A5C30">★★★★★</span></span></span></figcaption>
+        </div>
+      </figure>
+      <figure data-reveal="" style="margin:0;display:flex;flex-direction:column;gap:20px;padding:8px 0">
+        <blockquote style="margin:0;font:500 26px/1.3 'Cormorant Garamond',serif;color:#1E1A17">“Los XV de mi hija fueron perfectos. Puntuales, atentos y la comida fue lo más comentado.”</blockquote>
+        <figcaption style="display:flex;align-items:center;gap:14px"><span aria-hidden="true" style="width:44px;height:44px;border-radius:999px;background:#EFE7DA;border:1px solid #DCCFBD;color:#1E1A17;display:flex;align-items:center;justify-content:center;font:600 15px/1 'Cormorant Garamond',serif">MG</span><span style="display:flex;flex-direction:column;gap:2px"><span style="font:600 15px/1.3 'Manrope',sans-serif;color:#1E1A17">Mariana G.</span><span style="font:400 14px/1.3 'Manrope',sans-serif;color:#4A423B">XV años · <span aria-label="5 de 5 estrellas" style="color:#7A5C30">★★★★★</span></span></span></figcaption>
+      </figure>
+      <figure data-reveal="" style="margin:0;display:flex;flex-direction:column;gap:20px;padding:8px 0">
+        <blockquote style="margin:0;font:500 26px/1.3 'Cormorant Garamond',serif;color:#1E1A17">“Organizamos nuestra cena anual para 400 personas y la logística fue impecable.”</blockquote>
+        <figcaption style="display:flex;align-items:center;gap:14px"><span aria-hidden="true" style="width:44px;height:44px;border-radius:999px;background:#EFE7DA;border:1px solid #DCCFBD;color:#1E1A17;display:flex;align-items:center;justify-content:center;font:600 15px/1 'Cormorant Garamond',serif">RP</span><span style="display:flex;flex-direction:column;gap:2px"><span style="font:600 15px/1.3 'Manrope',sans-serif;color:#1E1A17">Rodrigo P.</span><span style="font:400 14px/1.3 'Manrope',sans-serif;color:#4A423B">Evento corporativo · <span aria-label="5 de 5 estrellas" style="color:#7A5C30">★★★★★</span></span></span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section data-dark="" data-component="CTABanner" data-screen-label="CTA Banner" aria-labelledby="cta-h" style="position:relative;overflow:hidden;background:#2F3E36;color:#F7F2EA;padding:clamp(80px,10vw,128px) 0">
+  <div aria-hidden="true" style="position:absolute;left:50%;top:clamp(24px,4vw,48px);transform:translateX(-50%);width:min(90%,720px);height:140%;border:1px solid rgba(201,164,106,.3);border-radius:999px 999px 0 0"></div>
+  <div aria-hidden="true" style="position:absolute;left:50%;top:clamp(56px,7vw,96px);transform:translateX(-50%);width:min(80%,640px);height:140%;border:1px solid rgba(201,164,106,.16);border-radius:999px 999px 0 0"></div>
+  <div style="position:relative;max-width:760px;margin:0 auto;padding:0 clamp(20px,4vw,48px);display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px">
+    <div aria-hidden="true" style="display:flex;align-items:center;gap:12px;width:160px"><span style="flex:1;height:1px;background:#C9A46A"></span><span style="width:8px;height:8px;border:1px solid #C9A46A;transform:rotate(45deg)"></span><span style="flex:1;height:1px;background:#C9A46A"></span></div>
+    <h2 id="cta-h" data-reveal="" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(40px,2.4vw + 30px,64px);line-height:1.05;color:#F7F2EA;text-wrap:balance">Tu fecha puede estar disponible hoy</h2>
+    <p data-reveal="" style="margin:0;font:400 18px/1.6 'Manrope',sans-serif;color:#E2DACB;max-width:52ch">Los sábados de temporada alta se reservan con meses de anticipación. Consulta sin compromiso.</p>
+    <a data-reveal="" href="#contacto" onClick="{{ nav.contacto }}" style="display:inline-flex;align-items:center;min-height:56px;padding:0 32px;background:#F7F2EA;color:#1E1A17;border-radius:2px;font:600 16px/1 'Manrope',sans-serif;text-decoration:none;transition:background 250ms" style-hover="background:#EFE7DA;color:#1E1A17">Consulta disponibilidad</a>
+  </div>
+</section>
+
+<section id="preguntas" tabindex="-1" data-component="FAQAccordion" data-screen-label="Preguntas" aria-labelledby="fq-h" style="padding:clamp(64px,8vw,128px) 0">
+  <div style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(32px,6vw,96px);align-items:start">
+    <div style="display:flex;flex-direction:column;gap:20px;position:sticky;top:120px">
+      <p data-reveal="" style="margin:0;font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#7A5C30">Preguntas frecuentes</p>
+      <h2 id="fq-h" data-reveal="" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,1.6vw + 26px,48px);line-height:1.15;color:#1E1A17">Resolvemos tus dudas</h2>
+      <p data-reveal="" style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#4A423B;max-width:40ch">¿No encuentras tu respuesta? Tu coordinador te contesta por WhatsApp.</p>
+      <div data-reveal="" style="display:flex;flex-wrap:wrap;gap:12px">
+        <a href="#contacto" onClick="{{ nav.contacto }}" style="display:inline-flex;align-items:center;min-height:52px;padding:0 28px;background:#1E1A17;color:#F7F2EA;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;text-decoration:none;transition:background 250ms" style-hover="background:#4A423B;color:#F7F2EA">Consulta disponibilidad</a>
+      </div>
+    </div>
+    <div style="grid-column:{{ faqSpan }};border-top:1px solid #DCCFBD">
+      <sc-for list="{{ faqs }}" as="q" hint-placeholder-count="8">
+        <div data-component="AccordionItem" style="border-bottom:1px solid #DCCFBD">
+          <h3 style="margin:0">
+            <button type="button" id="{{ q.btnId }}" aria-expanded="{{ q.expanded }}" aria-controls="{{ q.panelId }}" onClick="{{ q.toggle }}" style="width:100%;min-height:64px;padding:20px 0;display:flex;justify-content:space-between;align-items:center;gap:24px;background:transparent;border:0;text-align:left;cursor:pointer;font:600 17px/1.4 'Manrope',sans-serif;color:#1E1A17" style-hover="color:#7A5C30">
+              {{ q.q }}
+              <span aria-hidden="true" style="flex:none;width:32px;height:32px;border:1px solid #857A6E;border-radius:999px;display:flex;align-items:center;justify-content:center;transition:transform 250ms cubic-bezier(0.22,1,0.36,1);transform:{{ q.rot }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span>
+            </button>
+          </h3>
+          <div id="{{ q.panelId }}" role="region" aria-labelledby="{{ q.btnId }}" hidden="{{ q.hidden }}" style="padding:0 56px 24px 0">
+            <p style="margin:0;font:400 16px/1.6 'Manrope',sans-serif;color:#4A423B;max-width:68ch">{{ q.a }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" tabindex="-1" data-screen-label="Contacto" aria-labelledby="ct-h" style="padding:clamp(64px,8vw,128px) 0;background:#EFE7DA">
+  <div style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px)">
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:clamp(32px,4vw,48px)">
+      <p data-reveal="" style="margin:0;font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#7A5C30">Cotización y visitas</p>
+      <h2 id="ct-h" data-reveal="" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(40px,2.4vw + 30px,64px);line-height:1.05;color:#1E1A17">Platiquemos de tu evento</h2>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(32px,4vw,64px);align-items:flex-start">
+      <div data-component="QuoteForm" style="flex:1.5 1 520px;min-width:0;max-width:100%;background:#F7F2EA;border-radius:8px;padding:clamp(20px,4vw,48px);box-shadow:0 8px 24px rgba(30,26,23,.08)">
+        <sc-if value="{{ isSuccess }}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="display:flex;flex-direction:column;gap:20px;align-items:flex-start;padding:24px 0">
+            <span aria-hidden="true" style="width:64px;height:64px;border-radius:999px;border:1px solid #2E6B4A;color:#2E6B4A;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+            <h3 ref="{{ successRef }}" tabindex="-1" style="margin:0;font:500 clamp(28px,1vw + 24px,40px)/1.15 'Cormorant Garamond',serif;color:#1E1A17">¡Listo, {{ firstName }}! Recibimos tu solicitud.</h3>
+            <p style="margin:0;font:400 18px/1.6 'Manrope',sans-serif;color:#4A423B;max-width:52ch">Tu coordinador te escribirá por WhatsApp en menos de 2 horas hábiles.</p>
+            <button type="button" onClick="{{ resetForm }}" style="min-height:44px;padding:0;background:transparent;border:0;color:#7A5C30;font:600 15px/1 'Manrope',sans-serif;text-decoration:underline;text-underline-offset:4px;cursor:pointer">Enviar otra solicitud</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ submit }}" novalidate="" aria-labelledby="ct-h" style="display:flex;flex-direction:column;gap:20px">
+            <sc-if value="{{ prefillNote }}" hint-placeholder-val="{{ false }}">
+              <p role="status" style="margin:0;padding:12px 16px;border-radius:2px;background:#E4EBE6;color:#2F3E36;font:500 14px/1.5 'Manrope',sans-serif;display:flex;gap:10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 7.5v.01"></path></svg>{{ prefillNote }}</p>
+            </sc-if>
+            <sc-if value="{{ hasSummary }}" hint-placeholder-val="{{ false }}">
+              <div ref="{{ summaryRef }}" tabindex="-1" role="alert" aria-labelledby="err-sum-h" data-component="ErrorSummary" style="padding:16px 20px;border:1px solid #A3362B;border-radius:2px;background:#F8ECE8">
+                <p id="err-sum-h" style="margin:0 0 8px;font:700 15px/1.4 'Manrope',sans-serif;color:#A3362B">{{ summaryTitle }}</p>
+                <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px">
+                  <sc-for list="{{ summary }}" as="s" hint-placeholder-count="1">
+                    <li style="font:400 14px/1.5 'Manrope',sans-serif;color:#A3362B"><a href="{{ s.href }}" onClick="{{ s.go }}" style="color:#A3362B;text-underline-offset:3px">{{ s.msg }}</a></li>
+                  </sc-for>
+                </ul>
+              </div>
+            </sc-if>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:20px">
+              <div data-component="FormField" style="display:flex;flex-direction:column;gap:6px">
+                <label for="f-name" style="font:600 14px/1.4 'Manrope',sans-serif;color:#1E1A17">Nombre completo</label>
+                <input id="f-name" name="name" type="text" autocomplete="name" value="{{ form.name }}" onChange="{{ onField }}" onBlur="{{ onBlur }}" aria-invalid="{{ inv.name }}" aria-describedby="{{ desc.name }}" style="min-height:48px;padding:0 14px;border:1px solid {{ bc.name }};border-radius:2px;background:#FFFDF9;color:#1E1A17;font:400 16px 'Manrope',sans-serif;width:100%">
+                <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><p id="f-name-err" style="margin:0;display:flex;gap:6px;font:500 14px/1.4 'Manrope',sans-serif;color:#A3362B"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5v.01"></path></svg>{{ errors.name }}</p></sc-if>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <label for="f-wa" style="font:600 14px/1.4 'Manrope',sans-serif;color:#1E1A17">WhatsApp</label>
+                <input id="f-wa" name="wa" type="tel" inputmode="tel" autocomplete="tel-national" value="{{ form.wa }}" onChange="{{ onField }}" onBlur="{{ onBlur }}" aria-invalid="{{ inv.wa }}" aria-describedby="{{ desc.wa }}" style="min-height:48px;padding:0 14px;border:1px solid {{ bc.wa }};border-radius:2px;background:#FFFDF9;color:#1E1A17;font:400 16px 'Manrope',sans-serif;width:100%">
+                <p id="f-wa-help" style="margin:0;font:400 13px/1.4 'Manrope',sans-serif;color:#4A423B">10 dígitos, por ejemplo 33 1234 5678</p>
+                <sc-if value="{{ errors.wa }}" hint-placeholder-val="{{ false }}"><p id="f-wa-err" style="margin:0;display:flex;gap:6px;font:500 14px/1.4 'Manrope',sans-serif;color:#A3362B"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5v.01"></path></svg>{{ errors.wa }}</p></sc-if>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <label for="f-email" style="font:600 14px/1.4 'Manrope',sans-serif;color:#1E1A17">Correo</label>
+                <input id="f-email" name="email" type="email" autocomplete="email" value="{{ form.email }}" onChange="{{ onField }}" onBlur="{{ onBlur }}" aria-invalid="{{ inv.email }}" aria-describedby="{{ desc.email }}" style="min-height:48px;padding:0 14px;border:1px solid {{ bc.email }};border-radius:2px;background:#FFFDF9;color:#1E1A17;font:400 16px 'Manrope',sans-serif;width:100%">
+                <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><p id="f-email-err" style="margin:0;display:flex;gap:6px;font:500 14px/1.4 'Manrope',sans-serif;color:#A3362B"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5v.01"></path></svg>{{ errors.email }}</p></sc-if>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <label for="f-tipo" style="font:600 14px/1.4 'Manrope',sans-serif;color:#1E1A17">Tipo de evento</label>
+                <select id="f-tipo" name="tipo" value="{{ form.tipo }}" onChange="{{ onField }}" onBlur="{{ onBlur }}" aria-invalid="{{ inv.tipo }}" aria-describedby="{{ desc.tipo }}" style="min-height:48px;padding:0 12px;border:1px solid {{ bc.tipo }};border-radius:2px;background:#FFFDF9;color:#1E1A17;font:400 16px 'Manrope',sans-serif;width:100%">
+                  <option value="">Elige una opción</option>
+                  <option>Boda</option><option>XV años</option><option>Bautizo o primera comunión</option><option>Cumpleaños o aniversario</option><option>Baby shower o graduación</option><option>Evento corporativo</option>
+                </select>
+                <sc-if value="{{ errors.tipo }}" hint-placeholder-val="{{ false }}"><p id="f-tipo-err" style="margin:0;display:flex;gap:6px;font:500 14px/1.4 'Manrope',sans-serif;color:#A3362B"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5v.01"></path></svg>{{ errors.tipo }}</p></sc-if>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <label for="f-fecha" style="font:600 14px/1.4 'Manrope',sans-serif;color:#1E1A17">Fecha tentativa</label>
+                <input id="f-fecha" name="fecha" type="date" min="{{ today }}" value="{{ form.fecha }}" onChange="{{ onField }}" onBlur="{{ onBlur }}" aria-invalid="{{ inv.fecha }}" aria-describedby="{{ desc.fecha }}" style="min-height:48px;padding:0 12px;border:1px solid {{ bc.fecha }};border-radius:2px;background:#FFFDF9;color:#1E1A17;font:400 16px 'Manrope',sans-serif;width:100%">
+                <sc-if value="{{ errors.fecha }}" hint-placeholder-val="{{ false }}"><p id="f-fecha-err" style="margin:0;display:flex;gap:6px;font:500 14px/1.4 'Manrope',sans-serif;color:#A3362B"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5v.01"></path></svg>{{ errors.fecha }}</p></sc-if>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <label for="f-inv" style="font:600 14px/1.4 'Manrope',sans-serif;color:#1E1A17">Número de invitados</label>
+                <input id="f-inv" name="inv" type="number" inputmode="numeric" min="10" max="450" value="{{ form.inv }}" onChange="{{ onField }}" onBlur="{{ onBlur }}" aria-invalid="{{ inv.inv }}" aria-describedby="{{ desc.inv }}" style="min-height:48px;padding:0 14px;border:1px solid {{ bc.inv }};border-radius:2px;background:#FFFDF9;color:#1E1A17;font:400 16px 'Manrope',sans-serif;width:100%">
+                <p id="f-inv-help" style="margin:0;font:400 13px/1.4 'Manrope',sans-serif;color:#4A423B">Hasta 450 invitados</p>
+                <sc-if value="{{ errors.inv }}" hint-placeholder-val="{{ false }}"><p id="f-inv-err" style="margin:0;display:flex;gap:6px;font:500 14px/1.4 'Manrope',sans-serif;color:#A3362B"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5v.01"></path></svg>{{ errors.inv }}</p></sc-if>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label for="f-idea" style="font:600 14px/1.4 'Manrope',sans-serif;color:#1E1A17">Cuéntanos tu idea <span style="font-weight:400;color:#4A423B">(opcional)</span></label>
+              <textarea id="f-idea" name="idea" rows="4" value="{{ form.idea }}" onChange="{{ onField }}" style="padding:12px 14px;border:1px solid #857A6E;border-radius:2px;background:#FFFDF9;color:#1E1A17;font:400 16px/1.6 'Manrope',sans-serif;width:100%;resize:vertical"></textarea>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px">
+              <button type="submit" disabled="{{ isLoading }}" aria-busy="{{ isLoading }}" data-component="Button" style="display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 32px;background:#1E1A17;color:#F7F2EA;border:0;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;cursor:pointer;opacity:{{ btnOpacity }};transition:background 250ms" style-hover="background:#4A423B">{{ submitLabel }}</button>
+              <p style="margin:0;flex:1 1 260px;font:400 13px/1.5 'Manrope',sans-serif;color:#4A423B">Usamos tus datos solo para responder tu solicitud. Consulta nuestro <a href="#aviso" style="color:#7A5C30">aviso de privacidad</a>.</p>
+            </div>
+          </form>
+        </sc-if>
+      </div>
+
+      <aside data-component="LocationBlock" aria-label="Ubicación y contacto" style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:24px">
+        <div style="position:relative;aspect-ratio:4/3;border-radius:999px 999px 8px 8px;overflow:hidden">
+          <iframe title="Mapa de ubicación de Casa Alcanfor en Zapopan" src="https://maps.google.com/maps?q=Av.%20Patria%201450%2C%20Zapopan%2C%20Jalisco&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="position:absolute;inset:0;width:100%;height:100%;border:0;filter:sepia(.25) saturate(.85)"></iframe>
+        </div>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:20px">
+          <li data-component="ContactItem" style="display:flex;gap:14px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7A5C30" stroke-width="1.5" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg><span style="display:flex;flex-direction:column;gap:4px"><span style="font:600 14px/1.4 'Manrope',sans-serif;color:#1E1A17">Dirección</span><span style="font:400 15px/1.6 'Manrope',sans-serif;color:#4A423B">Av. de los Alcanfores 1450, Jardines del Valle, 45138 Zapopan, Jal. <span style="font-size:12px">(demo)</span></span><a href="https://www.google.com/maps/search/?api=1&amp;query=Av.+Patria+1450,+Zapopan,+Jalisco" target="_blank" rel="noopener" style="font:600 14px/1.4 'Manrope',sans-serif;color:#7A5C30;min-height:24px">Cómo llegar</a></span></li>
+          <li style="display:flex;gap:14px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7A5C30" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg><span style="display:flex;flex-direction:column;gap:4px"><span style="font:600 14px/1.4 'Manrope',sans-serif;color:#1E1A17">Horarios de visita</span><span style="font:400 15px/1.6 'Manrope',sans-serif;color:#4A423B">Lunes a sábado, de 10:00 a 19:00</span></span></li>
+        </ul>
+        <div style="border-top:1px solid #DCCFBD;padding-top:24px;display:flex;flex-direction:column;gap:12px">
+          <p style="margin:0;font:500 24px/1.2 'Cormorant Garamond',serif;color:#1E1A17">¿Prefieres hablar?</p>
+          <a href="{{ waHref }}" target="_blank" rel="noopener" style="align-self:flex-start;display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 24px;border:1px solid #2F3E36;color:#2F3E36;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;text-decoration:none;transition:background 250ms,color 250ms" style-hover="background:#2F3E36;color:#F7F2EA"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"></path></svg>Escríbenos por WhatsApp</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer data-dark="" data-component="SiteFooter" style="background:#1E1A17;color:#E2DACB;padding:clamp(56px,7vw,96px) 0 {{ footerPadB }}">
+  <div style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(201,164,106,.25)">
+      <div style="display:flex;flex-direction:column;gap:16px;grid-column:span 1">
+        <span style="display:flex;align-items:center;gap:12px"><span aria-hidden="true" style="width:34px;height:42px;border:1.5px solid #C9A46A;border-radius:999px 999px 2px 2px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;font:600 14px/1 'Cormorant Garamond',serif;color:#C9A46A">CA</span><span style="font:600 28px/1 'Cormorant Garamond',serif;color:#F7F2EA">Casa Alcanfor</span></span>
+        <p style="margin:0;font:500 22px/1.3 'Cormorant Garamond',serif;font-style:italic;color:#C9A46A">Celebraciones que se recuerdan</p>
+      </div>
+      <nav aria-label="Pie de página" style="display:flex;flex-direction:column;gap:4px">
+        <p style="margin:0 0 8px;font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#C9A46A">Explora</p>
+        <a href="#eventos" onClick="{{ nav.eventos }}" style="color:#E2DACB;text-decoration:none;font:400 15px/1 'Manrope',sans-serif;padding:8px 0" style-hover="color:#F7F2EA">Eventos</a>
+        <a href="#espacios" onClick="{{ nav.espacios }}" style="color:#E2DACB;text-decoration:none;font:400 15px/1 'Manrope',sans-serif;padding:8px 0" style-hover="color:#F7F2EA">Espacios</a>
+        <a href="#paquetes" onClick="{{ nav.paquetes }}" style="color:#E2DACB;text-decoration:none;font:400 15px/1 'Manrope',sans-serif;padding:8px 0" style-hover="color:#F7F2EA">Paquetes</a>
+        <a href="#galeria" onClick="{{ nav.galeria }}" style="color:#E2DACB;text-decoration:none;font:400 15px/1 'Manrope',sans-serif;padding:8px 0" style-hover="color:#F7F2EA">Galería</a>
+        <a href="#preguntas" onClick="{{ nav.preguntas }}" style="color:#E2DACB;text-decoration:none;font:400 15px/1 'Manrope',sans-serif;padding:8px 0" style-hover="color:#F7F2EA">Preguntas</a>
+      </nav>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <p style="margin:0 0 8px;font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#C9A46A">Contacto</p>
+        <a href="tel:+523312345678" style="color:#E2DACB;text-decoration:none;font:400 15px/1 'Manrope',sans-serif;padding:8px 0">33 1234 5678</a>
+        <a href="mailto:hola@casaalcanfor.mx" style="color:#E2DACB;text-decoration:none;font:400 15px/1 'Manrope',sans-serif;padding:8px 0">hola@casaalcanfor.mx</a>
+        <span style="font:400 15px/1.5 'Manrope',sans-serif;padding:8px 0">Zapopan, Jalisco</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <p style="margin:0 0 8px;font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#C9A46A">Síguenos</p>
+        <a href="https://instagram.com" data-component="SocialLink" target="_blank" rel="noopener" style="color:#E2DACB;text-decoration:none;font:400 15px/1 'Manrope',sans-serif;padding:8px 0" style-hover="color:#F7F2EA">Instagram</a>
+        <a href="https://facebook.com" target="_blank" rel="noopener" style="color:#E2DACB;text-decoration:none;font:400 15px/1 'Manrope',sans-serif;padding:8px 0" style-hover="color:#F7F2EA">Facebook</a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener" style="color:#E2DACB;text-decoration:none;font:400 15px/1 'Manrope',sans-serif;padding:8px 0" style-hover="color:#F7F2EA">TikTok</a>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding-top:24px;font:400 13px/1.5 'Manrope',sans-serif">
+      <span>© 2026 Casa Alcanfor</span>
+      <span style="display:flex;gap:20px"><a id="aviso" href="#aviso" style="color:#E2DACB">Aviso de privacidad</a><a href="Casa Alcanfor Design System.dc.html" style="color:#E2DACB">Design System</a></span>
+    </div>
+  </div>
+</footer>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+  <div data-component="MobileStickyCTA" style="position:fixed;left:0;right:0;bottom:0;z-index:40;background:#F7F2EA;border-top:1px solid #DCCFBD;box-shadow:0 -8px 24px rgba(30,26,23,.08);padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;gap:10px">
+    <a href="#contacto" onClick="{{ nav.contacto }}" style="flex:1;display:flex;align-items:center;justify-content:center;min-height:48px;background:#1E1A17;color:#F7F2EA;border-radius:2px;font:600 15px/1 'Manrope',sans-serif;text-decoration:none">Consulta disponibilidad</a>
+    <a href="{{ waHref }}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp" data-component="WhatsAppFloatingButton" style="flex:none;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:999px;background:#2F3E36;color:#F7F2EA"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"></path></svg></a>
+  </div>
+</sc-if>
+<sc-if value="{{ notMobile }}" hint-placeholder-val="{{ true }}">
+  <a href="{{ waHref }}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp" data-component="WhatsAppFloatingButton" style="position:fixed;right:24px;bottom:24px;z-index:40;width:60px;height:60px;display:flex;align-items:center;justify-content:center;border-radius:999px;background:#2F3E36;color:#F7F2EA;box-shadow:0 16px 48px rgba(30,26,23,.14);transition:transform 250ms cubic-bezier(0.22,1,0.36,1)" style-hover="transform:translateY(-2px);color:#F7F2EA"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"></path></svg></a>
+</sc-if>
+
+<sc-if value="{{ layerOpen }}" hint-placeholder-val="{{ false }}">
+  <div ref="{{ lbRef }}" role="dialog" aria-modal="true" aria-label="{{ lbTitle }}" data-component="Lightbox" style="position:fixed;inset:0;z-index:150;background:rgba(22,19,17,.94);display:flex;flex-direction:column;padding:16px clamp(16px,4vw,48px) 24px;color:#F7F2EA">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:56px">
+      <span aria-live="polite" style="font:500 14px/1 'Manrope',sans-serif;color:#E2DACB">{{ lbCounter }}</span>
+      <button type="button" onClick="{{ closeAll }}" aria-label="Cerrar" style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(247,242,234,.5);border-radius:999px;color:#F7F2EA;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+    </div>
+    <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:16px">
+      <sc-if value="{{ lbNav }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ lbPrev }}" aria-label="Foto anterior" style="flex:none;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(247,242,234,.5);border-radius:999px;color:#F7F2EA;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button></sc-if>
+      <figure style="margin:0;flex:1;max-width:1100px;height:100%;display:flex;flex-direction:column;gap:16px;justify-content:center">
+        <div style="position:relative;width:100%;max-height:calc(100vh - 200px);aspect-ratio:{{ lbRatio }};margin:0 auto;border-radius:8px;overflow:hidden;max-width:{{ lbMaxW }}">
+          <div role="img" aria-label="{{ lbAlt }}" style="position:absolute;inset:0;background:#3A3430 url({{ lbSrc }}) center/cover no-repeat"></div>
+          <sc-if value="{{ tourOpen }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:80px;height:80px;border-radius:999px;background:rgba(30,26,23,.7);display:flex;align-items:center;justify-content:center;color:#F7F2EA"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5l11 7-11 7z"></path></svg></span></sc-if>
+          
+        </div>
+        <figcaption style="text-align:center;font:400 15px/1.5 'Manrope',sans-serif;color:#E2DACB">{{ lbAlt }}</figcaption>
+      </figure>
+      <sc-if value="{{ lbNav }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ lbNext }}" aria-label="Foto siguiente" style="flex:none;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(247,242,234,.5);border-radius:999px;color:#F7F2EA;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button></sc-if>
+    </div>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    w: window.innerWidth, scrolled: false, menu: false,
+    qc: { tipo: '', fecha: '', inv: '120' }, qcErr: '',
+    tab: 0, filter: 'Todos', lb: -1, tour: false, faq: { 0: true },
+    form: { name: '', wa: '', email: '', tipo: '', fecha: '', inv: '', idea: '' },
+    errors: {}, submitted: false, status: 'idle', prefillNote: ''
+  };
+  heroImg = React.createRef(); menuRef = React.createRef(); lbRef = React.createRef();
+  summaryRef = React.createRef(); successRef = React.createRef();
+
+  spaces = [
+    { name: 'Salón Gran Alcanfor', cap: 'Hasta 450 invitados', desc: 'Techos altos, candiles de cristal y una pista lista para no parar de bailar.', img: 'foto salón · candiles · 16:9', alt: 'Salón Gran Alcanfor montado para banquete con mesas vestidas', src: 'https://images.unsplash.com/photo-1723832348105-2e69f948135a?auto=format&fit=crop&w=1600&q=70', specs: [{ k: 'Capacidad', v: 'Hasta 450 invitados' }, { k: 'Superficie', v: '620 m²' }, { k: 'Clima', v: 'Climatizado' }, { k: 'Pista', v: '80 m²' }] },
+    { name: 'Jardín Los Fresnos', cap: 'Hasta 300 invitados', desc: 'Ceremonias al aire libre entre árboles centenarios, con plan de lluvia garantizado.', img: 'foto jardín · árboles centenarios · 16:9', alt: 'Glorieta del Jardín Los Fresnos iluminada con series de luces', src: 'https://images.unsplash.com/photo-1526092817387-8f07b2904e48?auto=format&fit=crop&w=1600&q=70', specs: [{ k: 'Capacidad', v: 'Hasta 300 invitados' }, { k: 'Superficie', v: '900 m²' }, { k: 'Cubierta', v: 'Carpa disponible' }, { k: 'Lluvia', v: 'Plan garantizado' }] },
+    { name: 'Terraza Mirador', cap: 'Hasta 120 invitados', desc: 'Ideal para cocteles, cenas íntimas y celebraciones de tarde.', img: 'foto terraza · atardecer · 16:9', alt: 'Pérgola de la Terraza Mirador con luces colgantes', src: 'https://images.unsplash.com/photo-1781004896692-e662dc20fe24?auto=format&fit=crop&w=1600&q=70', specs: [{ k: 'Capacidad', v: 'Hasta 120 invitados' }, { k: 'Superficie', v: '210 m²' }, { k: 'Vista', v: 'Al atardecer' }, { k: 'Acceso', v: 'Con elevador' }] }
+  ];
+  gallery = [
+    { cat: 'Bodas', alt: 'Novia sosteniendo su ramo de flores', ratio: '4/5', id: '1635362926140-4491578be6ba' },
+    { cat: 'XV años', alt: 'Candil de cristal encendido sobre la pista del salón', ratio: '3/2', id: '1592318072094-2694c98adb73' },
+    { cat: 'Corporativos', alt: 'Cena formal de empresa con centros de mesa florales', ratio: '16/9', id: '1768508950719-4d76978fdf44' },
+    { cat: 'Bautizos', alt: 'Mesa decorada con vela encendida y flores', ratio: '4/5', id: '1758705477576-8783430d55b6' },
+    { cat: 'Bodas', alt: 'Novio besando la frente de la novia', ratio: '3/2', id: '1543932927-a9def13a0e7c' },
+    { cat: 'XV años', alt: 'Baile en la pista durante la fiesta', ratio: '4/5', id: '1648154164366-d067faecdc51' },
+    { cat: 'Bodas', alt: 'Pareja bajo un árbol iluminado de noche', ratio: '16/9', id: '1549997966-5dd46b8e2b06' },
+    { cat: 'Bautizos', alt: 'Copas de cristal sobre mesa montada para comida familiar', ratio: '3/2', id: '1519225421980-715cb0215aed' },
+    { cat: 'Corporativos', alt: 'Auditorio montado para conferencia con invitados sentados', ratio: '4/5', id: '1540575467063-178a50c2df87' },
+    { cat: 'Bodas', alt: 'Mesa elegante con centro floral', ratio: '4/5', id: '1511795409834-ef04bbd61622' },
+    { cat: 'Bodas', alt: 'Novios tomados de la mano junto a un muro de madera', ratio: '4/5', id: '1595407753234-0882f1e77954' },
+    { cat: 'Corporativos', alt: 'Copas de vino alineadas sobre mesa de banquete', ratio: '3/2', id: '1502635385003-ee1e6a1a742d' }
+  ];
+  faqData = [
+    ['¿Con cuánto tiempo debo reservar?', 'Para sábados de temporada alta (marzo a mayo y octubre a diciembre) te recomendamos de 10 a 12 meses. Para viernes, domingos y eventos de día, de 3 a 6 meses suele ser suficiente.'],
+    ['¿Qué incluye exactamente cada paquete?', 'Banquete, mobiliario, mantelería, audio y horas de evento según el nivel. Celebración suma iluminación, DJ y coordinador dedicado; Gran Gala agrega barra libre nacional y decoración floral base. Recibes la lista completa por escrito antes de apartar.'],
+    ['¿Puedo traer mi propio proveedor de pastel, flores o música?', 'Sí. Solo pedimos que tu proveedor se registre con tu coordinador al menos 15 días antes para coordinar horarios de montaje y acceso.'],
+    ['¿Qué pasa si llueve el día de mi evento en el jardín?', 'Tienes plan de lluvia garantizado: carpa para el Jardín Los Fresnos o cambio al salón sin costo. Lo decides con tu coordinador 48 horas antes.'],
+    ['¿Cómo son los pagos y qué pasa si necesito cambiar la fecha?', 'Apartas con 20% de anticipo y pagas el resto en mensualidades hasta 30 días antes del evento. Puedes cambiar la fecha una vez sin costo si avisas con 90 días de anticipación, sujeto a disponibilidad.'],
+    ['¿Hay opciones vegetarianas, veganas o para alergias?', 'Sí. Todos los menús tienen opción vegetariana y vegana, y adaptamos platillos para alergias e intolerancias. Lo defines en tu prueba de menú.'],
+    ['¿Facturan para empresas?', 'Sí, emitimos factura CFDI 4.0 a personas físicas y morales. Solo necesitamos tu constancia de situación fiscal al apartar la fecha.'],
+    ['¿El lugar es accesible para personas con movilidad reducida?', 'Sí. Hay rampas en todos los accesos, baños accesibles, elevador a la Terraza Mirador y lugares de estacionamiento reservados junto a la entrada, además de valet para 180 autos.']
+  ];
+  fieldLabels = { name: 'Nombre completo', wa: 'WhatsApp', email: 'Correo', tipo: 'Tipo de evento', fecha: 'Fecha tentativa', inv: 'Número de invitados' };
+
+  today() { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); }
+  fmt(f) { try { return new Date(f + 'T12:00').toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' }); } catch (e) { return f; } }
+
+  componentDidMount() {
+    this.rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.onResize = () => this.setState({ w: window.innerWidth });
+    this.onScroll = () => {
+      const s = window.scrollY > 24;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+      const el = this.heroImg.current;
+      if (!this.rm && el && window.scrollY < 1400) el.style.transform = 'translate3d(0,' + (window.scrollY * 0.08) + 'px,0) scale(1.08)';
+    };
+    this.onKey = e => this.handleKey(e);
+    window.addEventListener('resize', this.onResize);
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    document.addEventListener('keydown', this.onKey);
+    this.onScroll();
+    if (!this.rm && 'IntersectionObserver' in window) {
+      const ease = 'cubic-bezier(0.22,1,0.36,1)';
+      this.io = new IntersectionObserver(entries => entries.forEach(en => {
+        if (en.isIntersecting) { en.target.style.opacity = '1'; en.target.style.transform = 'none'; this.io.unobserve(en.target); }
+      }), { rootMargin: '0px 0px -6% 0px' });
+      document.querySelectorAll('[data-reveal]').forEach(el => {
+        const sib = [...el.parentElement.children].filter(c => c.hasAttribute('data-reveal'));
+        const d = Math.min(sib.indexOf(el), 6) * 60;
+        el.style.opacity = '0'; el.style.transform = 'translateY(16px)';
+        el.style.transition = 'opacity 700ms ' + ease + ' ' + d + 'ms, transform 700ms ' + ease + ' ' + d + 'ms';
+        this.io.observe(el);
+      });
+    }
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('scroll', this.onScroll);
+    document.removeEventListener('keydown', this.onKey);
+    this.io && this.io.disconnect();
+  }
+
+  handleKey(e) {
+    const lbOpen = this.state.lb >= 0 || this.state.tour;
+    const box = lbOpen ? this.lbRef.current : this.state.menu ? this.menuRef.current : null;
+    if (!box) return;
+    if (e.key === 'Escape') { e.preventDefault(); this.closeAll(); return; }
+    if (this.state.lb >= 0 && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) { e.preventDefault(); this.stepLb(e.key === 'ArrowRight' ? 1 : -1); return; }
+    if (e.key === 'Tab') {
+      const f = [...box.querySelectorAll('button,a[href],input,select,textarea')].filter(x => !x.disabled);
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      else if (!box.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+    }
+  }
+  openLayer(patch, ref) {
+    this.ret = document.activeElement;
+    document.body.style.overflow = 'hidden';
+    this.setState(patch, () => setTimeout(() => { const b = ref.current && ref.current.querySelector('button'); b && b.focus(); }, 30));
+  }
+  closeAll(noReturn) {
+    document.body.style.overflow = '';
+    this.setState({ lb: -1, tour: false, menu: false }, () => { if (!noReturn && this.ret && this.ret.focus) this.ret.focus(); });
+  }
+  filtered() { return this.state.filter === 'Todos' ? this.gallery : this.gallery.filter(g => g.cat === this.state.filter); }
+  stepLb(d) { const n = this.filtered().length; this.setState(s => ({ lb: (s.lb + d + n) % n })); }
+
+  goTo(e, id, after) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (this.state.menu) this.closeAll(true);
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      window.scrollTo({ top: id === 'top' ? 0 : el.getBoundingClientRect().top + window.scrollY - 72, behavior: this.rm ? 'auto' : 'smooth' });
+      const t = after ? document.getElementById(after) : el;
+      t && t.focus({ preventScroll: true });
+    }, 20);
+  }
+  prefill(patch, note, e) {
+    this.setState(s => ({ form: { ...s.form, ...patch }, prefillNote: note, status: s.status === 'success' ? 'idle' : s.status }), () => this.goTo(e, 'contacto', 'f-name'));
+  }
+
+  validate(k, v) {
+    v = (v || '').toString().trim();
+    if (k === 'name') return v.length < 3 ? 'Escribe tu nombre completo.' : '';
+    if (k === 'wa') return v.replace(/\D/g, '').length !== 10 ? 'Escribe un número de WhatsApp de 10 dígitos.' : '';
+    if (k === 'email') return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? '' : 'Escribe un correo con el formato nombre@correo.com.';
+    if (k === 'tipo') return v ? '' : 'Elige el tipo de evento que celebras.';
+    if (k === 'fecha') return !v || v < this.today() ? 'Elige una fecha a partir de hoy.' : '';
+    if (k === 'inv') { const n = parseInt(v, 10); return !n || n < 10 || n > 450 ? 'Escribe un número de invitados entre 10 y 450.' : ''; }
+    return '';
+  }
+
+  renderVals() {
+    const s = this.state;
+    const mobile = s.w < 768, wide = s.w >= 1024;
+    const nav = {};
+    ['top', 'eventos', 'espacios', 'paquetes', 'galeria', 'preguntas', 'contacto'].forEach(id => { nav[id] = e => this.goTo(e, id); });
+    const setFilter = f => e => { this.setState({ filter: f }); this.goTo(e, 'galeria'); };
+    const quoteP = p => e => this.prefill({ idea: 'Me interesa el paquete ' + p + '.' }, 'Anotamos tu interés en el paquete ' + p + '. Completa tus datos y tu coordinador te envía la cotización.', e);
+
+    const items = this.filtered();
+    const gallery = items.map((g, i) => ({ ...g, rowSpan: g.ratio === '4/5' ? 'span 2' : 'span 1', colSpan: (s.w < 600 && g.ratio === '16/9') ? 'span 2' : 'span 1', src: 'https://images.unsplash.com/photo-' + g.id + '?auto=format&fit=crop&w=900&q=70', radius: g.ratio === '4/5' ? (i % 2 ? '8px 8px 8px 8px' : '999px 999px 8px 8px') : (i % 2 ? '8px 48px 8px 8px' : '8px'), open: () => this.openLayer({ lb: i }, this.lbRef) }));
+    const cur = s.tour ? { alt: 'Recorrido en video por el Salón Gran Alcanfor, el Jardín Los Fresnos y la Terraza Mirador', ratio: '16/9', id: '1510076857177-7470076d4098' } : (items[s.lb] || {});
+
+    const err = s.errors, keys = Object.keys(this.fieldLabels);
+    const inv = {}, desc = {}, bc = {};
+    keys.forEach(k => {
+      inv[k] = err[k] ? 'true' : 'false';
+      const help = (k === 'wa' || k === 'inv') ? 'f-' + k + '-help' : '';
+      desc[k] = [help, err[k] ? 'f-' + k + '-err' : ''].filter(Boolean).join(' ') || undefined;
+      bc[k] = err[k] ? '#A3362B' : '#857A6E';
+    });
+    const summary = s.submitted ? keys.filter(k => err[k]).map(k => ({ msg: err[k], href: '#f-' + k, go: e => { e.preventDefault(); const el = document.getElementById('f-' + k); el && el.focus(); } })) : [];
+    const loading = s.status === 'loading';
+
+    return {
+      wide, narrow: !wide, isMobile: mobile, notMobile: !mobile,
+      headerBg: s.scrolled ? 'rgba(247,242,234,.97)' : 'transparent',
+      headerShadow: s.scrolled ? '0 8px 24px rgba(30,26,23,.08)' : 'none',
+      headerPad: s.scrolled ? '8px 0' : '20px 0',
+      footerPadB: mobile ? '104px' : '32px',
+      menuOpen: s.menu, menuExpanded: s.menu ? 'true' : 'false', menuRef: this.menuRef,
+      openMenu: () => this.openLayer({ menu: true }, this.menuRef),
+      closeAll: () => this.closeAll(),
+      nav, today: this.today(), heroImg: this.heroImg,
+      visit: e => this.prefill({ idea: s.form.idea || 'Quiero agendar una visita guiada.' }, 'Cuéntanos cuándo te gustaría visitarnos. Las visitas guiadas son de lunes a sábado, de 10:00 a 19:00.', e),
+      openTour: () => this.openLayer({ tour: true }, this.lbRef),
+      waHref: 'https://wa.me/523312345678?text=' + encodeURIComponent('Hola, quiero información para mi evento en Casa Alcanfor.'),
+
+      qc: s.qc, qcErr: s.qcErr,
+      onQc: e => { const { name, value } = e.target; this.setState(st => ({ qc: { ...st.qc, [name]: value }, qcErr: '' })); },
+      qcInc: () => this.setState(st => ({ qc: { ...st.qc, inv: String(Math.min(450, (parseInt(st.qc.inv, 10) || 0) + 10)) } })),
+      qcDec: () => this.setState(st => ({ qc: { ...st.qc, inv: String(Math.max(10, (parseInt(st.qc.inv, 10) || 20) - 10)) } })),
+      qcSubmit: e => {
+        e.preventDefault();
+        const q = s.qc;
+        if (!q.tipo || !q.fecha) return this.setState({ qcErr: 'Elige qué celebras y una fecha tentativa para ver fechas libres.' });
+        if (q.fecha < this.today()) return this.setState({ qcErr: 'Elige una fecha a partir de hoy.' });
+        const n = parseInt(q.inv, 10);
+        if (!n || n < 10 || n > 450) return this.setState({ qcErr: 'Escribe un número de invitados entre 10 y 450.' });
+        this.prefill({ tipo: q.tipo, fecha: q.fecha, inv: String(n) }, 'Anotamos tu ' + q.tipo.toLowerCase() + ' para el ' + this.fmt(q.fecha) + ' con ' + n + ' invitados. Completa tus datos y te confirmamos qué espacios están libres.', null);
+      },
+
+      featSpan: s.w < 700 ? 'auto' : 'span 2',
+      ideas: { bodas: setFilter('Bodas'), xv: setFilter('XV años'), bautizos: setFilter('Bautizos'), corp: setFilter('Corporativos'), todos: setFilter('Todos') },
+
+      spaceTabs: this.spaces.map((sp, i) => ({ name: sp.name, cap: sp.cap, tabId: 'tab-' + i, selected: i === s.tab ? 'true' : 'false', tabindex: i === s.tab ? 0 : -1, line: i === s.tab ? '#7A5C30' : 'transparent', color: i === s.tab ? '#1E1A17' : '#4A423B', select: () => this.setState({ tab: i }) })),
+      space: { ...this.spaces[s.tab], tabId: 'tab-' + s.tab },
+      spaceImgSpan: 'auto',
+      tabKey: e => {
+        const n = this.spaces.length; let t = s.tab;
+        if (e.key === 'ArrowRight') t = (t + 1) % n; else if (e.key === 'ArrowLeft') t = (t - 1 + n) % n; else if (e.key === 'Home') t = 0; else if (e.key === 'End') t = n - 1; else return;
+        e.preventDefault(); this.setState({ tab: t }, () => { const b = document.getElementById('tab-' + t); b && b.focus(); });
+      },
+
+      quote: { esencial: quoteP('Esencial'), celebracion: quoteP('Celebración'), gala: quoteP('Gran Gala') },
+
+      filters: ['Todos', 'Bodas', 'XV años', 'Bautizos', 'Corporativos'].map(f => { const on = f === s.filter; return { label: f, pressed: on ? 'true' : 'false', bg: on ? '#1E1A17' : 'transparent', color: on ? '#F7F2EA' : '#1E1A17', border: on ? '#1E1A17' : '#857A6E', select: () => this.setState({ filter: f }) }; }),
+      gallery, galCols: s.w < 600 ? 'repeat(2,minmax(0,1fr))' : 'repeat(3,minmax(0,1fr))', galRow: s.w < 600 ? '150px' : 'clamp(180px,18vw,260px)',
+      galleryCount: items.length + (items.length === 1 ? ' foto' : ' fotos') + (s.filter === 'Todos' ? '' : ' de ' + s.filter),
+
+      layerOpen: s.lb >= 0 || s.tour, tourOpen: s.tour, lbRef: this.lbRef, lbNav: s.lb >= 0 && items.length > 1,
+      lbTitle: s.tour ? 'Recorrido del salón' : 'Galería de fotos', lbAlt: cur.alt, lbSrc: cur.id ? 'https://images.unsplash.com/photo-' + cur.id + '?auto=format&fit=crop&w=1800&q=75' : '', lbRatio: cur.ratio,
+      lbMaxW: cur.ratio === '4/5' ? '560px' : '1100px',
+      lbCounter: s.tour ? 'Recorrido en video' : (s.lb + 1) + ' de ' + items.length,
+      lbPrev: () => this.stepLb(-1), lbNext: () => this.stepLb(1),
+
+      faqSpan: 'auto',
+      faqs: this.faqData.map(([q, a], i) => { const open = !!s.faq[i]; return { q, a, btnId: 'faq-b-' + i, panelId: 'faq-p-' + i, expanded: open ? 'true' : 'false', hidden: !open, rot: open ? 'rotate(45deg)' : 'none', toggle: () => this.setState(st => ({ faq: { ...st.faq, [i]: !st.faq[i] } })) }; }),
+
+      form: s.form, errors: err, inv, desc, bc, prefillNote: s.prefillNote,
+      onField: e => { const { name, value } = e.target; this.setState(st => ({ form: { ...st.form, [name]: value }, errors: st.errors[name] ? { ...st.errors, [name]: this.validate(name, value) } : st.errors })); },
+      onBlur: e => { const { name, value } = e.target; if (value || s.submitted) this.setState(st => ({ errors: { ...st.errors, [name]: this.validate(name, value) } })); },
+      submit: e => {
+        e.preventDefault();
+        const errors = {}; keys.forEach(k => { const m = this.validate(k, s.form[k]); if (m) errors[k] = m; });
+        if (Object.keys(errors).length) return this.setState({ errors, submitted: true }, () => setTimeout(() => this.summaryRef.current && this.summaryRef.current.focus(), 30));
+        this.setState({ errors: {}, submitted: false, status: 'loading' });
+        setTimeout(() => this.setState({ status: 'success' }, () => setTimeout(() => this.successRef.current && this.successRef.current.focus(), 30)), 1400);
+      },
+      hasSummary: summary.length > 0, summary, summaryRef: this.summaryRef,
+      summaryTitle: summary.length === 1 ? 'Revisa 1 campo para enviar tu solicitud' : 'Revisa ' + summary.length + ' campos para enviar tu solicitud',
+      isLoading: loading, btnOpacity: loading ? 0.7 : 1, submitLabel: loading ? 'Enviando…' : 'Enviar solicitud',
+      isSuccess: s.status === 'success', showForm: s.status !== 'success', successRef: this.successRef,
+      firstName: (s.form.name.trim().split(/\s+/)[0]) || '',
+      resetForm: () => this.setState({ status: 'idle', prefillNote: '', form: { name: '', wa: '', email: '', tipo: '', fecha: '', inv: '', idea: '' } })
+    };
+  }
+}
+</script>
+</body>
+</html>
