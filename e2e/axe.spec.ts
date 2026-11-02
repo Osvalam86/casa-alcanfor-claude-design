@@ -16,5 +16,7 @@ for (const path of PAGES) {
     const blocking = results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical').map(describe)
     test.info().annotations.push({ type: 'axe', description: results.violations.map(describe).join('\n') || 'sin violaciones' })
     expect(blocking).toEqual([])
+    // Todo el contenido vive en landmarks (capas fijas dentro del <footer>)
+    expect(results.violations.filter((v) => v.id === 'region').map(describe)).toEqual([])
   })
 }

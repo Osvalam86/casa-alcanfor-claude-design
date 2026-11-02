@@ -60,6 +60,11 @@
   --focus-ring: var(--gold-400);
 }
 
+/* Vuelta a superficie clara dentro de una oscura (capas fijas que viven en el <footer>) */
+[data-surface='default'] {
+  --focus-ring: var(--gold-700);
+}
+
 /* ── 2 · Semánticos ─────────────────────────────────────────────── */
 @theme inline {
   /* Reinicia la paleta por defecto de Tailwind: solo existen los tokens del proyecto */

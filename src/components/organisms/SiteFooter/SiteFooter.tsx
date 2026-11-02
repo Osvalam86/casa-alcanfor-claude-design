@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { landing } from '@/content/landing'
 import { Logo } from '@/components/atoms/Logo'
 import { NavLink } from '@/components/atoms/NavLink'
@@ -9,8 +10,11 @@ const columnTitle = 'm-0 mb-2 font-sans text-overline font-semibold uppercase te
  * <footer> hijo de <body> → landmark contentinfo. Los títulos de columna son <h2> (estructura real,
  * no solo estilo). Solo "Explora" es <nav>; contacto y redes son listas simples.
  * Sin enlace al Design System (D9): esa página solo es accesible por su URL.
+ * `fixedActions` (slot del template): barra móvil y WhatsApp. Van al final del <footer> para quedar
+ * dentro de un landmark sin cambiar el orden de foco; su posición sigue siendo fixed. Flotan sobre
+ * superficies claras, así que restablecen el anillo de foco con data-surface="default".
  */
-export function SiteFooter() {
+export function SiteFooter({ fixedActions }: { fixedActions?: ReactNode }) {
   const { footer, brand, a11y } = landing
   return (
     <footer data-surface="inverse" className="bg-surface-deep pt-footer pb-26 text-text-inverse-muted md:pb-8">
@@ -75,6 +79,7 @@ export function SiteFooter() {
           </a>
         </div>
       </div>
+      {fixedActions && <div data-surface="default">{fixedActions}</div>}
     </footer>
   )
 }

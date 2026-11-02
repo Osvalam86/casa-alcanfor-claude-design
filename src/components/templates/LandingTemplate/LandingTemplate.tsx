@@ -15,13 +15,13 @@ type LandingTemplateProps = {
   quoteForm: ReactNode
   location: ReactNode
   footer: ReactNode
-  /** Elementos fijos (barra móvil, WhatsApp) y diálogos (lightbox): al final del DOM. */
+  /** Diálogos (lightbox): al final del DOM. Las capas fijas viven en el slot del footer. */
   overlays: ReactNode
 }
 
 /**
  * Esqueleto de la página: skip link como primer enfocable → header (banner) → <main> único →
- * footer (contentinfo) → capas fijas. Alterna fondos claro / alterno / oscuro según el orden de secciones.
+ * footer (contentinfo, con las capas fijas al final) → diálogos. Alterna fondos claro / alterno / oscuro según el orden de secciones.
  */
 export function LandingTemplate({ header, mobileMenu, sections, quoteForm, location, footer, overlays }: LandingTemplateProps) {
   const { a11y, contact } = landing

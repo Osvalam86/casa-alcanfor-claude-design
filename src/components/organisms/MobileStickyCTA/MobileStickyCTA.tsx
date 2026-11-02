@@ -3,7 +3,8 @@ import { Button } from '@/components/atoms/Button'
 import { IconButton } from '@/components/atoms/IconButton'
 
 /**
- * Barra fija inferior solo en móvil (< md). Va al final del DOM, así no interrumpe el orden de lectura.
+ * Barra fija inferior solo en móvil (< md). Va al final del <footer> (slot fixedActions): queda dentro
+ * de un landmark y no interrumpe el orden de lectura.
  * El footer reserva su alto (pb-26) para que no tape contenido (WCAG 2.4.11).
  */
 export function MobileStickyCTA() {

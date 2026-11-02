@@ -136,11 +136,18 @@ export function LandingPage() {
         />
       }
       location={<LocationBlock />}
-      footer={<SiteFooter />}
+      footer={
+        <SiteFooter
+          fixedActions={
+            <>
+              <MobileStickyCTA />
+              <WhatsAppFloatingButton />
+            </>
+          }
+        />
+      }
       overlays={
         <>
-          <MobileStickyCTA />
-          <WhatsAppFloatingButton />
           <Lightbox
             open={lightbox.open}
             mode={lightbox.mode}

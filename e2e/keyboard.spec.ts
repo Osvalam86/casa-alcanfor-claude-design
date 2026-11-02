@@ -159,6 +159,29 @@ test('formulario vacío: el foco va al resumen de errores y sus enlaces llevan a
   expect(describedBy).toBeTruthy()
 })
 
+test('capas fijas: dentro del <footer>, fixed, últimas en el orden de foco y con anillo claro', async ({ page }) => {
+  const footer = page.getByRole('contentinfo')
+  const whatsapp = footer.getByRole('link', { name: /^Escríbenos por WhatsApp/ }).filter({ visible: true })
+  await expect(whatsapp).toHaveCount(1)
+
+  const position = await whatsapp.evaluate((el) => {
+    const fixed = el.closest('.fixed') ?? el
+    return getComputedStyle(fixed).position
+  })
+  expect(position).toBe('fixed')
+
+  // El aviso de privacidad es el último enlace del footer; Tab sigue a las capas fijas y WhatsApp cierra el orden.
+  await footer.getByRole('link', { name: 'Aviso de privacidad' }).focus()
+  if (isMobile(page)) {
+    await page.keyboard.press('Tab')
+    await expect(footer.getByRole('link', { name: 'Consulta disponibilidad' })).toBeFocused()
+  }
+  await page.keyboard.press('Tab')
+  await expect(whatsapp).toBeFocused()
+  // gold-700, no el gold-400 de la superficie oscura del footer. Se espera: `transition` anima outline-color.
+  await expect.poll(() => whatsapp.evaluate((el) => getComputedStyle(el).outlineColor)).toBe('rgb(122, 92, 48)')
+})
+
 test('NumberStepper: + y − anuncian el nuevo valor en una región viva', async ({ page }) => {
   const live = page.getByRole('button', { name: 'Sumar 10 invitados' }).locator('xpath=..').locator('[aria-live]')
   await expect(live).toHaveAttribute('aria-live', 'polite')
