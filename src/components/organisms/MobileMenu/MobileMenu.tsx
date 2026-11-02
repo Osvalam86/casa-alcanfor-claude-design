@@ -15,11 +15,11 @@ type MobileMenuProps = {
 }
 
 /**
- * <dialog> modal nativo: foco atrapado, fondo inerte y Escape resueltos por showModal().
+ * <dialog> modal nativo: fondo inerte y Escape resueltos por showModal(); el ciclo de Tab, por useModalDialog.
  * Nombre accesible con aria-label ("Menú"); el nombre de marca visible es solo decorativo aquí.
  */
 export function MobileMenu({ id, open, onClose, onNavigate, onVisit }: MobileMenuProps) {
-  const { ref, onCancel, onBackdropClick } = useModalDialog(open, onClose)
+  const { ref, onCancel, onBackdropClick, onKeyDown } = useModalDialog(open, onClose)
   const { nav, brand, cta } = landing
 
   const go = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -34,6 +34,7 @@ export function MobileMenu({ id, open, onClose, onNavigate, onVisit }: MobileMen
       aria-label={nav.menuTitle}
       onCancel={onCancel}
       onClick={onBackdropClick}
+      onKeyDown={onKeyDown}
       className="fixed inset-y-0 right-0 left-auto m-0 h-dvh max-h-none w-full max-w-100 bg-surface p-0 text-text shadow-2 backdrop:bg-overlay"
     >
       <div className="flex h-full flex-col gap-8 px-6 pt-5 pb-8">

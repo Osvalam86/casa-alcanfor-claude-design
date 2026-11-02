@@ -1,9 +1,12 @@
-import { useEffect, useRef, type MouseEvent, type SyntheticEvent } from 'react'
+import { useEffect, useRef, type KeyboardEvent, type MouseEvent, type SyntheticEvent } from 'react'
+
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
 /**
- * Conecta un <dialog> nativo con estado de React. showModal() aporta lo que pide CLAUDE.md §6:
- * foco dentro del diálogo, fondo inerte y cierre con Escape (evento cancel). Al cerrar, el foco
- * vuelve explícitamente al control que lo abrió.
+ * Conecta un <dialog> nativo con estado de React. showModal() aporta foco inicial, fondo inerte y
+ * cierre con Escape (evento cancel), pero Chrome deja que Tab salga del diálogo hacia la interfaz del
+ * navegador; onKeyDown cierra ese ciclo (CLAUDE.md §6: focus trap). Al cerrar, el foco vuelve
+ * explícitamente al control que lo abrió.
  */
 export function useModalDialog(open: boolean, onClose: () => void) {
   const ref = useRef<HTMLDialogElement>(null)
@@ -31,5 +34,22 @@ export function useModalDialog(open: boolean, onClose: () => void) {
     if (event.target === event.currentTarget) onClose()
   }
 
-  return { ref, onCancel, onBackdropClick }
+  /** Tab en el último enfocable vuelve al primero, y Shift+Tab en el primero va al último. */
+  const onKeyDown = (event: KeyboardEvent<HTMLDialogElement>) => {
+    if (event.key !== 'Tab') return
+    const items = [...event.currentTarget.querySelectorAll<HTMLElement>(FOCUSABLE)].filter((el) => el.checkVisibility())
+    if (items.length === 0) return
+    const first = items[0]
+    const last = items[items.length - 1]
+    const active = document.activeElement
+    if (event.shiftKey && (active === first || active === event.currentTarget)) {
+      event.preventDefault()
+      last.focus()
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault()
+      first.focus()
+    }
+  }
+
+  return { ref, onCancel, onBackdropClick, onKeyDown }
 }

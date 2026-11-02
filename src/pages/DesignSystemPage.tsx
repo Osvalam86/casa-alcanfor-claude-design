@@ -191,7 +191,11 @@ export function DesignSystemPage() {
               <dl className="m-0 flex flex-col gap-2.5 font-sans text-sm leading-relaxed text-text-muted">
                 {ds.tokens.motion.items.map((m) => (
                   <div key={m.value}>
-                    <dt className="inline font-bold text-text">{m.value}</dt> · <dd className="m-0 inline">{m.use}</dd>
+                    <dt className="inline font-bold text-text">{m.value}</dt>
+                    <dd className="m-0 inline">
+                      {' · '}
+                      {m.use}
+                    </dd>
                   </div>
                 ))}
               </dl>

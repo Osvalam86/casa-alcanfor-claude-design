@@ -39,7 +39,8 @@ export const landing = {
     name: 'Casa Alcanfor',
     monogram: 'CA',
     tagline: 'Jardín & Salón',
-    homeLabel: 'Casa Alcanfor, inicio',
+    /** Se suma al texto visible del logo: el nombre accesible lo contiene (WCAG 2.5.3). */
+    homeSuffix: ', inicio',
     motto: 'Celebraciones que se recuerdan',
   },
 
@@ -92,7 +93,14 @@ export const landing = {
     title: 'Verifica tu fecha',
     tipo: { label: '¿Qué celebras?', placeholder: 'Elige' },
     fecha: { label: 'Fecha tentativa' },
-    invitados: { label: 'Invitados', decrement: 'Quitar 10 invitados', increment: 'Sumar 10 invitados', initial: 120 },
+    invitados: {
+      label: 'Invitados',
+      decrement: 'Quitar 10 invitados',
+      increment: 'Sumar 10 invitados',
+      initial: 120,
+      /** Anuncio de la región viva tras + y − (el foco sigue en el botón, el lector no lee el campo). */
+      valueText: (n: string) => `${n} invitados`,
+    },
     submit: 'Ver fechas libres',
     note: 'Respuesta en menos de 2 horas en horario de oficina. Sin compromiso.',
     errors: {

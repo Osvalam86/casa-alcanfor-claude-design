@@ -126,6 +126,7 @@ export function AvailabilityQuickCheck({ onSubmit }: AvailabilityQuickCheckProps
               }}
               decrementLabel={copy.invitados.decrement}
               incrementLabel={copy.invitados.increment}
+              valueText={copy.invitados.valueText(invitados)}
               onDecrement={() => step(-GUESTS.step)}
               onIncrement={() => step(GUESTS.step)}
             />

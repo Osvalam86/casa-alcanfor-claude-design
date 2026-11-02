@@ -6,6 +6,7 @@ import { Logo } from '@/components/atoms/Logo'
 import { NavLink } from '@/components/atoms/NavLink'
 import { Button } from '@/components/atoms/Button'
 import { IconButton } from '@/components/atoms/IconButton'
+import { VisuallyHidden } from '@/components/atoms/VisuallyHidden'
 
 type SiteHeaderProps = {
   menuId: string
@@ -30,8 +31,9 @@ export function SiteHeader({ menuId, menuOpen, onOpenMenu, onVisit }: SiteHeader
       )}
     >
       <div className="mx-auto flex max-w-page items-center justify-between gap-6 px-gutter">
-        <a href="#top" aria-label={brand.homeLabel} className="flex min-h-11 items-center text-text no-underline hover:text-text">
+        <a href="#top" className="flex min-h-11 items-center text-text no-underline hover:text-text">
           <Logo name={brand.name} monogram={brand.monogram} tagline={brand.tagline} />
+          <VisuallyHidden>{brand.homeSuffix}</VisuallyHidden>
         </a>
 
         <nav aria-label={nav.label} className="hidden items-center gap-8 lg:flex">

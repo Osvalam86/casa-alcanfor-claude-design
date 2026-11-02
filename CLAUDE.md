@@ -55,6 +55,7 @@ src/
 - Nombres semánticos en inglés: `--color-surface`, `--color-surface-alt`, `--color-surface-inverse`, `--color-text`, `--color-text-muted`, `--color-accent`, `--color-border`, etc.
 - Tipografía, espaciado (escala base 4), radios, sombras, duraciones y easings también como tokens.
 - **Prohibido:** valores arbitrarios (`text-[#7A5C30]`, `p-[13px]`), colores en hex dentro de componentes y estilos inline. Si falta un valor, créalo como token.
+- **Única excepción de estilo inline:** el parallax de la foto del hero (`Hero.tsx`), `style={{ y }}` en un `motion.img`. Es un valor dinámico de `motion` (un `MotionValue` que cambia con el scroll), no se puede expresar como clase y se omite con `prefers-reduced-motion: reduce`. No agregues otros `style=` sin preguntar.
 
 ## 5. Componentes
 
@@ -118,7 +119,8 @@ Al cerrar cada fase entrega: qué hiciste, qué archivos tocaste, qué decisione
 pnpm dev          # servidor local
 pnpm build        # build de producción
 pnpm lint         # ESLint
-pnpm typecheck    # tsc -b (revisa tsconfig.app.json y tsconfig.node.json vía references)
+pnpm typecheck    # tsc -b (revisa tsconfig.app.json, tsconfig.node.json y tsconfig.e2e.json vía references)
+pnpm test:e2e     # Playwright + axe sobre el build (vite preview) a 390 y 1440 px
 ```
 
 Antes de dar por terminada una fase: `pnpm typecheck` y `pnpm lint` sin errores.
