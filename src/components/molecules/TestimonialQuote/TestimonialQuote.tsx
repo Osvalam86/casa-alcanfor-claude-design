@@ -43,7 +43,7 @@ export function TestimonialQuote({ quote, author, initials, meta, ratingLabel, p
           className,
         )}
       >
-        <ShapedImage {...photoProps(photo, '(min-width: 768px) 45vw, 100vw', 1200)} shape="corner-bl" aspect="photo" frameClassName="max-w-140" />
+        <ShapedImage {...photoProps(photo, '(min-width: 768px) 45vw, 100vw', 1200)} alt={photo.alt} shape="corner-bl" aspect="photo" frameClassName="max-w-140" />
         <div className="flex flex-col gap-6">
           <span aria-hidden="true" className="h-10 font-display text-quote-mark font-medium text-accent">
             “

@@ -37,6 +37,7 @@ type ShapedImageProps = Omit<ComponentProps<'img'>, 'alt' | 'width' | 'height'> 
  * width/height reservan el espacio y evitan saltos de layout.
  */
 export function ShapedImage({
+  alt,
   shape,
   aspect,
   frameClassName,
@@ -48,6 +49,7 @@ export function ShapedImage({
   return (
     <div className={cn(frameVariants({ shape, aspect }), frameClassName)}>
       <img
+        alt={alt}
         loading={loading}
         decoding={decoding}
         className={cn('absolute inset-0 size-full object-cover', className)}

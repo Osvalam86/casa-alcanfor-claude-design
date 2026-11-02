@@ -356,7 +356,7 @@ export function DesignSystemPage() {
             <ul className="m-0 grid list-none grid-fill-150 gap-4 p-0">
               {ds.atoms.image.shapes.map((shape) => (
                 <li key={shape} className="flex flex-col gap-2">
-                  <ShapedImage {...photoProps(ds.atoms.image.photo, '200px', 480)} shape={shape} aspect="portrait" />
+                  <ShapedImage {...photoProps(ds.atoms.image.photo, '200px', 480)} alt={ds.atoms.image.photo.alt} shape={shape} aspect="portrait" />
                   <Caption>{shape}</Caption>
                 </li>
               ))}

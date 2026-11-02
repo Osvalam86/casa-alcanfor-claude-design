@@ -54,6 +54,7 @@ export function Hero({ onTour, quickCheck, trustBar }: HeroProps) {
             <div className="relative aspect-portrait overflow-hidden rounded-arch bg-surface-placeholder shadow-2">
               <motion.img
                 {...photoProps(hero.image, '(min-width: 1024px) 520px, 100vw')}
+                alt={hero.image.alt}
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
@@ -64,6 +65,7 @@ export function Hero({ onTour, quickCheck, trustBar }: HeroProps) {
             </div>
             <ShapedImage
               {...photoProps(hero.detailImage, '240px', 768)}
+              alt={hero.detailImage.alt}
               shape="corner"
               aspect="photo"
               frameClassName="absolute -left-6 bottom-0 w-11/25 border-6 border-surface shadow-1"

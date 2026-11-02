@@ -16,6 +16,10 @@ const navLinkVariants = cva('no-underline transition-colors duration-base', {
 type NavLinkProps = ComponentProps<'a'> & VariantProps<typeof navLinkVariants> & { href: string }
 
 /** Enlace de navegación. Si apunta a la vista actual, el consumidor pasa aria-current="page". */
-export function NavLink({ variant, className, ...props }: NavLinkProps) {
-  return <a className={cn(navLinkVariants({ variant }), className)} {...props} />
+export function NavLink({ variant, className, children, ...props }: NavLinkProps) {
+  return (
+    <a className={cn(navLinkVariants({ variant }), className)} {...props}>
+      {children}
+    </a>
+  )
 }

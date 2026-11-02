@@ -29,7 +29,7 @@ export function SpacesShowcase({ activeIndex, onChange, onVisit }: SpacesShowcas
     tabRefs.current[index]?.focus()
   }
 
-  const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+  const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     const keys: Record<string, number> = {
       ArrowRight: (activeIndex + 1) % count,
       ArrowLeft: (activeIndex - 1 + count) % count,
@@ -54,7 +54,6 @@ export function SpacesShowcase({ activeIndex, onChange, onVisit }: SpacesShowcas
         <div
           role="tablist"
           aria-label={spaces.tablistLabel}
-          onKeyDown={onKeyDown}
           className="mb-8 flex gap-2 overflow-x-auto border-b border-border"
         >
           {spaces.items.map((item, index) => {
@@ -72,6 +71,7 @@ export function SpacesShowcase({ activeIndex, onChange, onVisit }: SpacesShowcas
                 aria-controls="space-panel"
                 tabIndex={selected ? 0 : -1}
                 onClick={() => onChange(index)}
+                onKeyDown={onKeyDown}
                 className={cn(
                   'mr-6 flex min-h-14 flex-none cursor-pointer flex-col items-start gap-1 border-0 border-b-2 bg-transparent px-1 py-3 font-sans text-body font-semibold leading-tight transition-colors duration-base',
                   selected ? 'border-accent text-text' : 'border-transparent text-text-muted hover:text-text',
@@ -94,6 +94,7 @@ export function SpacesShowcase({ activeIndex, onChange, onVisit }: SpacesShowcas
           <ShapedImage
             key={space.photo.id}
             {...photoProps(space.photo, '(min-width: 1024px) 640px, 100vw')}
+            alt={space.photo.alt}
             shape="corner-lg"
             aspect="wide"
           />

@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react'
 import { cn } from '@/lib/cn'
 
 /** Primer elemento enfocable de la página. Fuera de pantalla hasta recibir foco. */
-export function SkipLink({ className, ...props }: ComponentProps<'a'> & { href: string }) {
+export function SkipLink({ className, children, ...props }: ComponentProps<'a'> & { href: string }) {
   return (
     <a
       className={cn(
@@ -10,6 +10,8 @@ export function SkipLink({ className, ...props }: ComponentProps<'a'> & { href: 
         className,
       )}
       {...props}
-    />
+    >
+      {children}
+    </a>
   )
 }

@@ -118,12 +118,17 @@ Al cerrar cada fase entrega: qué hiciste, qué archivos tocaste, qué decisione
 ```
 pnpm dev          # servidor local
 pnpm build        # build de producción
-pnpm lint         # ESLint
+pnpm lint         # ESLint (incluye eslint-plugin-jsx-a11y en modo strict)
 pnpm typecheck    # tsc -b (revisa tsconfig.app.json, tsconfig.node.json y tsconfig.e2e.json vía references)
 pnpm test:e2e     # Playwright + axe sobre el build (vite preview) a 390 y 1440 px
 ```
 
 Antes de dar por terminada una fase: `pnpm typecheck` y `pnpm lint` sin errores.
+
+- `pnpm lint` corre `eslint-plugin-jsx-a11y` con `flatConfigs.strict` sobre los `.tsx`. En `settings['jsx-a11y']` los átomos están mapeados a su elemento nativo (`Button`/`IconButton` → `button`, `ShapedImage` → `img`, `TextLink`/`NavLink` → `a`, `Input`, `Select`, `Textarea`, `Label`) y `polymorphicPropName: 'as'`, así que las reglas también los revisan.
+- Las reglas no ven props que llegan por spread: escribe `alt` y `children` explícitos (`photoProps()` no incluye `alt`).
+- Excepciones acordadas sobre strict (en `eslint.config.js`): `<dialog>` puede llevar `onKeyDown`/`onKeyUp`/`onClick` (focus trap, flechas y clic en backdrop) y `role="tabpanel"` puede llevar `tabIndex` (patrón tabs de APG).
+- No desactives ni relajes una regla de jsx-a11y sin preguntar.
 
 ## 10. No hacer
 

@@ -68,6 +68,7 @@ export function Lightbox({ open, mode, photos, index, onIndexChange, onClose }: 
             <figure className="m-0 flex h-full min-w-0 max-w-275 flex-1 flex-col justify-center gap-4">
               <img
                 {...photoProps(photo, '(min-width: 1100px) 1100px, 100vw', 1600)}
+                alt={photo.alt}
                 className="mx-auto max-h-lightbox w-auto max-w-full rounded-md bg-surface-placeholder-dark object-contain"
               />
               <figcaption aria-hidden="true" className="text-center font-sans text-ui leading-relaxed text-text-inverse-muted">{photo.alt}</figcaption>

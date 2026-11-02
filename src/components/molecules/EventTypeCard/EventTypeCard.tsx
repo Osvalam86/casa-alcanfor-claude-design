@@ -27,6 +27,7 @@ export function EventTypeCard({ photo, title, description, linkLabel, href, onLi
         <div className="relative min-h-90 flex-1 overflow-hidden rounded-arch bg-surface-placeholder">
           <img
             {...photoProps(photo, '(min-width: 768px) 66vw, 100vw')}
+            alt={photo.alt}
             loading="lazy"
             decoding="async"
             className="absolute inset-0 size-full object-cover transition-transform duration-slower ease-out-expo group-hover/card:scale-104"
@@ -35,6 +36,7 @@ export function EventTypeCard({ photo, title, description, linkLabel, href, onLi
       ) : (
         <ShapedImage
           {...photoProps(photo, '(min-width: 768px) 33vw, 100vw', 1200)}
+          alt={photo.alt}
           shape="corner"
           aspect="photo"
           className="transition-transform duration-slower ease-out-expo group-hover/card:scale-104"
