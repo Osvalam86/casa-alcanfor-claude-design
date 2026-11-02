@@ -23,6 +23,12 @@ test('skip link es el primer enfocable y lleva a <main>', async ({ page }) => {
   await expect(page.locator('main')).toBeFocused()
 })
 
+test('logo: el nombre accesible empieza con el texto visible (WCAG 2.5.3)', async ({ page }) => {
+  const home = page.getByRole('banner').getByRole('link', { name: /inicio$/ })
+  // El sr-only (absolute) es bloque para Chrome: mete un espacio antes de la coma; no cambia lo que se lee.
+  await expect(home).toHaveAccessibleName(/^Casa Alcanfor Jardín & Salón ?, inicio$/)
+})
+
 test('menú móvil: Tab atrapado, Escape y regreso del foco', async ({ page }) => {
   test.skip(!isMobile(page), 'El botón de menú solo existe por debajo de lg')
   await tabTo(page, 'Abrir menú')
