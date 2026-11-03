@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-# Página interna de tokens y componentes: no se indexa
-Disallow: /design-system.html
+# /design-system.html no se bloquea aquí: lleva <meta name="robots" content="noindex">, y Google solo lo lee si puede rastrearla
 # La línea Sitemap la agrega el build cuando VITE_SITE_URL está definido (vite.config.ts)

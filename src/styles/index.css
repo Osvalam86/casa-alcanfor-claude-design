@@ -4,7 +4,8 @@
 
 @layer base {
   html {
-    scroll-padding-top: var(--header-height);
+    /* Respaldo para el primer render, antes de que useHeaderHeight escriba la medida real */
+    scroll-padding-top: var(--header-height, 60px);
     scroll-padding-bottom: var(--scroll-offset-bottom);
     -webkit-text-size-adjust: 100%;
   }
