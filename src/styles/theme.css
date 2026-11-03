@@ -42,7 +42,13 @@
 
   --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
 
-  --scroll-offset: 80px;
+  /* Header: padding vertical abierto (arriba de todo) y compacto (con scroll) */
+  --header-pad: 20px;
+  --header-pad-compact: 8px;
+  /* Alto del header compacto. Valor inicial: useHeaderHeight lo reemplaza con la medida real
+     (fila + 2 × --header-pad-compact) y la actualiza con ResizeObserver */
+  --header-height: 60px;
+
   /* Reserva inferior al llevar algo a la vista (foco, anclas): libra la barra móvil fija (~70px)
      y el botón flotante de WhatsApp (24px + 56px) para que no tapen el foco (WCAG 2.4.11) */
   --scroll-offset-bottom: 96px;
@@ -323,6 +329,16 @@
 /* Barra fija inferior en móvil: respeta el área segura del dispositivo */
 @utility pb-safe {
   padding-bottom: calc(10px + env(safe-area-inset-bottom));
+}
+
+/* Header abierto / compacto. Al compactar, el margen inferior repone el padding que pierde: el header
+   ocupa siempre lo mismo en el flujo, así que el contenido no salta 24px a mitad de un scroll a un ancla */
+@utility header-open {
+  padding-block: var(--header-pad);
+}
+@utility header-compact {
+  padding-block: var(--header-pad-compact);
+  margin-bottom: calc(2 * (var(--header-pad) - var(--header-pad-compact)));
 }
 
 /* Trazo de 1.5px (monograma, spinner): mismo grosor que los íconos */

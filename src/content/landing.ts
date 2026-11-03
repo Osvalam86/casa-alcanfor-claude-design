@@ -21,8 +21,18 @@ export type GalleryCategory = Exclude<GalleryFilter, 'Todos'>
 
 export type GalleryPhoto = Photo & { category: GalleryCategory; ratio: 'portrait' | 'photo' | 'wide' }
 
-const ADDRESS = 'Av. de los Alcanfores 1450, Jardines del Valle, 45138 Zapopan, Jal.' // DEMO
-const ADDRESS_QUERY = 'Av. de los Alcanfores 1450, Jardines del Valle, Zapopan, Jalisco' // DEMO
+/** Partes de la dirección: arman el texto visible y el PostalAddress del JSON-LD. */
+const ADDRESS_PARTS = {
+  street: 'Av. de los Alcanfores 1450', // DEMO
+  neighborhood: 'Jardines del Valle', // DEMO
+  postalCode: '45138', // DEMO
+  locality: 'Zapopan',
+  region: 'Jalisco',
+  regionShort: 'Jal.',
+  country: 'MX',
+} as const
+const ADDRESS = `${ADDRESS_PARTS.street}, ${ADDRESS_PARTS.neighborhood}, ${ADDRESS_PARTS.postalCode} ${ADDRESS_PARTS.locality}, ${ADDRESS_PARTS.regionShort}`
+const ADDRESS_QUERY = `${ADDRESS_PARTS.street}, ${ADDRESS_PARTS.neighborhood}, ${ADDRESS_PARTS.locality}, ${ADDRESS_PARTS.region}`
 const WHATSAPP_NUMBER = '523312345678' // DEMO
 
 const portrait = (id: string, alt: string): Photo => ({ id, alt, width: 900, height: 1125 })
@@ -366,11 +376,14 @@ export const landing = {
     mapSrc: `https://maps.google.com/maps?q=${encodeURIComponent(ADDRESS_QUERY)}&z=15&output=embed`,
     addressTerm: 'Dirección',
     address: ADDRESS,
+    addressParts: ADDRESS_PARTS,
     addressDemo: '(demo)',
     directions: 'Cómo llegar',
     directionsHref: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS_QUERY)}`,
     hoursTerm: 'Horarios de visita',
     hours: 'Lunes a sábado, de 10:00 a 19:00',
+    /** El mismo horario en formato schema.org (JSON-LD). */
+    hoursSchema: { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '10:00', closes: '19:00' },
     talk: '¿Prefieres hablar?',
   },
 

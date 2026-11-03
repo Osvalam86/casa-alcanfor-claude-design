@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+# Página interna de tokens y componentes: no se indexa
+Disallow: /design-system.html
+# La línea Sitemap la agrega el build cuando VITE_SITE_URL está definido (vite.config.ts)

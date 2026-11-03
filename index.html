@@ -2,15 +2,25 @@
 <html lang="es-MX">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Casa Alcanfor · Jardín &amp; Salón de Eventos en Zapopan</title>
     <meta
       name="description"
       content="Jardín y salón de eventos en Zapopan para bodas, XV años, bautizos y eventos corporativos. Hasta 450 invitados, paquetes con precio cerrado y coordinador dedicado."
     />
+
+    <!-- Íconos (pnpm icons los regenera desde el monograma del Logo) -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <!-- --color-surface (ivory-50): la barra del navegador continúa el fondo del header -->
+    <meta name="theme-color" content="#f7f2ea" />
+
+    <!-- Open Graph. og:url y canonical los agrega el build solo si hay VITE_SITE_URL (vite.config.ts) -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_MX" />
+    <meta property="og:site_name" content="Casa Alcanfor" />
     <meta property="og:title" content="Casa Alcanfor · Jardín &amp; Salón de Eventos en Zapopan" />
     <meta
       property="og:description"
@@ -18,8 +28,26 @@
     />
     <meta
       property="og:image"
-      content="https://images.unsplash.com/photo-1607861884586-c7cfaed16290?auto=format&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=70"
+      content="https://images.unsplash.com/photo-1607861884586-c7cfaed16290?auto=format&amp;fm=jpg&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=70"
     />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pasillo de ceremonia al aire libre iluminado entre sillas blancas" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Casa Alcanfor · Jardín &amp; Salón de Eventos en Zapopan" />
+    <meta
+      name="twitter:description"
+      content="Jardín y salón de eventos en Zapopan para bodas, XV años, bautizos y eventos corporativos. Hasta 450 invitados, paquetes con precio cerrado y coordinador dedicado."
+    />
+    <meta
+      name="twitter:image"
+      content="https://images.unsplash.com/photo-1607861884586-c7cfaed16290?auto=format&amp;fm=jpg&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=70"
+    />
+    <meta name="twitter:image:alt" content="Pasillo de ceremonia al aire libre iluminado entre sillas blancas" />
+
     <link
       rel="preload"
       as="font"

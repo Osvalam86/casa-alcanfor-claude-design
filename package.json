@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "typecheck": "tsc -b",
     "test:e2e": "playwright test",
+    "icons": "node scripts/generate-icons.ts",
     "preview": "vite preview"
   },
   "dependencies": {

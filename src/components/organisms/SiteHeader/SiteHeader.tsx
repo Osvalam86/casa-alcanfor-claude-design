@@ -1,7 +1,8 @@
-import type { MouseEventHandler } from 'react'
+import { useRef, type MouseEventHandler } from 'react'
 import { landing } from '@/content/landing'
 import { cn } from '@/lib/cn'
 import { useScrolled } from '@/lib/hooks/useScrolled'
+import { useHeaderHeight } from '@/lib/hooks/useHeaderHeight'
 import { Logo } from '@/components/atoms/Logo'
 import { NavLink } from '@/components/atoms/NavLink'
 import { Button } from '@/components/atoms/Button'
@@ -21,16 +22,18 @@ type SiteHeaderProps = {
  */
 export function SiteHeader({ menuId, menuOpen, onOpenMenu, onVisit }: SiteHeaderProps) {
   const scrolled = useScrolled()
+  const rowRef = useRef<HTMLDivElement>(null)
+  useHeaderHeight(rowRef)
   const { brand, nav } = landing
 
   return (
     <header
       className={cn(
         'sticky top-0 z-50 transition-all duration-slow ease-out-expo',
-        scrolled ? 'bg-scrim-header py-2 shadow-1' : 'bg-transparent py-5',
+        scrolled ? 'header-compact bg-scrim-header shadow-1' : 'header-open bg-transparent',
       )}
     >
-      <div className="mx-auto flex max-w-page items-center justify-between gap-6 px-gutter">
+      <div ref={rowRef} className="mx-auto flex max-w-page items-center justify-between gap-6 px-gutter">
         <a href="#top" className="flex min-h-11 items-center text-text no-underline hover:text-text">
           <Logo name={brand.name} monogram={brand.monogram} tagline={brand.tagline} />
           <VisuallyHidden>{brand.homeSuffix}</VisuallyHidden>
