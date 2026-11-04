@@ -6,7 +6,7 @@ Caso de estudio de maquetación y accesibilidad: la landing de un jardín y sal�
 
 **Diseño:** generado con [Claude Design](https://claude.ai) a partir de un brief propio. El export está en [`design/`](design/) como referencia: no se importa desde `src/` ni se modifica. No incluye `support.js`, el runtime de Claude Design, así que el `.dc.html` se lee como código pero no se abre como prototipo.
 
-[![Sobre fondo verde oscuro, el texto: Caso de estudio. Casa Alcanfor. Diseño de Claude Design llevado a React, TypeScript y Tailwind CSS v4. Atomic Design, WCAG 2.2 AA y 53 pruebas automatizadas, cada uno con su ícono. Osvaldo Ocampo · Maquetación y accesibilidad. A la derecha, una laptop con la primera pantalla del sitio, el titular «Celebra donde cada momento se vuelve recuerdo» y la foto en arco de un pasillo de ceremonia con luces, y delante un teléfono inclinado con la galería «Momentos que ya sucedieron aquí», sus filtros y las primeras fotos.](docs/cover.jpg)](docs/cover.jpg)
+[![Sobre fondo verde oscuro, el texto: Caso de estudio. Casa Alcanfor. Diseño de Claude Design llevado a React, TypeScript y Tailwind CSS v4. Atomic Design, WCAG 2.2 AA y «Probado con Playwright, axe y NVDA», cada uno con su ícono. Osvaldo Ocampo · Maquetación y accesibilidad. A la derecha, una laptop con la primera pantalla del sitio, el titular «Celebra donde cada momento se vuelve recuerdo» y la foto en arco de un pasillo de ceremonia con luces, y delante un teléfono inclinado con la galería «Momentos que ya sucedieron aquí», sus filtros y las primeras fotos.](docs/cover.jpg)](docs/cover.jpg)
 
 ---
 
