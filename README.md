@@ -6,7 +6,7 @@ Caso de estudio de maquetación y accesibilidad: la landing de un jardín y sal�
 
 **Diseño:** generado con [Claude Design](https://claude.ai) a partir de un brief propio. El export está en [`design/`](design/) como referencia: no se importa desde `src/` ni se modifica. No incluye `support.js`, el runtime de Claude Design, así que el `.dc.html` se lee como código pero no se abre como prototipo.
 
-[![La primera pantalla de Casa Alcanfor en un escritorio, con el titular «Celebra donde cada momento se vuelve recuerdo», el botón «Consulta disponibilidad» y una foto en arco de un pasillo de ceremonia con luces colgantes; a la derecha, un teléfono con la galería «Momentos que ya sucedieron aquí», sus filtros por tipo de evento y dos fotos. A la izquierda, el texto: Caso de estudio. Casa Alcanfor. Un diseño de Claude Design llevado a React y Tailwind CSS v4. WCAG 2.2 AA como objetivo · Proyecto conceptual. Osvaldo Ocampo.](docs/cover.png)](docs/cover.png)
+[![Sobre fondo verde oscuro, el texto: Caso de estudio. Casa Alcanfor. Diseño de Claude Design llevado a React, TypeScript y Tailwind CSS v4. Atomic Design, WCAG 2.2 AA y 53 pruebas automatizadas, cada uno con su ícono. Osvaldo Ocampo · Maquetación y accesibilidad. A la derecha, una laptop con la primera pantalla del sitio, el titular «Celebra donde cada momento se vuelve recuerdo» y la foto en arco de un pasillo de ceremonia con luces, y delante un teléfono inclinado con la galería «Momentos que ya sucedieron aquí», sus filtros y las primeras fotos.](docs/cover.jpg)](docs/cover.jpg)
 
 ---
 
@@ -105,7 +105,7 @@ El objetivo es **WCAG 2.2 AA**. Este README no afirma conformidad: dice qué se 
 - **Aviso de privacidad solo como texto.** El formulario y el footer lo mencionan, pero no hay página ni enlace.
 - **JSON-LD con datos de ejemplo.** `EventVenue` se genera desde `content/landing.ts`; `aggregateRating` y `sameAs` quedan fuera mientras reseñas y redes sean de ejemplo.
 - **Fotos por URL de Unsplash**, no alojadas en el repo: dependen de su CDN.
-- **Imagen OG relativa sin dominio.** Open Graph pide una URL absoluta: hasta definir `VITE_SITE_URL`, `og:image` es `/og-image.png` y las redes pueden no mostrarla.
+- **Imagen OG relativa sin dominio.** Open Graph pide una URL absoluta: hasta definir `VITE_SITE_URL`, `og:image` es `/og-image.jpg` y las redes pueden no mostrarla.
 
 ---
 
@@ -130,7 +130,6 @@ Abre <http://localhost:5173>. Para las pruebas, descarga primero el navegador: `
 | `pnpm lint` | ESLint con `jsx-a11y` en modo strict |
 | `pnpm test:e2e` | Build + Playwright y axe a 390 y 1440 px |
 | `pnpm icons` | Regenera el favicon y los íconos de `public/` desde el monograma del logo |
-| `pnpm og` | Construye el sitio y genera, con capturas reales a 1440 y 390 px, la portada del README (`docs/cover.png`) y la imagen para redes (`public/og-image.png`) |
 | `pnpm screens` | Construye el sitio y genera 4 capturas limpias a 2x en `docs/screens/`: primera pantalla y espacios a 1440 px, primera pantalla y galería a 360 px |
 | `pnpm preview` | Sirve `dist/` en `localhost:4173` |
 
@@ -156,9 +155,9 @@ casa-alcanfor-claude-design/
 │   └── styles/             # theme.css (tokens), fonts.css e index.css
 ├── e2e/                    # Playwright + axe: anclas, teclado, layout y auditoría
 ├── design/                 # export de Claude Design (sin su runtime), solo referencia
-├── docs/                   # cover.png (portada de este README) y screens/ (capturas a 2x)
-├── public/                 # íconos, imagen para redes (og-image.png), site.webmanifest y robots.txt
-├── scripts/                # generate-icons.ts (pnpm icons), generate-og.ts (pnpm og) y generate-screens.ts (pnpm screens)
+├── docs/                   # cover.jpg (portada de este README, diseñada en Claude Design) y screens/ (capturas a 2x)
+├── public/                 # íconos, imagen para redes (og-image.jpg, diseñada en Claude Design), site.webmanifest y robots.txt
+├── scripts/                # generate-icons.ts (pnpm icons) y generate-screens.ts (pnpm screens)
 ├── CLAUDE.md               # reglas del proyecto: stack, tokens, arquitectura y accesibilidad
 ├── netlify.toml            # build, cabeceras y caché
 └── vite.config.ts          # alias @/, dos entradas y plugin de SEO

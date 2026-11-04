@@ -5,8 +5,8 @@ import { defineConfig, loadEnv, runnerImport, type HtmlTagDescriptor, type Plugi
 
 const alias = { '@': fileURLToPath(new URL('./src', import.meta.url)) }
 
-/** Imagen OG de public/ (pnpm og la regenera con capturas del sitio). */
-const OG_IMAGE = '/og-image.png'
+/** Imagen OG de public/: diseño propio hecho en Claude Design, no se genera en el build. */
+const OG_IMAGE = '/og-image.jpg'
 
 type StructuredDataModule = {
   structuredData: (siteUrl: string) => object
@@ -40,7 +40,7 @@ function seo(siteUrl: string): Plugin {
           { tag: 'meta', attrs: { property: 'og:url', content: `${siteUrl}/` }, injectTo: 'head' },
         )
       }
-      // Open Graph pide URL absoluta: con dominio, /og-image.png pasa a ${siteUrl}/og-image.png
+      // Open Graph pide URL absoluta: con dominio, /og-image.jpg pasa a ${siteUrl}/og-image.jpg
       const withImage = siteUrl ? html.replaceAll(`content="${OG_IMAGE}"`, `content="${siteUrl}${OG_IMAGE}"`) : html
       return {
         html: withImage.replace(/\s*<\/head>/, `\n    ${demo}\n    <script type="application/ld+json">\n${json}\n    </script>\n  </head>`),
