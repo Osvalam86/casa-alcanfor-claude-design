@@ -78,7 +78,9 @@ src/
 - Formularios: `label` visible asociado, `autocomplete` correcto, errores ligados con `aria-describedby`, `aria-invalid` y un resumen de errores al enviar.
 - Menú móvil, lightbox y modales: focus trap, cierre con `Escape` y el foco regresa al elemento que los abrió.
 - Imágenes: `alt` descriptivo en las de contenido, `alt=""` en las decorativas.
-- Skip link "Saltar al contenido" como primer elemento enfocable.
+- Skip link "Saltar al contenido" como primer elemento enfocable. Los enlaces internos llevan el foco al encabezado del destino (`h1` para `#main`, `h2` de cada sección) con `useAnchorFocus`; las secciones y `<main>` no llevan `tabIndex`.
+- Texto que en pantalla va en bloques distintos (flex, `sr-only`): NVDA en modo exploración lo lee pegado. Separa las piezas con `SR_SEPARATOR`/`SR_SPACE` de `src/lib/srText.ts` (espacio de no separación) dentro de un `VisuallyHidden`; un espacio normal al borde de un texto oculto se pierde. Si la frase visible no se lee bien (calificaciones, precios con "$"), visible con `aria-hidden` y una sola frase en `VisuallyHidden`. `e2e/screen-reader.spec.ts` lo comprueba.
+- Campos obligatorios con `aria-required`, no `required` (Chrome expone el select y la fecha vacíos como inválidos); `aria-invalid` solo después del primer envío.
 - Movimiento: respeta `prefers-reduced-motion` (con `motion-safe:`/`motion-reduce:` o `useReducedMotion`). Nada en autoplay sin control de pausa.
 - Sin scroll horizontal a 320 px y funcional con zoom al 200%.
 

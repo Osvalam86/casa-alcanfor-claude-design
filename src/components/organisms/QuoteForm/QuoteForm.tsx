@@ -36,6 +36,9 @@ type Status = 'idle' | 'loading' | 'success'
 /**
  * Formulario de cotización. Cumple CLAUDE.md §6: label visible, autocomplete, errores por campo con
  * aria-describedby + aria-invalid, resumen de errores con foco al enviar y aviso de éxito con foco.
+ * Obligatorios con aria-required, no con required: con required nativo, Chrome expone el select y la
+ * fecha vacíos como inválidos desde la carga y NVDA los anunciaba "entrada inválida" sin haber enviado.
+ * aria-invalid solo aparece tras el primer envío.
  * El aviso de precarga vive en una región role="status" que existe desde el primer render.
  */
 export function QuoteForm({ labelledBy, values, onValuesChange, prefillNote, onReset }: QuoteFormProps) {
@@ -63,10 +66,11 @@ export function QuoteForm({ labelledBy, values, onValuesChange, prefillNote, onR
     if (field !== 'idea' && errors[field]) setErrors({ ...errors, [field]: validateField(field, value) })
   }
 
+  /** Solo tras el primer envío: antes, ningún campo se marca inválido (aria-invalid) al salir de él. */
   const onBlur = (event: FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
+    if (!submitted) return
     const field = event.target.name as QuoteField
-    const value = event.target.value
-    if (value || submitted) setErrors((current) => ({ ...current, [field]: validateField(field, value) }))
+    setErrors((current) => ({ ...current, [field]: validateField(field, event.target.value) }))
   }
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -133,19 +137,19 @@ export function QuoteForm({ labelledBy, values, onValuesChange, prefillNote, onR
 
       <div className="grid grid-fit-240 gap-5">
         <FormField label={copy.fields.name.label} {...fieldProps('name')}>
-          {(f) => <Input {...f} name="name" autoComplete="name" required value={values.name} onChange={onChange} onBlur={onBlur} />}
+          {(f) => <Input {...f} name="name" autoComplete="name" aria-required="true" value={values.name} onChange={onChange} onBlur={onBlur} />}
         </FormField>
         <FormField label={copy.fields.wa.label} helper={copy.fields.wa.helper} {...fieldProps('wa')}>
           {(f) => (
-            <Input {...f} name="wa" type="tel" inputMode="tel" autoComplete="tel-national" required value={values.wa} onChange={onChange} onBlur={onBlur} />
+            <Input {...f} name="wa" type="tel" inputMode="tel" autoComplete="tel-national" aria-required="true" value={values.wa} onChange={onChange} onBlur={onBlur} />
           )}
         </FormField>
         <FormField label={copy.fields.email.label} {...fieldProps('email')}>
-          {(f) => <Input {...f} name="email" type="email" autoComplete="email" required value={values.email} onChange={onChange} onBlur={onBlur} />}
+          {(f) => <Input {...f} name="email" type="email" autoComplete="email" aria-required="true" value={values.email} onChange={onChange} onBlur={onBlur} />}
         </FormField>
         <FormField label={copy.fields.tipo.label} {...fieldProps('tipo')}>
           {(f) => (
-            <Select {...f} name="tipo" required value={values.tipo} onChange={onChange} onBlur={onBlur}>
+            <Select {...f} name="tipo" aria-required="true" value={values.tipo} onChange={onChange} onBlur={onBlur}>
               <option value="">{copy.fields.tipo.placeholder}</option>
               {EVENT_TYPES.map((type) => (
                 <option key={type}>{type}</option>
@@ -155,7 +159,7 @@ export function QuoteForm({ labelledBy, values, onValuesChange, prefillNote, onR
         </FormField>
         <FormField label={copy.fields.fecha.label} {...fieldProps('fecha')}>
           {(f) => (
-            <Input {...f} name="fecha" type="date" min={todayIso()} required value={values.fecha} onChange={onChange} onBlur={onBlur} className="px-3" />
+            <Input {...f} name="fecha" type="date" min={todayIso()} aria-required="true" value={values.fecha} onChange={onChange} onBlur={onBlur} className="px-3" />
           )}
         </FormField>
         <FormField label={copy.fields.inv.label} helper={copy.fields.inv.helper} {...fieldProps('inv')}>
@@ -167,7 +171,7 @@ export function QuoteForm({ labelledBy, values, onValuesChange, prefillNote, onR
               inputMode="numeric"
               min={GUESTS.min}
               max={GUESTS.max}
-              required
+              aria-required="true"
               value={values.inv}
               onChange={onChange}
               onBlur={onBlur}

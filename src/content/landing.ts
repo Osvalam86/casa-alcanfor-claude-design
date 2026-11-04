@@ -1,4 +1,5 @@
 import type { Photo } from '@/lib/unsplash'
+import { NBSP } from '@/lib/srText'
 import type { IconName } from '@/components/atoms/Icon'
 
 /**
@@ -45,7 +46,11 @@ const wide = (id: string, alt: string): Photo => ({ id, alt, width: 1600, height
 export const landing = {
   a11y: {
     skipLink: 'Saltar al contenido',
-    newWindow: ' (se abre en una ventana nueva)',
+    /**
+     * Empieza con un espacio de no separación (NBSP): un espacio normal al inicio de un texto sr-only
+     * se colapsa y NVDA leía "Cómo llegar(se abre…". Se usa igual en aria-label y en texto oculto.
+     */
+    newWindow: `${NBSP}(se abre en una ventana nueva)`,
   },
 
   /** Franja al inicio de la página: el sitio es un caso de estudio, no un negocio real. */
@@ -132,9 +137,10 @@ export const landing = {
   trust: {
     stats: [
       { value: '+1,200', label: 'eventos realizados' }, // DEMO
-      { value: '450', label: 'Hasta 450 invitados' },
-      { value: '4.9', star: true, label: 'en Google (320 reseñas)' }, // DEMO
-    ],
+      /** El número ya está en la etiqueta: el lector solo lee la etiqueta. */
+      { value: '450', label: 'Hasta 450 invitados', sr: 'Hasta 450 invitados' },
+      { value: '4.9', star: true, label: 'en Google (320 reseñas)', sr: 'Calificación: 4.9 de 5, 320 reseñas en Google' }, // DEMO
+    ] satisfies { value: string; label: string; star?: boolean; sr?: string }[],
     note: 'Cifras de ejemplo · demo',
   },
 
@@ -198,7 +204,8 @@ export const landing = {
       { icon: 'plus-circle', title: 'Pensado para todos', description: 'Estacionamiento con valet, rampas, elevador y baños accesibles.' },
     ] satisfies { icon: IconName; title: string; description: string }[],
     rating: '4.9 en Google · 320 reseñas', // DEMO
-    ratingLabel: '5 de 5 estrellas',
+    /** Lo que lee el lector en lugar de las estrellas y la cifra visibles. */
+    ratingSr: 'Calificación: 4.9 de 5, 320 reseñas en Google', // DEMO
   },
 
   spaces: {
@@ -251,6 +258,8 @@ export const landing = {
     lead: 'Precios por invitado con IVA incluido. Personaliza cualquier paquete con tu coordinador.',
     prefix: 'Desde',
     suffix: 'por invitado',
+    /** Precio para lector de pantalla: sin "$", que NVDA lee como dólares. */
+    priceSr: (price: string) => `Desde ${price.replace('$', '')} pesos mexicanos por invitado`,
     cta: 'Cotiza este paquete',
     items: [
       { name: 'Esencial', price: '$690', features: ['Banquete a 3 tiempos', 'Mobiliario estándar', 'Mantelería', 'Audio básico', '5 horas de evento'] },
@@ -264,10 +273,11 @@ export const landing = {
     eyebrow: 'Cómo funciona',
     title: 'Así de fácil es reservar tu fecha',
     steps: [
-      { number: '01', srPrefix: 'Paso 1: ', title: 'Cuéntanos tu idea', description: 'Elige fecha, tipo de evento e invitados.' },
-      { number: '02', srPrefix: 'Paso 2: ', title: 'Visita Casa Alcanfor', description: 'Recorre los espacios y prueba el menú con tu coordinador.' },
-      { number: '03', srPrefix: 'Paso 3: ', title: 'Aparta tu fecha', description: 'Asegúrala con un anticipo del 20% y paga el resto en mensualidades.' },
-      { number: '04', srPrefix: 'Paso 4: ', title: 'Celebra', description: 'Llega, disfruta y deja todo lo demás en nuestras manos.' },
+      // NBSP tras los dos puntos: el espacio normal al final de un texto sr-only se colapsa ("Paso 1:Cuéntanos")
+      { number: '01', srPrefix: `Paso 1:${NBSP}`, title: 'Cuéntanos tu idea', description: 'Elige fecha, tipo de evento e invitados.' },
+      { number: '02', srPrefix: `Paso 2:${NBSP}`, title: 'Visita Casa Alcanfor', description: 'Recorre los espacios y prueba el menú con tu coordinador.' },
+      { number: '03', srPrefix: `Paso 3:${NBSP}`, title: 'Aparta tu fecha', description: 'Asegúrala con un anticipo del 20% y paga el resto en mensualidades.' },
+      { number: '04', srPrefix: `Paso 4:${NBSP}`, title: 'Celebra', description: 'Llega, disfruta y deja todo lo demás en nuestras manos.' },
     ],
   },
 
@@ -297,6 +307,8 @@ export const landing = {
     galleryLabel: 'Galería de fotos',
     tourLabel: 'Recorrido por los espacios',
     counter: (i: number, n: number) => `${i} de ${n}`,
+    /** Anuncio de la región viva al cambiar de foto: posición y descripción. */
+    announce: (i: number, n: number, alt: string) => `${i} de ${n}: ${alt}`,
     close: 'Cerrar',
     prev: 'Foto anterior',
     next: 'Foto siguiente',
@@ -306,6 +318,9 @@ export const landing = {
     title: 'Lo que dicen quienes ya celebraron con nosotros',
     rating: '4.9', // DEMO
     ratingNote: '320 reseñas en Google · demo', // DEMO
+    /** Lo que lee el lector en lugar de la cifra, las estrellas y la nota visibles. */
+    ratingSr: 'Calificación: 4.9 de 5, 320 reseñas en Google, demo', // DEMO
+    /** Calificación de cada testimonio (cada reseña dio 5 estrellas). */
     ratingLabel: '5 de 5 estrellas',
     featured: {
       quote: 'Desde la primera visita supimos que era aquí. Nuestro coordinador estuvo en cada detalle y no tuvimos que preocuparnos por nada.',
@@ -315,8 +330,9 @@ export const landing = {
       photo: photo('1583939003579-730e3918a45a', 'Andrea y Luis besándose el día de su boda'),
     },
     items: [
-      { quote: '“Los XV de mi hija fueron perfectos. Puntuales, atentos y la comida fue lo más comentado.”', author: 'Mariana G.', initials: 'MG', meta: 'XV años' },
-      { quote: '“Organizamos nuestra cena anual para 400 personas y la logística fue impecable.”', author: 'Rodrigo P.', initials: 'RP', meta: 'Evento corporativo' },
+      // Sin comillas en el texto, igual que el destacado: TestimonialQuote las pinta como decoración (aria-hidden)
+      { quote: 'Los XV de mi hija fueron perfectos. Puntuales, atentos y la comida fue lo más comentado.', author: 'Mariana G.', initials: 'MG', meta: 'XV años' },
+      { quote: 'Organizamos nuestra cena anual para 400 personas y la logística fue impecable.', author: 'Rodrigo P.', initials: 'RP', meta: 'Evento corporativo' },
     ],
   },
 
@@ -368,8 +384,7 @@ export const landing = {
     summaryTitle: (n: number) => (n === 1 ? 'Revisa 1 campo para enviar tu solicitud' : `Revisa ${n} campos para enviar tu solicitud`),
     submit: 'Enviar solicitud',
     submitting: 'Enviando…',
-    /** Solo texto: el proyecto no tiene página de aviso de privacidad. */
-    privacy: 'Usamos tus datos solo para responder tu solicitud. Consulta nuestro aviso de privacidad.',
+    privacy: 'Usamos tus datos solo para responder tu solicitud.',
     success: {
       title: (firstName: string) => `¡Listo, ${firstName}! Recibimos tu solicitud.`,
       body: 'Tu coordinador te escribirá por WhatsApp en menos de 2 horas hábiles.',
@@ -408,7 +423,5 @@ export const landing = {
       { label: 'TikTok', href: 'https://tiktok.com' }, // DEMO: URL genérica
     ],
     copyright: '© 2026 Casa Alcanfor',
-    /** Solo texto: el proyecto no tiene página de aviso de privacidad. */
-    privacy: 'Aviso de privacidad',
   },
 } as const

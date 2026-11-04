@@ -33,9 +33,10 @@ export function LandingTemplate({ notice, header, mobileMenu, sections, quoteFor
       {notice}
       {header}
       {mobileMenu}
-      <main id="main" tabIndex={-1}>
+      {/* Sin tabIndex: los enlaces internos llevan el foco al encabezado del destino (useAnchorFocus) */}
+      <main id="main">
         {sections}
-        <section id="contacto" tabIndex={-1} aria-labelledby={CONTACT_HEADING_ID} className="bg-surface-alt py-section">
+        <section id="contacto" aria-labelledby={CONTACT_HEADING_ID} className="bg-surface-alt py-section">
           <div className="mx-auto max-w-page px-gutter">
             <div className="mb-quote flex flex-col gap-3">
               <Eyebrow data-reveal="">{contact.eyebrow}</Eyebrow>

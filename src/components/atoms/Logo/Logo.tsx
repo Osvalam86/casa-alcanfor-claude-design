@@ -1,5 +1,7 @@
 import type { ComponentProps } from 'react'
 import { cn } from '@/lib/cn'
+import { SR_SEPARATOR } from '@/lib/srText'
+import { VisuallyHidden } from '@/components/atoms/VisuallyHidden'
 
 type LogoProps = Omit<ComponentProps<'span'>, 'children'> & {
   name: string
@@ -38,7 +40,11 @@ export function Logo({ name, monogram, tagline, tone = 'light', size = 'md', cla
           {name}
         </span>
         {tagline && (
-          <span className="mt-1.25 font-sans text-micro font-semibold uppercase text-text-muted">{tagline}</span>
+          <>
+            {/* Nombre y lema van en líneas distintas: sin separador, NVDA leía "Casa AlcanforJARDÍN & SALÓN" */}
+            <VisuallyHidden>{SR_SEPARATOR}</VisuallyHidden>
+            <span className="mt-1.25 font-sans text-micro font-semibold uppercase text-text-muted">{tagline}</span>
+          </>
         )}
       </span>
     </span>

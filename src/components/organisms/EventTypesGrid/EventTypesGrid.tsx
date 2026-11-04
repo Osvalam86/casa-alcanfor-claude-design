@@ -13,7 +13,7 @@ type EventTypesGridProps = {
 export function EventTypesGrid({ onSelectFilter }: EventTypesGridProps) {
   const { events } = landing
   return (
-    <section id="eventos" tabIndex={-1} aria-labelledby="ev-h" className="bg-surface-alt py-section">
+    <section id="eventos" aria-labelledby="ev-h" className="bg-surface-alt py-section">
       <div className="mx-auto max-w-page px-gutter">
         <div className="mb-head flex flex-wrap items-end justify-between gap-6">
           <div className="flex max-w-160 flex-col gap-3">

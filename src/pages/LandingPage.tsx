@@ -3,6 +3,7 @@ import { landing, type GalleryFilter } from '@/content/landing'
 import { formatDateLong } from '@/lib/formatDate'
 import { emptyQuote, quoteFieldId, type QuoteValues } from '@/lib/validation'
 import { useReveal } from '@/lib/hooks/useReveal'
+import { focusHeading, useAnchorFocus } from '@/lib/hooks/useAnchorFocus'
 import { LandingTemplate, CONTACT_HEADING_ID } from '@/components/templates/LandingTemplate'
 import { ProjectNotice } from '@/components/organisms/ProjectNotice'
 import { SiteHeader } from '@/components/organisms/SiteHeader'
@@ -28,15 +29,19 @@ import { WhatsAppFloatingButton } from '@/components/organisms/WhatsAppFloatingB
 
 const MENU_ID = 'menu-movil'
 
-/** Lleva scroll y foco a una sección (o a un campo dentro de ella) sin depender del salto nativo del ancla. */
+/**
+ * Lleva scroll y foco a una sección sin depender del salto nativo del ancla (el menú móvil se cierra
+ * antes). El foco va a un campo si se pide o, si no, al encabezado de la sección.
+ */
 function goTo(sectionId: string, focusId?: string) {
   const section = document.getElementById(sectionId)
   if (!section) return
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   section.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' })
   window.history.replaceState(null, '', `#${sectionId}`)
-  const target = (focusId && document.getElementById(focusId)) || section
-  target.focus({ preventScroll: true })
+  const field = focusId ? document.getElementById(focusId) : null
+  if (field) field.focus({ preventScroll: true })
+  else focusHeading(section)
 }
 
 /**
@@ -45,6 +50,7 @@ function goTo(sectionId: string, focusId?: string) {
  */
 export function LandingPage() {
   useReveal()
+  useAnchorFocus()
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [filter, setFilter] = useState<GalleryFilter>('Todos')

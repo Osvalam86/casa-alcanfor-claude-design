@@ -16,17 +16,31 @@ test.beforeEach(async ({ page }) => {
   await page.waitForLoadState('networkidle')
 })
 
-test('skip link es el primer enfocable y lleva a <main>', async ({ page }) => {
+test('skip link es el primer enfocable y lleva el foco al h1 de <main>', async ({ page }) => {
   await page.keyboard.press('Tab')
   expect(await activeName(page)).toBe('Saltar al contenido')
   await page.keyboard.press('Enter')
-  await expect(page.locator('main')).toBeFocused()
+  // El foco va al encabezado, no al <main> entero (NVDA leía todo el contenido de corrido)
+  await expect(page.locator('main h1')).toBeFocused()
+})
+
+test('menú principal: un enlace lleva el foco al h2 de la sección', async ({ page }) => {
+  test.skip(isMobile(page), 'La navegación del header solo se ve desde lg')
+  await page.getByRole('banner').getByRole('navigation').getByRole('link', { name: 'Preguntas' }).click()
+  await expect(page.locator('#preguntas h2')).toBeFocused()
+})
+
+test('menú móvil: al abrir, el foco va a "Cerrar menú"', async ({ page }) => {
+  test.skip(!isMobile(page), 'El botón de menú solo existe por debajo de lg')
+  await tabTo(page, 'Abrir menú')
+  await page.keyboard.press('Enter')
+  await expect(page.getByRole('dialog', { name: 'Menú' }).getByRole('button', { name: 'Cerrar menú' })).toBeFocused()
 })
 
 test('logo: el nombre accesible empieza con el texto visible (WCAG 2.5.3)', async ({ page }) => {
   const home = page.getByRole('banner').getByRole('link', { name: /inicio$/ })
-  // El sr-only (absolute) es bloque para Chrome: mete un espacio antes de la coma; no cambia lo que se lee.
-  await expect(home).toHaveAccessibleName(/^Casa Alcanfor Jardín & Salón ?, inicio$/)
+  // Los sr-only (absolute) son bloques: el cálculo del nombre mete espacios junto a las comas; no cambia lo que se lee.
+  await expect(home).toHaveAccessibleName(/^Casa Alcanfor\s*,\s*Jardín & Salón\s*,\s*inicio$/)
 })
 
 test('menú móvil: Tab atrapado, Escape y regreso del foco', async ({ page }) => {
@@ -47,7 +61,7 @@ test('menú móvil: Tab atrapado, Escape y regreso del foco', async ({ page }) =
   await expect(opener).toHaveAttribute('aria-expanded', 'false')
 })
 
-test('menú móvil: un enlace cierra el menú y enfoca la sección', async ({ page }) => {
+test('menú móvil: un enlace cierra el menú y enfoca el h2 de la sección', async ({ page }) => {
   test.skip(!isMobile(page), 'El botón de menú solo existe por debajo de lg')
   await tabTo(page, 'Abrir menú')
   await page.keyboard.press('Enter')
@@ -56,7 +70,7 @@ test('menú móvil: un enlace cierra el menú y enfoca la sección', async ({ pa
   await dialog.getByRole('link', { name: 'Preguntas' }).focus()
   await page.keyboard.press('Enter')
   await expect(dialog).toBeHidden()
-  await expect(page.locator('#preguntas')).toBeFocused()
+  await expect(page.locator('#preguntas h2')).toBeFocused()
 })
 
 test('lightbox del recorrido: Tab atrapado, flechas, Escape y regreso del foco', async ({ page }) => {
@@ -86,19 +100,34 @@ test('lightbox de galería: alt descriptivo sin duplicar en figcaption', async (
 
   const dialog = page.getByRole('dialog', { name: 'Galería de fotos' })
   await expect(dialog).toBeVisible()
-  await expect(dialog.getByText('1 de', { exact: false })).toBeVisible()
+  await expect(dialog.getByText(/^1 de \d+$/)).toBeVisible()
   const img = dialog.getByRole('img')
   const alt = await img.getAttribute('alt')
   expect(alt?.length ?? 0).toBeGreaterThan(5)
   // La figcaption muestra el mismo texto, pero queda fuera del árbol de accesibilidad.
   await expect(dialog.locator('figcaption')).toHaveAttribute('aria-hidden', 'true')
-  await expect(dialog.getByText(alt ?? '')).toBeVisible()
+  await expect(dialog.locator('figcaption')).toHaveText(alt ?? '')
 
   await page.keyboard.press('ArrowRight')
-  await expect(dialog.getByText('2 de', { exact: false })).toBeVisible()
+  await expect(dialog.getByText(/^2 de \d+$/)).toBeVisible()
   await page.keyboard.press('Escape')
   await expect(dialog).toBeHidden()
   await expect(item).toBeFocused()
+})
+
+test('lightbox: la región viva anuncia posición y descripción, y no reusa la foto anterior', async ({ page }) => {
+  await page.getByRole('button', { name: /^Ampliar foto/ }).first().click()
+  const dialog = page.getByRole('dialog', { name: 'Galería de fotos' })
+  await expect(dialog).toBeVisible()
+  const img = dialog.getByRole('img')
+  await img.evaluate((el) => el.setAttribute('data-previous', ''))
+
+  await page.keyboard.press('ArrowRight')
+  const alt = (await img.getAttribute('alt')) ?? ''
+  const escaped = alt.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  await expect(dialog.locator('[aria-live="polite"]')).toHaveText(new RegExp(`^2 de \\d+: ${escaped}$`))
+  // Un <img> nuevo por foto: mientras carga no se ve la anterior
+  await expect(dialog.locator('img[data-previous]')).toHaveCount(0)
 })
 
 test('tabs de espacios: flechas, Inicio y Fin con roving tabindex', async ({ page }) => {

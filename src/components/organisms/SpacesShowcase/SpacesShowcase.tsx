@@ -7,6 +7,8 @@ import { Heading } from '@/components/atoms/Heading'
 import { Button } from '@/components/atoms/Button'
 import { ShapedImage } from '@/components/atoms/ShapedImage'
 import { SpaceSpec } from '@/components/atoms/SpaceSpec'
+import { VisuallyHidden } from '@/components/atoms/VisuallyHidden'
+import { SR_SEPARATOR } from '@/lib/srText'
 
 type SpacesShowcaseProps = {
   activeIndex: number
@@ -42,7 +44,7 @@ export function SpacesShowcase({ activeIndex, onChange, onVisit }: SpacesShowcas
   }
 
   return (
-    <section id="espacios" tabIndex={-1} aria-labelledby="sp-h" className="py-section">
+    <section id="espacios" aria-labelledby="sp-h" className="py-section">
       <div className="mx-auto max-w-page px-gutter">
         <div className="mb-head flex max-w-170 flex-col gap-3">
           <Eyebrow data-reveal="">{spaces.eyebrow}</Eyebrow>
@@ -73,11 +75,14 @@ export function SpacesShowcase({ activeIndex, onChange, onVisit }: SpacesShowcas
                 onClick={() => onChange(index)}
                 onKeyDown={onKeyDown}
                 className={cn(
-                  'mr-6 flex min-h-14 flex-none cursor-pointer flex-col items-start gap-1 border-0 border-b-2 bg-transparent px-1 py-3 font-sans text-body font-semibold leading-tight transition-colors duration-base',
+                  // relative: contiene el separador sr-only (absolute); sin él ensanchaba la página a 320 px
+                  'relative mr-6 flex min-h-14 flex-none cursor-pointer flex-col items-start gap-1 border-0 border-b-2 bg-transparent px-1 py-3 font-sans text-body font-semibold leading-tight transition-colors duration-base',
                   selected ? 'border-accent text-text' : 'border-transparent text-text-muted hover:text-text',
                 )}
               >
-                {item.name}{' '}
+                {item.name}
+                {/* El botón es flex en columna: el espacio normal se perdía y NVDA leía "Salón Gran AlcanforHasta 450 invitados" */}
+                <VisuallyHidden>{SR_SEPARATOR}</VisuallyHidden>
                 <span className="font-sans text-xs font-normal leading-tight text-text-muted">{item.capacity}</span>
               </button>
             )

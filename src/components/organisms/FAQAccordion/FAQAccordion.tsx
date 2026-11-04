@@ -19,7 +19,7 @@ export function FAQAccordion() {
     })
 
   return (
-    <section id="preguntas" tabIndex={-1} aria-labelledby="fq-h" className="py-section">
+    <section id="preguntas" aria-labelledby="fq-h" className="py-section">
       <div className="mx-auto grid max-w-page grid-fit-340 items-start gap-split px-gutter">
         <div className="flex flex-col gap-5 md:sticky md:top-30">
           <Eyebrow data-reveal="">{faq.eyebrow}</Eyebrow>

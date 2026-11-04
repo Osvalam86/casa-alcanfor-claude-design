@@ -78,23 +78,57 @@ Las decisiones D1–D12 y los ajustes de accesibilidad se aprobaron en el plan d
 
 El objetivo es **WCAG 2.2 AA**. Este README no afirma conformidad: dice qué se probó, cómo y qué queda abierto.
 
-**Automático.** `pnpm test:e2e` construye el sitio y lo prueba con `vite preview`, nunca contra el servidor de desarrollo, en Chromium (Playwright 1.64.1) a 390 y 1440 px. Resultado al cierre: **53 casos pasan y 7 se omiten a propósito** (los que solo aplican a un ancho, como el menú móvil en escritorio).
+**Automático.** `pnpm test:e2e` construye el sitio y lo prueba con `vite preview`, nunca contra el servidor de desarrollo, en Chromium (Playwright 1.64.1) a 390 y 1440 px. Resultado al cierre: **74 casos, 65 pasan y 9 se omiten a propósito** (los que solo aplican a un ancho, como el menú móvil en escritorio).
 
 - **axe-core 4.14.0** con las reglas `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`, `wcag22aa` y `best-practice` en `/` y `/design-system.html`, a los dos anchos: 0 violaciones de cualquier impacto, incluida `region` (todo el contenido vive en landmarks).
-- **Teclado:** el skip link es el primer enfocable y lleva a `<main>`; menú móvil y lightbox atrapan Tab, cierran con Escape y devuelven el foco; tabs de espacios con flechas, Inicio y Fin; FAQ con Enter y Espacio; el formulario vacío lleva el foco al resumen de errores y cada enlace al campo.
+- **Teclado:** el skip link es el primer enfocable y lleva el foco al `h1`; los enlaces del menú, al `h2` de su sección; el menú móvil abre con el foco en «Cerrar menú»; menú móvil y lightbox atrapan Tab, cierran con Escape y devuelven el foco; tabs de espacios con flechas, Inicio y Fin; FAQ con Enter y Espacio; el formulario vacío lleva el foco al resumen de errores y cada enlace al campo.
 - **Foco no tapado (2.4.11):** ningún elemento enfocado queda bajo el header, la barra móvil ni el botón de WhatsApp.
 - **Anclas:** cada sección queda justo bajo el header, desde arriba y con la página ya desplazada.
 - **Reflow:** sin scroll horizontal a 320 y 640 px, y con zoom al 200 %.
 - **Movimiento:** con `prefers-reduced-motion: reduce` se desactivan el reveal, el parallax y las transiciones.
-- **Anuncios:** el NumberStepper anuncia el nuevo valor en una región viva; el logo tiene un nombre accesible que empieza con el texto visible (2.5.3).
+- **Anuncios:** el NumberStepper anuncia el nuevo valor en una región viva; el lightbox anuncia posición y descripción («2 de 12: …») y cambia de `<img>` en cada foto; el logo tiene un nombre accesible que empieza con el texto visible (2.5.3).
+- **Lo que oye el lector** ([`e2e/screen-reader.spec.ts`](e2e/screen-reader.spec.ts)): lee por CDP los nodos de texto del árbol de accesibilidad de Chrome, los mismos que NVDA recorre en modo exploración, y comprueba que las piezas lleguen separadas (logo, cifras, pasos, pestañas, testimonios, enlaces que abren otra ventana), que calificación y precios sean una sola frase coherente, que nada se exponga como inválido antes del primer envío y que las citas no lleven comillas en el texto.
 
 **Contraste calculado** desde los hex de `theme.css` (fórmula de WCAG, no medido sobre el render): texto sobre el fondo principal 15.51:1, texto secundario 8.83:1, acento y enlaces 5.54:1, bordes de controles 3.76:1 y la franja de aviso 8.02:1.
 
+### Pruebas manuales
+
+**Herramientas:** NVDA 2026.3 con Chrome 156.0.8078.80 en Windows 11 26H2, a ancho de escritorio y en ventana angosta.
+
+**Funciona bien:**
+
+- Landmarks con nombre y jerarquía de encabezados: un `h1`, 13 `h2` y los `h3` anidados.
+- Lista de enlaces descriptiva.
+- Pestañas de espacios («1 de 3», con flechas), FAQ (expandido y contraído) y filtros de la galería («5 fotos de Bodas», pulsado).
+- Lightbox y «Recorre el salón»: nombre, contador y foco de regreso.
+- Ciclo del foco en el menú móvil.
+- Campos con etiqueta y ayuda, resumen de errores con enlaces, estado «procesando» y foco al mensaje de éxito.
+
+**Corregido tras la prueba manual:**
+
+| Hallazgo | Corrección |
+|---|---|
+| La calificación se leía «4.95 de 5 estrellas320 reseñas»: el 4.9 visible se unía al texto oculto | Estrellas y cifras con `aria-hidden` y una sola frase oculta: «Calificación: 4.9 de 5, 320 reseñas en Google», en la barra del hero, la sección de valor y el resumen de testimonios |
+| «Tipo de evento» y «Fecha tentativa» se anunciaban «entrada inválida» desde la carga | `aria-required` en lugar de `required`: con `required` nativo, Chrome expone el select y la fecha vacíos como inválidos. `aria-invalid` solo aparece después del primer envío, también al salir de un campo |
+| «Saltar al contenido» y los enlaces del menú dejaban el foco en `<main>` o en la sección entera, que NVDA leía de corrido | El foco va al `h1` (skip link) o al `h2` de la sección, después del salto nativo del ancla, sin mover la alineación bajo el header |
+| El menú móvil abría con el foco en «Consulta disponibilidad», al final | El foco inicial va a «Cerrar menú» |
+| El lightbox solo anunciaba «2 de 12» | Anuncia «2 de 12: [descripción de la foto]» |
+| Al cambiar de foto en el lightbox se veía un instante la anterior | Un `<img>` nuevo por foto: mientras carga se ve el fondo, no la foto previa |
+| Textos pegados en modo exploración: «Casa AlcanforJARDÍN & SALÓN», «+1,200eventos realizados», «14años de experiencia», «Paso 1:Cuéntanos tu idea», «Andrea y LuisBoda», «Salón Gran AlcanforHasta 450 invitados», «Cómo llegar(se abre…» | Separadores ocultos con espacio de no separación (U+00A0), que sí llega al árbol de accesibilidad; un espacio normal al borde de un texto `sr-only` se colapsa |
+| «450Hasta 450 invitados» repetía el número | El lector solo oye «Hasta 450 invitados» |
+| «DESDE$690por invitado», con «$» leído como dólares | «Desde 690 pesos mexicanos por invitado» |
+| «Más elegido» se leía antes de «Celebración» y parecía de la tarjeta anterior | Después del título en el DOM, en el mismo lugar en pantalla (`order-first`) |
+| El primer testimonio no tenía comillas y los otros dos sí | Ninguna cita lleva comillas en el texto; en pantalla siguen como decoración (`aria-hidden`) |
+| «Consulta nuestro aviso de privacidad» y «Aviso de privacidad» seguían sin enlace | Retirados del formulario y del footer |
+
+**Diferencia propia del lector**, anotada sin corregir: en el lightbox, con NVDA en modo exploración, las flechas no cambian de foto porque NVDA las intercepta; se usan los botones «Foto anterior» y «Foto siguiente». Sin lector de pantalla, las flechas funcionan.
+
 **Queda abierto:**
 
+- Sin volver a probar con NVDA después de estas correcciones: están verificadas en el árbol de accesibilidad de Chrome (`e2e/screen-reader.spec.ts`), no de oído.
+- Sin probar: NVDA con Firefox, TalkBack, VoiceOver y alto contraste de Windows.
 - axe corre sobre la página cargada, no con los diálogos abiertos ni con el formulario en estado de error.
-- Sin pruebas manuales documentadas con lector de pantalla (NVDA, VoiceOver, TalkBack) ni con alto contraste de Windows.
-- Solo Chromium: Firefox y Safari sin probar.
+- Solo Chromium en las pruebas automáticas: Firefox y Safari sin probar.
 
 ---
 
@@ -153,7 +187,7 @@ casa-alcanfor-claude-design/
 │   ├── content/            # landing.ts y designSystem.ts: todo el copy, tipado
 │   ├── lib/                # cn, validación, envío simulado, JSON-LD, Unsplash y hooks
 │   └── styles/             # theme.css (tokens), fonts.css e index.css
-├── e2e/                    # Playwright + axe: anclas, teclado, layout y auditoría
+├── e2e/                    # Playwright + axe: anclas, teclado, layout, auditoría y lo que oye el lector
 ├── design/                 # export de Claude Design (sin su runtime), solo referencia
 ├── docs/                   # cover.jpg (portada de este README, diseñada en Claude Design) y screens/ (capturas a 2x)
 ├── public/                 # íconos, imagen para redes (og-image.jpg, diseñada en Claude Design), site.webmanifest y robots.txt

@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react'
 import { cn } from '@/lib/cn'
+import { SR_SPACE } from '@/lib/srText'
 import { VisuallyHidden } from '@/components/atoms/VisuallyHidden'
 
 type RatingStarsProps = Omit<ComponentProps<'span'>, 'children'> & {
@@ -15,7 +16,8 @@ export function RatingStars({ label, count = 5, tone = 'accent', className, ...p
       <span aria-hidden="true" className="tracking-stars">
         {'★'.repeat(count)}
       </span>
-      {label && <VisuallyHidden>{label}</VisuallyHidden>}
+      {/* Espacios de no separación a los lados: el texto oculto no se pega a lo que lo rodea */}
+      {label && <VisuallyHidden>{`${SR_SPACE}${label}${SR_SPACE}`}</VisuallyHidden>}
     </span>
   )
 }

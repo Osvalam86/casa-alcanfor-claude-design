@@ -5,6 +5,7 @@ import { Button } from '@/components/atoms/Button'
 import { ShapedImage } from '@/components/atoms/ShapedImage'
 import { StatItem } from '@/components/atoms/StatItem'
 import { RatingStars } from '@/components/atoms/RatingStars'
+import { VisuallyHidden } from '@/components/atoms/VisuallyHidden'
 import { FeatureItem } from '@/components/molecules/FeatureItem'
 
 /** Superficie oscura: data-surface="inverse" cambia el anillo de foco a dorado claro. */
@@ -35,8 +36,12 @@ export function ValueProposition() {
             <Button href={cta.contactHref} variant="inverse">
               {cta.availability}
             </Button>
+            {/* Estrellas y cifra visibles con aria-hidden: el lector oye una sola frase coherente con la calificación */}
             <p className="m-0 font-sans text-sm font-medium text-text-inverse-muted">
-              <RatingStars tone="inverse" label={value.ratingLabel} /> {value.rating}
+              <span aria-hidden="true">
+                <RatingStars tone="inverse" /> {value.rating}
+              </span>
+              <VisuallyHidden>{value.ratingSr}</VisuallyHidden>
             </p>
           </div>
         </div>

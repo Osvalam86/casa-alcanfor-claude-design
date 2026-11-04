@@ -24,7 +24,7 @@ function shapeFor(photo: GalleryPhoto, index: number) {
 export function GalleryMasonry({ filter, photos, onFilter, onOpen }: GalleryMasonryProps) {
   const { gallery } = landing
   return (
-    <section id="galeria" tabIndex={-1} aria-labelledby="ga-h" className="bg-surface-alt py-section">
+    <section id="galeria" aria-labelledby="ga-h" className="bg-surface-alt py-section">
       <div className="mx-auto max-w-page px-gutter">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
           <div className="flex flex-col gap-3">

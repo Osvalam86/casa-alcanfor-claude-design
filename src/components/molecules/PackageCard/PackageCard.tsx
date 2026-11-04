@@ -11,6 +11,8 @@ type PackageCardProps = {
   pricePrefix: string
   price: string
   priceSuffix: string
+  /** Precio completo para lector de pantalla (moneda en palabras, sin "$"). */
+  priceSr?: string
   features: readonly string[]
   ctaLabel: string
   onCta?: MouseEventHandler<HTMLButtonElement>
@@ -26,6 +28,7 @@ export function PackageCard({
   pricePrefix,
   price,
   priceSuffix,
+  priceSr,
   features,
   ctaLabel,
   onCta,
@@ -44,16 +47,18 @@ export function PackageCard({
         className,
       )}
     >
-      {highlighted && badge && (
-        <Badge className="-mt-8 self-center">{badge}</Badge>
-      )}
       <Heading as="h3" size="display-sm" tone={highlighted ? 'inverse' : 'default'} className={highlighted ? 'text-center' : undefined}>
         {name}
       </Heading>
+      {/* Después del título en el DOM (antes se leía como parte de la tarjeta anterior); order-first lo deja arriba */}
+      {highlighted && badge && (
+        <Badge className="order-first -mt-8 self-center">{badge}</Badge>
+      )}
       <PriceTag
         prefix={pricePrefix}
         amount={price}
         suffix={priceSuffix}
+        srText={priceSr}
         tone={highlighted ? 'inverse' : 'default'}
         emphasis={highlighted}
         align={highlighted ? 'center' : 'start'}

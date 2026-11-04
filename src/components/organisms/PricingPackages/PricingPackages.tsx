@@ -11,7 +11,7 @@ type PricingPackagesProps = {
 export function PricingPackages({ onQuote }: PricingPackagesProps) {
   const { packages } = landing
   return (
-    <section id="paquetes" tabIndex={-1} aria-labelledby="pk-h" className="bg-surface-alt py-section">
+    <section id="paquetes" aria-labelledby="pk-h" className="bg-surface-alt py-section">
       <div className="mx-auto max-w-page px-gutter">
         <div className="mx-auto mb-head flex max-w-180 flex-col items-center gap-4 text-center">
           <Eyebrow data-reveal="">{packages.eyebrow}</Eyebrow>
@@ -30,6 +30,7 @@ export function PricingPackages({ onQuote }: PricingPackagesProps) {
               pricePrefix={packages.prefix}
               price={item.price}
               priceSuffix={packages.suffix}
+              priceSr={packages.priceSr(item.price)}
               features={item.features}
               ctaLabel={packages.cta}
               highlighted={'highlighted' in item}

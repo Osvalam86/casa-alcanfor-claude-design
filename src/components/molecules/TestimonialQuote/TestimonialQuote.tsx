@@ -3,6 +3,8 @@ import { photoProps, type Photo } from '@/lib/unsplash'
 import { ShapedImage } from '@/components/atoms/ShapedImage'
 import { Avatar } from '@/components/atoms/Avatar'
 import { RatingStars } from '@/components/atoms/RatingStars'
+import { VisuallyHidden } from '@/components/atoms/VisuallyHidden'
+import { SR_SEPARATOR } from '@/lib/srText'
 
 type TestimonialQuoteProps = {
   quote: string
@@ -28,6 +30,8 @@ export function TestimonialQuote({ quote, author, initials, meta, ratingLabel, p
       </Avatar>
       <span className="flex flex-col gap-0.5">
         <span className="font-sans text-ui font-semibold leading-snug text-text">{author}</span>
+        {/* Autor y detalle van en líneas distintas: sin separador NVDA leía "Andrea y LuisBoda" */}
+        <VisuallyHidden>{SR_SEPARATOR}</VisuallyHidden>
         <span className="font-sans text-sm leading-snug text-text-muted">
           {meta} · <RatingStars label={ratingLabel} />
         </span>
@@ -57,7 +61,12 @@ export function TestimonialQuote({ quote, author, initials, meta, ratingLabel, p
 
   return (
     <figure className={cn('m-0 flex flex-col gap-5 py-2', className)}>
-      <blockquote className="m-0 font-display text-quote-sm font-medium text-text">{quote}</blockquote>
+      {/* Comillas decorativas, como la grande del destacado: el texto de todas las citas va sin comillas */}
+      <blockquote className="m-0 font-display text-quote-sm font-medium text-text">
+        <span aria-hidden="true">“</span>
+        {quote}
+        <span aria-hidden="true">”</span>
+      </blockquote>
       {caption}
     </figure>
   )

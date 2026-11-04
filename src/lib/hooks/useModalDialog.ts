@@ -1,4 +1,4 @@
-import { useEffect, useRef, type KeyboardEvent, type MouseEvent, type SyntheticEvent } from 'react'
+import { useEffect, useRef, type KeyboardEvent, type MouseEvent, type RefObject, type SyntheticEvent } from 'react'
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
@@ -7,8 +7,11 @@ const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), selec
  * cierre con Escape (evento cancel), pero Chrome deja que Tab salga del diálogo hacia la interfaz del
  * navegador; onKeyDown cierra ese ciclo (CLAUDE.md §6: focus trap). Al cerrar, el foco vuelve
  * explícitamente al control que lo abrió.
+ *
+ * `initialFocus`: control que recibe el foco al abrir. Sin él decide Chrome, que en el menú móvil lo
+ * dejaba en "Consulta disponibilidad", al final del diálogo.
  */
-export function useModalDialog(open: boolean, onClose: () => void) {
+export function useModalDialog(open: boolean, onClose: () => void, initialFocus?: RefObject<HTMLElement | null>) {
   const ref = useRef<HTMLDialogElement>(null)
   const opener = useRef<HTMLElement | null>(null)
 
@@ -18,11 +21,12 @@ export function useModalDialog(open: boolean, onClose: () => void) {
     if (open && !dialog.open) {
       opener.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
       dialog.showModal()
+      initialFocus?.current?.focus()
     } else if (!open && dialog.open) {
       dialog.close()
       opener.current?.focus()
     }
-  }, [open])
+  }, [open, initialFocus])
 
   const onCancel = (event: SyntheticEvent<HTMLDialogElement>) => {
     event.preventDefault()

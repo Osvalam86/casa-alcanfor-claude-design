@@ -1,4 +1,4 @@
-import type { MouseEvent } from 'react'
+import { useRef, type MouseEvent } from 'react'
 import { landing } from '@/content/landing'
 import { useModalDialog } from '@/lib/hooks/useModalDialog'
 import { NavLink } from '@/components/atoms/NavLink'
@@ -17,9 +17,11 @@ type MobileMenuProps = {
 /**
  * <dialog> modal nativo: fondo inerte y Escape resueltos por showModal(); el ciclo de Tab, por useModalDialog.
  * Nombre accesible con aria-label ("Menú"); el nombre de marca visible es solo decorativo aquí.
+ * Al abrir, el foco va a "Cerrar menú", el primer control del diálogo.
  */
 export function MobileMenu({ id, open, onClose, onNavigate, onVisit }: MobileMenuProps) {
-  const { ref, onCancel, onBackdropClick, onKeyDown } = useModalDialog(open, onClose)
+  const closeRef = useRef<HTMLButtonElement>(null)
+  const { ref, onCancel, onBackdropClick, onKeyDown } = useModalDialog(open, onClose, closeRef)
   const { nav, brand, cta } = landing
 
   const go = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -42,7 +44,7 @@ export function MobileMenu({ id, open, onClose, onNavigate, onVisit }: MobileMen
           <span aria-hidden="true" className="font-display text-spec font-semibold leading-none">
             {brand.name}
           </span>
-          <IconButton icon="close" label={nav.closeMenu} onClick={onClose} />
+          <IconButton ref={closeRef} icon="close" label={nav.closeMenu} onClick={onClose} />
         </div>
 
         <nav aria-label={nav.menuNavLabel}>

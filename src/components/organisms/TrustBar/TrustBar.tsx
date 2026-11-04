@@ -11,6 +11,7 @@ export function TrustBar() {
           <StatItem
             key={stat.label}
             label={stat.label}
+            srText={'sr' in stat ? stat.sr : undefined}
             value={
               'star' in stat ? (
                 <>
