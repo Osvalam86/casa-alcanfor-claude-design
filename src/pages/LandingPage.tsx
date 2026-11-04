@@ -4,6 +4,7 @@ import { formatDateLong } from '@/lib/formatDate'
 import { emptyQuote, quoteFieldId, type QuoteValues } from '@/lib/validation'
 import { useReveal } from '@/lib/hooks/useReveal'
 import { LandingTemplate, CONTACT_HEADING_ID } from '@/components/templates/LandingTemplate'
+import { ProjectNotice } from '@/components/organisms/ProjectNotice'
 import { SiteHeader } from '@/components/organisms/SiteHeader'
 import { MobileMenu } from '@/components/organisms/MobileMenu'
 import { Hero } from '@/components/organisms/Hero'
@@ -98,6 +99,7 @@ export function LandingPage() {
 
   return (
     <LandingTemplate
+      notice={<ProjectNotice />}
       header={<SiteHeader menuId={MENU_ID} menuOpen={menuOpen} onOpenMenu={() => setMenuOpen(true)} onVisit={onVisit} />}
       mobileMenu={
         <MobileMenu id={MENU_ID} open={menuOpen} onClose={() => setMenuOpen(false)} onNavigate={onMenuNavigate} onVisit={onVisit} />

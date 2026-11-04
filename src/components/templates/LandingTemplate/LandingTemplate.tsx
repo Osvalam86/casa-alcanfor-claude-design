@@ -8,6 +8,8 @@ import { SkipLink } from '@/components/atoms/SkipLink'
 export const CONTACT_HEADING_ID = 'ct-h'
 
 type LandingTemplateProps = {
+  /** Franja de aviso antes del header; no es fija. */
+  notice: ReactNode
   header: ReactNode
   mobileMenu: ReactNode
   /** Secciones de <main> en orden, antes de contacto. */
@@ -20,14 +22,15 @@ type LandingTemplateProps = {
 }
 
 /**
- * Esqueleto de la página: skip link como primer enfocable → header (banner) → <main> único →
+ * Esqueleto de la página: skip link como primer enfocable → aviso (complementary) → header (banner) → <main> único →
  * footer (contentinfo, con las capas fijas al final) → diálogos. Alterna fondos claro / alterno / oscuro según el orden de secciones.
  */
-export function LandingTemplate({ header, mobileMenu, sections, quoteForm, location, footer, overlays }: LandingTemplateProps) {
+export function LandingTemplate({ notice, header, mobileMenu, sections, quoteForm, location, footer, overlays }: LandingTemplateProps) {
   const { a11y, contact } = landing
   return (
     <>
       <SkipLink href="#main">{a11y.skipLink}</SkipLink>
+      {notice}
       {header}
       {mobileMenu}
       <main id="main" tabIndex={-1}>

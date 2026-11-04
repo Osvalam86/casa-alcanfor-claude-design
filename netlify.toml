@@ -1,0 +1,30 @@
+# Despliegue en Netlify.
+# VITE_SITE_URL (dominio público, sin "/" final) se define en Site configuration → Environment variables,
+# no aquí: con valor, el build agrega canonical, og:url, sitemap.xml y la línea Sitemap de robots.txt.
+
+[build]
+  command = "pnpm build"
+  publish = "dist"
+
+[build.environment]
+  # Las mismas versiones con las que se construyó y probó el proyecto
+  NODE_VERSION = "26"
+  PNPM_VERSION = "11"
+
+# Sin redirecciones: es una sola página con anclas (#eventos, #contacto…), sin rutas del lado del cliente.
+# /design-system.html es un archivo real del build. Un fallback "/* → /index.html 200" convertiría
+# cualquier URL inexistente en la landing con estado 200, así que no se agrega.
+
+# Proyecto conceptual: ninguna respuesta se indexa (refuerza el <meta name="robots" content="noindex">).
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Vite pone un hash en los nombres de /assets: se pueden guardar en caché para siempre.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

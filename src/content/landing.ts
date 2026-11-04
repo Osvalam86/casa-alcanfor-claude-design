@@ -45,6 +45,12 @@ export const landing = {
     newWindow: ' (se abre en una ventana nueva)',
   },
 
+  /** Franja al inicio de la página: el sitio es un caso de estudio, no un negocio real. */
+  projectNotice: {
+    label: 'Aviso del proyecto',
+    text: 'Proyecto conceptual · Negocio, datos y reseñas ficticios',
+  },
+
   brand: {
     name: 'Casa Alcanfor',
     monogram: 'CA',
