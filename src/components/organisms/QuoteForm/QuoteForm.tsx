@@ -19,7 +19,6 @@ import { Button } from '@/components/atoms/Button'
 import { Heading } from '@/components/atoms/Heading'
 import { Icon } from '@/components/atoms/Icon'
 import { Notice } from '@/components/atoms/Notice'
-import { TextLink } from '@/components/atoms/TextLink'
 import { FormField } from '@/components/molecules/FormField'
 import { ErrorSummary } from '@/components/molecules/ErrorSummary'
 
@@ -186,11 +185,7 @@ export function QuoteForm({ labelledBy, values, onValuesChange, prefillNote, onR
           {status === 'loading' ? copy.submitting : copy.submit}
         </Button>
         <p className="m-0 grow basis-65 font-sans text-xs leading-relaxed text-text-muted">
-          {copy.privacyStart}
-          <TextLink href={copy.privacyHref} variant="inline">
-            {copy.privacyLink}
-          </TextLink>
-          {copy.privacyEnd}
+          {copy.privacy}
         </p>
       </div>
     </form>

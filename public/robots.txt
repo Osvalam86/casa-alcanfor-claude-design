@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-# /design-system.html no se bloquea aquí: lleva <meta name="robots" content="noindex">, y Google solo lo lee si puede rastrearla
-# La línea Sitemap la agrega el build cuando VITE_SITE_URL está definido (vite.config.ts)
+# No se bloquea nada: todas las páginas llevan <meta name="robots" content="noindex"> (y Netlify envía X-Robots-Tag),
+# y los buscadores solo lo leen si pueden rastrearlas. Sin Sitemap: no hay nada que indexar.

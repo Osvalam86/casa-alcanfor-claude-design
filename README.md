@@ -4,9 +4,9 @@ Caso de estudio de maquetación y accesibilidad: la landing de un jardín y sal�
 
 **Demo:** pendiente de publicar en Netlify (`https://<sitio>.netlify.app`) · catálogo de componentes en `/design-system.html`
 
-**Diseño:** generado con [Claude Design](https://claude.ai) a partir de un brief propio. El export está en [`design/`](design/) como referencia: no se importa desde `src/` ni se modifica.
+**Diseño:** generado con [Claude Design](https://claude.ai) a partir de un brief propio. El export está en [`design/`](design/) como referencia: no se importa desde `src/` ni se modifica. No incluye `support.js`, el runtime de Claude Design, así que el `.dc.html` se lee como código pero no se abre como prototipo.
 
-![Pasillo de ceremonia al aire libre iluminado entre sillas blancas: la foto del hero de Casa Alcanfor, usada también como imagen Open Graph.](https://images.unsplash.com/photo-1607861884586-c7cfaed16290?auto=format&fm=jpg&fit=crop&w=1200&h=630&q=70)
+[![La landing de Casa Alcanfor en un escritorio y en un teléfono: el titular «Celebra donde cada momento se vuelve recuerdo», la franja de proyecto conceptual y la foto nocturna de un pasillo de ceremonia con luces colgantes. Texto: Caso de estudio. Casa Alcanfor. Un diseño de Claude Design llevado a React y Tailwind CSS v4. WCAG 2.2 AA como objetivo · Proyecto conceptual. Osvaldo Ocampo.](public/og-image.png)](public/og-image.png)
 
 ---
 
@@ -100,12 +100,12 @@ El objetivo es **WCAG 2.2 AA**. Este README no afirma conformidad: dice qué se 
 
 ## Alcance y límites
 
-- **Contenido ficticio.** Ver Créditos. Todo el sitio lleva `noindex` (meta y cabecera `X-Robots-Tag`) para que no se confunda con un negocio real.
+- **Contenido ficticio.** Ver Créditos. Todo el sitio lleva `noindex` (meta y cabecera `X-Robots-Tag`) para que no se confunda con un negocio real, y por eso no se genera `sitemap.xml`.
 - **Sin backend.** «Ver fechas libres» y el formulario de cotización validan y simulan el envío (`src/lib/submitQuote.ts`): no hay petición de red y los datos no se guardan.
-- **Aviso de privacidad sin página.** Los enlaces apuntan a `/aviso-de-privacidad`, que no existe y responde 404.
+- **Aviso de privacidad solo como texto.** El formulario y el footer lo mencionan, pero no hay página ni enlace.
 - **JSON-LD con datos de ejemplo.** `EventVenue` se genera desde `content/landing.ts`; `aggregateRating` y `sameAs` quedan fuera mientras reseñas y redes sean de ejemplo.
-- **Sitemap y `noindex`.** Si se define `VITE_SITE_URL`, el build genera `sitemap.xml` aunque el sitio no se indexe.
 - **Fotos por URL de Unsplash**, no alojadas en el repo: dependen de su CDN.
+- **Imagen OG relativa sin dominio.** Open Graph pide una URL absoluta: hasta definir `VITE_SITE_URL`, `og:image` es `/og-image.png` y las redes pueden no mostrarla.
 
 ---
 
@@ -130,9 +130,10 @@ Abre <http://localhost:5173>. Para las pruebas, descarga primero el navegador: `
 | `pnpm lint` | ESLint con `jsx-a11y` en modo strict |
 | `pnpm test:e2e` | Build + Playwright y axe a 390 y 1440 px |
 | `pnpm icons` | Regenera el favicon y los íconos de `public/` desde el monograma del logo |
+| `pnpm og` | Construye el sitio y genera `public/og-image.png` con capturas reales a 1440 y 390 px |
 | `pnpm preview` | Sirve `dist/` en `localhost:4173` |
 
-**Variables de entorno.** `VITE_SITE_URL` es el dominio público, sin `/` final (ver [`.env.example`](.env.example)). Con valor, el build agrega `canonical`, `og:url`, `url`/`@id` al JSON-LD, `sitemap.xml` y la línea `Sitemap:` de `robots.txt`; vacía, omite todo eso. En local va en `.env.local` (ignorado por git).
+**Variables de entorno.** `VITE_SITE_URL` es el dominio público, sin `/` final (ver [`.env.example`](.env.example)). Con valor, el build agrega `canonical`, `og:url` y `url`/`@id` al JSON-LD, y vuelve absolutas `og:image` y `twitter:image`; vacía, omite todo eso. En local va en `.env.local` (ignorado por git).
 
 **Netlify.** [`netlify.toml`](netlify.toml) define el build (`pnpm build`, publica `dist/`), Node 26, pnpm 11, la cabecera `noindex` y la caché inmutable de `/assets`. `VITE_SITE_URL` se define en **Site configuration → Environment variables** del sitio en Netlify, no en el repo. No hay redirecciones: es una sola página con anclas.
 
@@ -153,9 +154,9 @@ casa-alcanfor-claude-design/
 │   ├── lib/                # cn, validación, envío simulado, JSON-LD, Unsplash y hooks
 │   └── styles/             # theme.css (tokens), fonts.css e index.css
 ├── e2e/                    # Playwright + axe: anclas, teclado, layout y auditoría
-├── design/                 # export de Claude Design, solo referencia
-├── public/                 # íconos, site.webmanifest y robots.txt
-├── scripts/                # generate-icons.ts (pnpm icons)
+├── design/                 # export de Claude Design (sin su runtime), solo referencia
+├── public/                 # íconos, imagen OG, site.webmanifest y robots.txt
+├── scripts/                # generate-icons.ts (pnpm icons) y generate-og.ts (pnpm og)
 ├── CLAUDE.md               # reglas del proyecto: stack, tokens, arquitectura y accesibilidad
 ├── netlify.toml            # build, cabeceras y caché
 └── vite.config.ts          # alias @/, dos entradas y plugin de SEO
@@ -167,7 +168,7 @@ casa-alcanfor-claude-design/
 
 **Origen.** El diseño se generó con Claude Design a partir de un brief propio. El código lo construyó Claude Code bajo la dirección del autor, con sus reglas ([CLAUDE.md](CLAUDE.md)) y su skill `semantic-markup`.
 
-**Fotos.** 24 fotos de [Unsplash](https://unsplash.com), cargadas desde su CDN, bajo la [Licencia de Unsplash](https://unsplash.com/license): uso libre, sin atribución obligatoria. Los autores de cada foto no están registrados en el código.
+**Fotos.** 24 fotos de [Unsplash](https://unsplash.com), cargadas desde su CDN, bajo la [Licencia de Unsplash](https://unsplash.com/license): uso libre, sin atribución obligatoria. El código solo guarda el identificador de cada imagen en el CDN, y ni ese identificador ni los metadatos de la imagen dicen quién la tomó, así que el crédito queda general.
 
 **Fuentes.** [Cormorant Garamond](https://fontsource.org/fonts/cormorant-garamond) y [Manrope](https://fontsource.org/fonts/manrope), servidas desde el propio sitio con [Fontsource](https://fontsource.org), ambas bajo la [SIL Open Font License 1.1](https://openfontlicense.org).
 
@@ -177,7 +178,7 @@ casa-alcanfor-claude-design/
 
 **Contenido ficticio.**
 
-- El negocio Casa Alcanfor y su dirección, teléfono, correo, WhatsApp y redes (marcados `// DEMO` en `content/landing.ts`).
+- El negocio Casa Alcanfor y su dirección, teléfono y WhatsApp (33 0000 0000), correo (`hola@casaalcanfor.example`, dominio reservado) y redes, marcados `// DEMO` en `content/landing.ts`.
 - Las cifras: eventos realizados, años de experiencia y la calificación de 4.9 con 320 reseñas en Google.
 - Los testimonios y sus autores, los paquetes y sus precios.
 
@@ -190,4 +191,4 @@ casa-alcanfor-claude-design/
 Construido con asistencia de herramientas de IA; las decisiones, la revisión del código y las pruebas son del autor.
 
 - **Código y documentación:** MIT ([LICENSE](LICENSE)).
-- **Fuera de la licencia MIT,** con la licencia de su autor: las fotos de Unsplash, las fuentes Cormorant Garamond y Manrope (OFL 1.1), el embebido de Google Maps, las marcas de terceros, `design/support.js` (el runtime de Claude Design) y las dependencias.
+- **Fuera de la licencia MIT,** con la licencia de su autor: las fotos de Unsplash, las fuentes Cormorant Garamond y Manrope (OFL 1.1), el embebido de Google Maps, las marcas de terceros y las dependencias.

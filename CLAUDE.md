@@ -100,10 +100,12 @@ src/
 
 - El sitio está en español de México: `<html lang="es-MX">`. Cualquier fragmento en otro idioma lleva su propio `lang`.
 - Fuentes: `@fontsource/cormorant-garamond` (500, 600) y `@fontsource/manrope` (400–700), subset latin, importadas en `src/styles/fonts.css` con `font-display: swap`, más un `preload` de Cormorant 500 (la fuente del h1) en `index.html`. No cargues fuentes desde Google Fonts ni otro CDN.
-- SEO: `title`, `meta description`, `theme-color`, íconos, `site.webmanifest`, Open Graph (`og:image` = foto del hero, 1200×630) y Twitter Card en `index.html`. Los textos salen del diseño; si faltan, anótalos como duda en lugar de inventarlos.
+- SEO: `title`, `meta description`, `theme-color`, íconos, `site.webmanifest`, Open Graph (`og:image` = `public/og-image.png`, 1200×630) y Twitter Card en `index.html`. Los textos salen del diseño; si faltan, anótalos como duda en lugar de inventarlos.
 - JSON-LD `EventVenue`: lo arma `src/lib/structuredData.ts` con `content/landing.ts` y lo inyecta el plugin `seo` de `vite.config.ts`. Los campos DEMO se listan en un comentario junto al script. `aggregateRating` y `sameAs` quedan fuera mientras las reseñas y las redes sean de ejemplo.
-- **Dominio (`VITE_SITE_URL`):** todo lo que depende del dominio sale de esta variable (ver `.env.example`; defínela en `.env.local` o en el entorno de deploy, sin `/` final). Con valor, el build agrega `canonical`, `og:url`, `url`/`@id` al JSON-LD, `dist/sitemap.xml` y la línea `Sitemap:` de `robots.txt`. Vacía, se omite todo eso. `og:image` no depende de ella porque ya es una URL absoluta de Unsplash.
+- **Dominio (`VITE_SITE_URL`):** todo lo que depende del dominio sale de esta variable (ver `.env.example`; defínela en `.env.local` o en el entorno de deploy, sin `/` final). Con valor, el build agrega `canonical`, `og:url` y `url`/`@id` al JSON-LD, y vuelve absolutas `og:image` y `twitter:image`. Vacía, se omite todo eso y la imagen queda como ruta relativa.
+- **noindex:** el sitio es un proyecto conceptual. Todas las páginas llevan `<meta name="robots" content="noindex">` y `netlify.toml` envía `X-Robots-Tag: noindex`. No se genera `sitemap.xml` ni la línea `Sitemap:` de `robots.txt`.
 - Íconos: `pnpm icons` los regenera en `public/` desde el monograma del Logo (`scripts/generate-icons.ts`, con Playwright, sin dependencias nuevas).
+- Imagen OG: `pnpm og` construye el sitio y genera `public/og-image.png` con capturas reales a 1440 y 390 px (`scripts/generate-og.ts`). Regénérala cuando cambie la primera pantalla.
 - `QuoteForm`: mientras no se defina un destino, el envío es simulado (validación completa + estados loading/success/error) detrás de una función `submitQuote` en `src/lib/`. No conectes servicios externos sin preguntar.
 
 ## 8. Flujo de trabajo y checkpoints
@@ -126,6 +128,7 @@ pnpm lint         # ESLint (incluye eslint-plugin-jsx-a11y en modo strict)
 pnpm typecheck    # tsc -b (revisa tsconfig.app.json, tsconfig.node.json y tsconfig.e2e.json vía references)
 pnpm test:e2e     # Playwright + axe sobre el build (vite preview) a 390 y 1440 px
 pnpm icons        # regenera favicon e íconos de public/ desde el monograma del Logo
+pnpm og           # build + imagen OG de public/ con capturas del sitio
 ```
 
 Antes de dar por terminada una fase: `pnpm typecheck` y `pnpm lint` sin errores.

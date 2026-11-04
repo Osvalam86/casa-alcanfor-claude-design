@@ -33,7 +33,10 @@ const ADDRESS_PARTS = {
 } as const
 const ADDRESS = `${ADDRESS_PARTS.street}, ${ADDRESS_PARTS.neighborhood}, ${ADDRESS_PARTS.postalCode} ${ADDRESS_PARTS.locality}, ${ADDRESS_PARTS.regionShort}`
 const ADDRESS_QUERY = `${ADDRESS_PARTS.street}, ${ADDRESS_PARTS.neighborhood}, ${ADDRESS_PARTS.locality}, ${ADDRESS_PARTS.region}`
-const WHATSAPP_NUMBER = '523312345678' // DEMO
+/** DEMO: número y correo de relleno que no pertenecen a nadie (dominio reservado .example, RFC 2606). */
+const PHONE = { label: '33 0000 0000', e164: '+523300000000' } // DEMO
+const WHATSAPP_NUMBER = PHONE.e164.slice(1) // DEMO
+const EMAIL = 'hola@casaalcanfor.example' // DEMO
 
 const portrait = (id: string, alt: string): Photo => ({ id, alt, width: 900, height: 1125 })
 const photo = (id: string, alt: string): Photo => ({ id, alt, width: 900, height: 600 })
@@ -365,10 +368,8 @@ export const landing = {
     summaryTitle: (n: number) => (n === 1 ? 'Revisa 1 campo para enviar tu solicitud' : `Revisa ${n} campos para enviar tu solicitud`),
     submit: 'Enviar solicitud',
     submitting: 'Enviando…',
-    privacyStart: 'Usamos tus datos solo para responder tu solicitud. Consulta nuestro ',
-    privacyLink: 'aviso de privacidad',
-    privacyEnd: '.',
-    privacyHref: '/aviso-de-privacidad',
+    /** Solo texto: el proyecto no tiene página de aviso de privacidad. */
+    privacy: 'Usamos tus datos solo para responder tu solicitud. Consulta nuestro aviso de privacidad.',
     success: {
       title: (firstName: string) => `¡Listo, ${firstName}! Recibimos tu solicitud.`,
       body: 'Tu coordinador te escribirá por WhatsApp en menos de 2 horas hábiles.',
@@ -397,8 +398,8 @@ export const landing = {
     explore: 'Explora',
     exploreLabel: 'Pie de página',
     contact: 'Contacto',
-    phone: { label: '33 1234 5678', href: 'tel:+523312345678' }, // DEMO
-    email: { label: 'hola@casaalcanfor.mx', href: 'mailto:hola@casaalcanfor.mx' }, // DEMO
+    phone: { label: PHONE.label, href: `tel:${PHONE.e164}` }, // DEMO
+    email: { label: EMAIL, href: `mailto:${EMAIL}` }, // DEMO
     city: 'Zapopan, Jalisco',
     social: 'Síguenos',
     socialLinks: [
@@ -407,6 +408,7 @@ export const landing = {
       { label: 'TikTok', href: 'https://tiktok.com' }, // DEMO: URL genérica
     ],
     copyright: '© 2026 Casa Alcanfor',
-    privacy: { label: 'Aviso de privacidad', href: '/aviso-de-privacidad' },
+    /** Solo texto: el proyecto no tiene página de aviso de privacidad. */
+    privacy: 'Aviso de privacidad',
   },
 } as const

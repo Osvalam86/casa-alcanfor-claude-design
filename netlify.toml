@@ -1,6 +1,6 @@
 # Despliegue en Netlify.
 # VITE_SITE_URL (dominio público, sin "/" final) se define en Site configuration → Environment variables,
-# no aquí: con valor, el build agrega canonical, og:url, sitemap.xml y la línea Sitemap de robots.txt.
+# no aquí: con valor, el build agrega canonical y og:url, y vuelve absoluta la URL de og:image.
 
 [build]
   command = "pnpm build"

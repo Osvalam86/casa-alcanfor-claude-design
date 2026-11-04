@@ -1,11 +1,12 @@
-import { appendFileSync, writeFileSync } from 'node:fs'
-import { join } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig, loadEnv, runnerImport, type HtmlTagDescriptor, type Plugin } from 'vite'
 
 const alias = { '@': fileURLToPath(new URL('./src', import.meta.url)) }
+
+/** Imagen OG de public/ (pnpm og la regenera con capturas del sitio). */
+const OG_IMAGE = '/og-image.png'
 
 type StructuredDataModule = {
   structuredData: (siteUrl: string) => object
@@ -14,7 +15,8 @@ type StructuredDataModule = {
 
 /**
  * SEO de index.html: inyecta el JSON-LD (src/lib/structuredData.ts, con el copy de content/landing.ts) y,
- * solo si hay dominio en VITE_SITE_URL, canonical, og:url, sitemap.xml y la línea Sitemap de robots.txt.
+ * solo si hay dominio en VITE_SITE_URL, canonical, og:url y og:image/twitter:image absolutas.
+ * Sin sitemap.xml ni línea Sitemap en robots.txt: el sitio lleva noindex.
  */
 function seo(siteUrl: string): Plugin {
   let data: Promise<StructuredDataModule> | undefined
@@ -38,18 +40,12 @@ function seo(siteUrl: string): Plugin {
           { tag: 'meta', attrs: { property: 'og:url', content: `${siteUrl}/` }, injectTo: 'head' },
         )
       }
+      // Open Graph pide URL absoluta: con dominio, /og-image.png pasa a ${siteUrl}/og-image.png
+      const withImage = siteUrl ? html.replaceAll(`content="${OG_IMAGE}"`, `content="${siteUrl}${OG_IMAGE}"`) : html
       return {
-        html: html.replace(/\s*<\/head>/, `\n    ${demo}\n    <script type="application/ld+json">\n${json}\n    </script>\n  </head>`),
+        html: withImage.replace(/\s*<\/head>/, `\n    ${demo}\n    <script type="application/ld+json">\n${json}\n    </script>\n  </head>`),
         tags,
       }
-    },
-    writeBundle(options) {
-      if (!siteUrl || !options.dir) return
-      writeFileSync(
-        join(options.dir, 'sitemap.xml'),
-        `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${siteUrl}/</loc></url>\n</urlset>\n`,
-      )
-      appendFileSync(join(options.dir, 'robots.txt'), `\nSitemap: ${siteUrl}/sitemap.xml\n`)
     },
   }
 }

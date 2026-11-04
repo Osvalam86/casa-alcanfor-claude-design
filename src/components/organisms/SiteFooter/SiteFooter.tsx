@@ -74,9 +74,7 @@ export function SiteFooter({ fixedActions }: { fixedActions?: ReactNode }) {
 
         <div className="flex flex-wrap justify-between gap-4 pt-6 font-sans text-xs leading-relaxed">
           <p className="m-0">{footer.copyright}</p>
-          <a href={footer.privacy.href} className="text-text-inverse-muted hover:text-text-inverse">
-            {footer.privacy.label}
-          </a>
+          <p className="m-0 text-text-inverse-muted">{footer.privacy}</p>
         </div>
       </div>
       {fixedActions && <div data-surface="default">{fixedActions}</div>}

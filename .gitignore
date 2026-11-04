@@ -23,6 +23,9 @@ playwright-report
 blob-report
 playwright/.cache
 
+# Runtime de Claude Design (código de Anthropic): solo copia local, no se publica
+design/support.js
+
 # Netlify CLI
 .netlify
 

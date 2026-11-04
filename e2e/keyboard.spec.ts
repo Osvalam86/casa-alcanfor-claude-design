@@ -176,8 +176,8 @@ test('capas fijas: dentro del <footer>, fixed, últimas en el orden de foco y co
   })
   expect(position).toBe('fixed')
 
-  // El aviso de privacidad es el último enlace del footer; Tab sigue a las capas fijas y WhatsApp cierra el orden.
-  await footer.getByRole('link', { name: 'Aviso de privacidad' }).focus()
+  // TikTok es el último enlace del footer (el aviso de privacidad es solo texto); Tab sigue a las capas fijas y WhatsApp cierra el orden.
+  await footer.getByRole('link', { name: /^TikTok/ }).focus()
   if (isMobile(page)) {
     await page.keyboard.press('Tab')
     await expect(footer.getByRole('link', { name: 'Consulta disponibilidad' })).toBeFocused()
