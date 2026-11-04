@@ -6,7 +6,7 @@ Caso de estudio de maquetación y accesibilidad: la landing de un jardín y sal�
 
 **Diseño:** generado con [Claude Design](https://claude.ai) a partir de un brief propio. El export está en [`design/`](design/) como referencia: no se importa desde `src/` ni se modifica. No incluye `support.js`, el runtime de Claude Design, así que el `.dc.html` se lee como código pero no se abre como prototipo.
 
-[![La primera pantalla de Casa Alcanfor en un escritorio, con el titular «Celebra donde cada momento se vuelve recuerdo», la franja de proyecto conceptual y el botón «Consulta disponibilidad»; encima de la foto en arco del escritorio, la misma pantalla en un teléfono. A la izquierda, el texto: Caso de estudio. Casa Alcanfor. Un diseño de Claude Design llevado a React y Tailwind CSS v4. WCAG 2.2 AA como objetivo · Proyecto conceptual. Osvaldo Ocampo.](docs/cover.png)](docs/cover.png)
+[![La primera pantalla de Casa Alcanfor en un escritorio, con el titular «Celebra donde cada momento se vuelve recuerdo», el botón «Consulta disponibilidad» y una foto en arco de un pasillo de ceremonia con luces colgantes; a la derecha, un teléfono con la galería «Momentos que ya sucedieron aquí», sus filtros por tipo de evento y dos fotos. A la izquierda, el texto: Caso de estudio. Casa Alcanfor. Un diseño de Claude Design llevado a React y Tailwind CSS v4. WCAG 2.2 AA como objetivo · Proyecto conceptual. Osvaldo Ocampo.](docs/cover.png)](docs/cover.png)
 
 ---
 
