@@ -129,6 +129,7 @@ pnpm typecheck    # tsc -b (revisa tsconfig.app.json, tsconfig.node.json y tscon
 pnpm test:e2e     # Playwright + axe sobre el build (vite preview) a 390 y 1440 px
 pnpm icons        # regenera favicon e íconos de public/ desde el monograma del Logo
 pnpm og           # build + portada del README (docs/) e imagen para redes (public/) con capturas del sitio
+pnpm screens      # build + capturas limpias a 2x en docs/screens/ (hero y espacios a 1440, hero y galería a 360)
 ```
 
 Antes de dar por terminada una fase: `pnpm typecheck` y `pnpm lint` sin errores.

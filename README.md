@@ -131,6 +131,7 @@ Abre <http://localhost:5173>. Para las pruebas, descarga primero el navegador: `
 | `pnpm test:e2e` | Build + Playwright y axe a 390 y 1440 px |
 | `pnpm icons` | Regenera el favicon y los íconos de `public/` desde el monograma del logo |
 | `pnpm og` | Construye el sitio y genera, con capturas reales a 1440 y 390 px, la portada del README (`docs/cover.png`) y la imagen para redes (`public/og-image.png`) |
+| `pnpm screens` | Construye el sitio y genera 4 capturas limpias a 2x en `docs/screens/`: primera pantalla y espacios a 1440 px, primera pantalla y galería a 360 px |
 | `pnpm preview` | Sirve `dist/` en `localhost:4173` |
 
 **Variables de entorno.** `VITE_SITE_URL` es el dominio público, sin `/` final (ver [`.env.example`](.env.example)). Con valor, el build agrega `canonical`, `og:url` y `url`/`@id` al JSON-LD, y vuelve absolutas `og:image` y `twitter:image`; vacía, omite todo eso. En local va en `.env.local` (ignorado por git).
@@ -155,9 +156,9 @@ casa-alcanfor-claude-design/
 │   └── styles/             # theme.css (tokens), fonts.css e index.css
 ├── e2e/                    # Playwright + axe: anclas, teclado, layout y auditoría
 ├── design/                 # export de Claude Design (sin su runtime), solo referencia
-├── docs/                   # cover.png, la portada de este README
+├── docs/                   # cover.png (portada de este README) y screens/ (capturas a 2x)
 ├── public/                 # íconos, imagen para redes (og-image.png), site.webmanifest y robots.txt
-├── scripts/                # generate-icons.ts (pnpm icons) y generate-og.ts (pnpm og)
+├── scripts/                # generate-icons.ts (pnpm icons), generate-og.ts (pnpm og) y generate-screens.ts (pnpm screens)
 ├── CLAUDE.md               # reglas del proyecto: stack, tokens, arquitectura y accesibilidad
 ├── netlify.toml            # build, cabeceras y caché
 └── vite.config.ts          # alias @/, dos entradas y plugin de SEO
