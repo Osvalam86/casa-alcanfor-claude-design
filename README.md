@@ -6,7 +6,7 @@ Caso de estudio de maquetación y accesibilidad: la landing de un jardín y sal�
 
 **Diseño:** generado con [Claude Design](https://claude.ai) a partir de un brief propio. El export está en [`design/`](design/) como referencia: no se importa desde `src/` ni se modifica. No incluye `support.js`, el runtime de Claude Design, así que el `.dc.html` se lee como código pero no se abre como prototipo.
 
-[![La landing de Casa Alcanfor en un escritorio y en un teléfono: el titular «Celebra donde cada momento se vuelve recuerdo», la franja de proyecto conceptual y la foto nocturna de un pasillo de ceremonia con luces colgantes. Texto: Caso de estudio. Casa Alcanfor. Un diseño de Claude Design llevado a React y Tailwind CSS v4. WCAG 2.2 AA como objetivo · Proyecto conceptual. Osvaldo Ocampo.](public/og-image.png)](public/og-image.png)
+[![La primera pantalla de Casa Alcanfor en un escritorio, con el titular «Celebra donde cada momento se vuelve recuerdo», la franja de proyecto conceptual y el botón «Consulta disponibilidad»; encima de la foto en arco del escritorio, la misma pantalla en un teléfono. A la izquierda, el texto: Caso de estudio. Casa Alcanfor. Un diseño de Claude Design llevado a React y Tailwind CSS v4. WCAG 2.2 AA como objetivo · Proyecto conceptual. Osvaldo Ocampo.](docs/cover.png)](docs/cover.png)
 
 ---
 
@@ -130,7 +130,7 @@ Abre <http://localhost:5173>. Para las pruebas, descarga primero el navegador: `
 | `pnpm lint` | ESLint con `jsx-a11y` en modo strict |
 | `pnpm test:e2e` | Build + Playwright y axe a 390 y 1440 px |
 | `pnpm icons` | Regenera el favicon y los íconos de `public/` desde el monograma del logo |
-| `pnpm og` | Construye el sitio y genera `public/og-image.png` con capturas reales a 1440 y 390 px |
+| `pnpm og` | Construye el sitio y genera, con capturas reales a 1440 y 390 px, la portada del README (`docs/cover.png`) y la imagen para redes (`public/og-image.png`) |
 | `pnpm preview` | Sirve `dist/` en `localhost:4173` |
 
 **Variables de entorno.** `VITE_SITE_URL` es el dominio público, sin `/` final (ver [`.env.example`](.env.example)). Con valor, el build agrega `canonical`, `og:url` y `url`/`@id` al JSON-LD, y vuelve absolutas `og:image` y `twitter:image`; vacía, omite todo eso. En local va en `.env.local` (ignorado por git).
@@ -155,7 +155,8 @@ casa-alcanfor-claude-design/
 │   └── styles/             # theme.css (tokens), fonts.css e index.css
 ├── e2e/                    # Playwright + axe: anclas, teclado, layout y auditoría
 ├── design/                 # export de Claude Design (sin su runtime), solo referencia
-├── public/                 # íconos, imagen OG, site.webmanifest y robots.txt
+├── docs/                   # cover.png, la portada de este README
+├── public/                 # íconos, imagen para redes (og-image.png), site.webmanifest y robots.txt
 ├── scripts/                # generate-icons.ts (pnpm icons) y generate-og.ts (pnpm og)
 ├── CLAUDE.md               # reglas del proyecto: stack, tokens, arquitectura y accesibilidad
 ├── netlify.toml            # build, cabeceras y caché
