@@ -153,7 +153,8 @@ export const landing = {
         description: 'El sí que soñaste, con jardín al atardecer y salón para la fiesta.',
         link: 'Ver ideas para bodas',
         filter: 'Bodas',
-        photo: { id: '1704455305845-d5f66a560e6f', alt: 'Novios abrazados frente a una reja de hierro forjado', width: 1200, height: 1200 },
+        // sourceAspect: el original es vertical (2/3); la caja de la tarjeta destacada cambia de proporción
+        photo: { id: '1704455305845-d5f66a560e6f', alt: 'Novios abrazados frente a una reja de hierro forjado', width: 1200, height: 1200, sourceAspect: 2 / 3 },
       },
       {
         title: 'XV años',
@@ -287,19 +288,21 @@ export const landing = {
     filtersLabel: 'Filtrar galería por tipo de evento',
     count: (n: number, filter: GalleryFilter) => `${n} ${n === 1 ? 'foto' : 'fotos'}${filter === 'Todos' ? '' : ` de ${filter}`}`,
     openLabel: (alt: string) => `Ampliar foto: ${alt}`,
+    // sourceAspect: proporción del original en Unsplash (horizontal 3/2 o vertical 2/3), medida con
+    // naturalWidth/naturalHeight. Con ella GalleryMasonry recorta en origen sin cambiar el encuadre.
     photos: [
-      { ...portrait('1635362926140-4491578be6ba', 'Novia sosteniendo su ramo de flores'), category: 'Bodas', ratio: 'portrait' },
-      { ...photo('1592318072094-2694c98adb73', 'Candil de cristal encendido sobre la pista del salón'), category: 'XV años', ratio: 'photo' },
-      { ...wide('1768508950719-4d76978fdf44', 'Cena formal de empresa con centros de mesa florales'), category: 'Corporativos', ratio: 'wide' },
-      { ...portrait('1758705477576-8783430d55b6', 'Mesa decorada con vela encendida y flores'), category: 'Bautizos', ratio: 'portrait' },
-      { ...photo('1543932927-a9def13a0e7c', 'Novio besando la frente de la novia'), category: 'Bodas', ratio: 'photo' },
-      { ...portrait('1648154164366-d067faecdc51', 'Baile en la pista durante la fiesta'), category: 'XV años', ratio: 'portrait' },
-      { ...wide('1549997966-5dd46b8e2b06', 'Pareja bajo un árbol iluminado de noche'), category: 'Bodas', ratio: 'wide' },
-      { ...photo('1519225421980-715cb0215aed', 'Copas de cristal sobre mesa montada para comida familiar'), category: 'Bautizos', ratio: 'photo' },
-      { ...portrait('1540575467063-178a50c2df87', 'Auditorio montado para conferencia con invitados sentados'), category: 'Corporativos', ratio: 'portrait' },
-      { ...portrait('1511795409834-ef04bbd61622', 'Mesa elegante con centro floral'), category: 'Bodas', ratio: 'portrait' },
-      { ...portrait('1595407753234-0882f1e77954', 'Novios tomados de la mano junto a un muro de madera'), category: 'Bodas', ratio: 'portrait' },
-      { ...photo('1502635385003-ee1e6a1a742d', 'Copas de vino alineadas sobre mesa de banquete'), category: 'Corporativos', ratio: 'photo' },
+      { ...portrait('1635362926140-4491578be6ba', 'Novia sosteniendo su ramo de flores'), sourceAspect: 3 / 2, category: 'Bodas', ratio: 'portrait' },
+      { ...photo('1592318072094-2694c98adb73', 'Candil de cristal encendido sobre la pista del salón'), sourceAspect: 3 / 2, category: 'XV años', ratio: 'photo' },
+      { ...wide('1768508950719-4d76978fdf44', 'Cena formal de empresa con centros de mesa florales'), sourceAspect: 2 / 3, category: 'Corporativos', ratio: 'wide' },
+      { ...portrait('1758705477576-8783430d55b6', 'Mesa decorada con vela encendida y flores'), sourceAspect: 3 / 2, category: 'Bautizos', ratio: 'portrait' },
+      { ...photo('1543932927-a9def13a0e7c', 'Novio besando la frente de la novia'), sourceAspect: 2 / 3, category: 'Bodas', ratio: 'photo' },
+      { ...portrait('1648154164366-d067faecdc51', 'Baile en la pista durante la fiesta'), sourceAspect: 2 / 3, category: 'XV años', ratio: 'portrait' },
+      { ...wide('1549997966-5dd46b8e2b06', 'Pareja bajo un árbol iluminado de noche'), sourceAspect: 2 / 3, category: 'Bodas', ratio: 'wide' },
+      { ...photo('1519225421980-715cb0215aed', 'Copas de cristal sobre mesa montada para comida familiar'), sourceAspect: 3 / 2, category: 'Bautizos', ratio: 'photo' },
+      { ...portrait('1540575467063-178a50c2df87', 'Auditorio montado para conferencia con invitados sentados'), sourceAspect: 3 / 2, category: 'Corporativos', ratio: 'portrait' },
+      { ...portrait('1511795409834-ef04bbd61622', 'Mesa elegante con centro floral'), sourceAspect: 3 / 2, category: 'Bodas', ratio: 'portrait' },
+      { ...portrait('1595407753234-0882f1e77954', 'Novios tomados de la mano junto a un muro de madera'), sourceAspect: 3 / 2, category: 'Bodas', ratio: 'portrait' },
+      { ...photo('1502635385003-ee1e6a1a742d', 'Copas de vino alineadas sobre mesa de banquete'), sourceAspect: 2 / 3, category: 'Corporativos', ratio: 'photo' },
     ] satisfies GalleryPhoto[],
   },
 

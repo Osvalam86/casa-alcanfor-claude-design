@@ -68,13 +68,17 @@ export function Lightbox({ open, mode, photos, index, onIndexChange, onClose }: 
               <IconButton icon="chevron-left" variant="overlay" size="lg" label={lightbox.prev} onClick={() => step(-1)} />
             )}
             <figure className="m-0 flex h-full min-w-0 max-w-275 flex-1 flex-col justify-center gap-4">
-              {/* key por foto: un <img> nuevo en cada cambio, así no se ve la foto anterior mientras carga la siguiente */}
-              <img
-                key={photo.id}
-                {...photoProps(photo, '(min-width: 1100px) 1100px, 100vw', 1600)}
-                alt={photo.alt}
-                className="mx-auto max-h-lightbox w-auto max-w-full rounded-md bg-surface-placeholder-dark object-contain"
-              />
+              {/* key por foto: un <img> nuevo en cada cambio, así no se ve la foto anterior mientras carga la siguiente.
+                  Solo con el diálogo abierto: cerrado, el <img> descargaba la primera foto al cargar la página.
+                  Sin recorte: el lightbox muestra la foto completa (object-contain). */}
+              {open && (
+                <img
+                  key={photo.id}
+                  {...photoProps(photo, '(min-width: 1100px) 1100px, 100vw', 1600)}
+                  alt={photo.alt}
+                  className="mx-auto max-h-lightbox w-auto max-w-full rounded-md bg-surface-placeholder-dark object-contain"
+                />
+              )}
               <figcaption aria-hidden="true" className="text-center font-sans text-ui leading-relaxed text-text-inverse-muted">{photo.alt}</figcaption>
             </figure>
             {count > 1 && (

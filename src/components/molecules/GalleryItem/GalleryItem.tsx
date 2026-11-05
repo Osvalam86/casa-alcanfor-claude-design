@@ -4,6 +4,10 @@ import { photoProps, type Photo } from '@/lib/unsplash'
 
 type GalleryItemProps = {
   photo: Photo
+  /** sizes de la imagen; lo calcula la galería, que conoce el tamaño de cada mosaico. */
+  sizes: string
+  /** Proporción a la que se recorta en origen (ver safeCrop); sin ella, la foto llega completa. */
+  crop?: number
   /** Nombre accesible completo del botón, p. ej. "Ampliar foto: Novia sosteniendo su ramo". */
   label: string
   onOpen: MouseEventHandler<HTMLButtonElement>
@@ -21,7 +25,7 @@ const shapes = {
  * <button> que abre el lightbox. Un solo nombre accesible (el label del botón):
  * la imagen interior va con alt="" para no anunciarse dos veces.
  */
-export function GalleryItem({ photo, label, onOpen, shape = 'rounded', className }: GalleryItemProps) {
+export function GalleryItem({ photo, sizes, crop, label, onOpen, shape = 'rounded', className }: GalleryItemProps) {
   return (
     <button
       type="button"
@@ -34,7 +38,7 @@ export function GalleryItem({ photo, label, onOpen, shape = 'rounded', className
       )}
     >
       <img
-        {...photoProps(photo, '(min-width: 600px) 33vw, 50vw', 1200)}
+        {...photoProps(photo, sizes, 1200, crop)}
         alt=""
         loading="lazy"
         decoding="async"

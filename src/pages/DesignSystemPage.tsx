@@ -1,6 +1,7 @@
 import { useId, useState, type ReactNode } from 'react'
 import { designSystem as ds } from '@/content/designSystem'
-import { photoProps } from '@/lib/unsplash'
+import { BOX_ASPECT, photoProps } from '@/lib/unsplash'
+import { autoGrid, pageContent, sizesFromWidths } from '@/lib/responsiveSizes'
 import { cn } from '@/lib/cn'
 import { Avatar } from '@/components/atoms/Avatar'
 import { Badge } from '@/components/atoms/Badge'
@@ -35,6 +36,11 @@ import { NumberStepper } from '@/components/molecules/NumberStepper'
 import { PackageCard } from '@/components/molecules/PackageCard'
 import { ProcessStep } from '@/components/molecules/ProcessStep'
 import { TestimonialQuote } from '@/components/molecules/TestimonialQuote'
+
+/** Muestras de ShapedImage: rejilla grid-fill-150 con gap-4 (16 px) en el contenedor de página. */
+const SPECIMEN_SIZES = sizesFromWidths((vw) => autoGrid(pageContent(vw), 150, 16).col)
+/** Celdas de la sección de moléculas: rejilla grid-fit-300 con gap-8 (32 px). */
+const MOLECULE_CELL_SIZES = sizesFromWidths((vw) => autoGrid(pageContent(vw), 300, 32).col)
 
 const ICONS: IconName[] = [
   'grid', 'user', 'tag', 'plus-circle', 'pin', 'clock', 'whatsapp', 'check', 'arrow-right', 'play', 'gallery',
@@ -356,7 +362,7 @@ export function DesignSystemPage() {
             <ul className="m-0 grid list-none grid-fill-150 gap-4 p-0">
               {ds.atoms.image.shapes.map((shape) => (
                 <li key={shape} className="flex flex-col gap-2">
-                  <ShapedImage {...photoProps(ds.atoms.image.photo, '200px', 480)} alt={ds.atoms.image.photo.alt} shape={shape} aspect="portrait" />
+                  <ShapedImage {...photoProps(ds.atoms.image.photo, SPECIMEN_SIZES, 480, BOX_ASPECT.portrait)} alt={ds.atoms.image.photo.alt} shape={shape} aspect="portrait" />
                   <Caption>{shape}</Caption>
                 </li>
               ))}
@@ -400,6 +406,7 @@ export function DesignSystemPage() {
               <ul className="m-0 list-none p-0">
                 <EventTypeCard
                   photo={ds.molecules.eventCard.photo}
+                  sizes={MOLECULE_CELL_SIZES}
                   title={ds.molecules.eventCard.heading}
                   description={ds.molecules.eventCard.description}
                   linkLabel={ds.molecules.eventCard.link}
@@ -425,7 +432,15 @@ export function DesignSystemPage() {
             </Specimen>
             <Specimen title={ds.molecules.gallery.title}>
               <div className="h-60 w-48">
-                <GalleryItem photo={ds.molecules.gallery.photo} label={ds.molecules.gallery.label} onOpen={() => undefined} shape="arch" />
+                {/* Caja fija de 192 × 240 (4:5): recorte a esa proporción y sizes de su ancho */}
+                <GalleryItem
+                  photo={ds.molecules.gallery.photo}
+                  sizes="192px"
+                  crop={BOX_ASPECT.portrait}
+                  label={ds.molecules.gallery.label}
+                  onOpen={() => undefined}
+                  shape="arch"
+                />
               </div>
             </Specimen>
           </div>

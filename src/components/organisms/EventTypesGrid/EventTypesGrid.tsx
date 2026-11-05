@@ -9,7 +9,15 @@ type EventTypesGridProps = {
   onSelectFilter: (filter: GalleryFilter) => void
 }
 
-/** <section> nombrada por su h2. tabIndex=-1: destino de foco al navegar desde el menú. */
+// Ancho de columna de la rejilla (grid-fill-300, gap-x-6 = 24 px) en el contenedor de página:
+// 1 columna hasta 678 px, 2 hasta 1030 px y 3 desde 1031 px; el margen lateral deja de crecer en 1200 px.
+const CARD_SIZES =
+  '(min-width: 1280px) 379px, (min-width: 1200px) calc((100vw - 144px) / 3), (min-width: 1031px) calc((92vw - 48px) / 3), (min-width: 679px) calc(46vw - 12px), (min-width: 500px) 92vw, calc(100vw - 40px)'
+/** La destacada ocupa 2 columnas desde md (768 px): todo el ancho con 2 columnas, 2/3 con 3. */
+const FEATURED_SIZES =
+  '(min-width: 1280px) 781px, (min-width: 1200px) calc((100vw - 144px) * 2 / 3 + 24px), (min-width: 1031px) calc((92vw - 48px) * 2 / 3 + 24px), (min-width: 768px) 92vw, (min-width: 679px) calc(46vw - 12px), (min-width: 500px) 92vw, calc(100vw - 40px)'
+
+/** <section> nombrada por su h2, que es el destino de foco al navegar desde el menú (useAnchorFocus). */
 export function EventTypesGrid({ onSelectFilter }: EventTypesGridProps) {
   const { events } = landing
   return (
@@ -30,6 +38,7 @@ export function EventTypesGrid({ onSelectFilter }: EventTypesGridProps) {
               key={item.title}
               featured={index === 0}
               photo={item.photo}
+              sizes={index === 0 ? FEATURED_SIZES : CARD_SIZES}
               title={item.title}
               description={item.description}
               linkLabel={item.link}

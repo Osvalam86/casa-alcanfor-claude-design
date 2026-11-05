@@ -97,7 +97,7 @@ Las decisiones D1–D12 y los ajustes de accesibilidad se aprobaron en el plan d
 
 El objetivo es **WCAG 2.2 AA**. Este README no afirma conformidad: dice qué se probó, cómo y qué queda abierto.
 
-**Automático.** `pnpm test:e2e` construye el sitio y lo prueba con `vite preview`, nunca contra el servidor de desarrollo, en Chromium (Playwright 1.64.1) a 390 y 1440 px. Resultado al cierre: **74 casos, 65 pasan y 9 se omiten a propósito** (los que solo aplican a un ancho, como el menú móvil en escritorio).
+**Automático.** `pnpm test:e2e` construye el sitio y lo prueba con `vite preview`, nunca contra el servidor de desarrollo, en Chromium (Playwright 1.64.1) a 390 y 1440 px. Resultado al cierre: **78 casos, 69 pasan y 9 se omiten a propósito** (los que solo aplican a un ancho, como el menú móvil en escritorio). Además de accesibilidad, [`e2e/images.spec.ts`](e2e/images.spec.ts) comprueba que el `sizes` de cada foto cubra lo que se pinta y que el lightbox cerrado no descargue imágenes.
 
 - **axe-core 4.14.0** con las reglas `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`, `wcag22aa` y `best-practice` en `/` y `/design-system.html`, a los dos anchos: 0 violaciones de cualquier impacto, incluida `region` (todo el contenido vive en landmarks).
 - **Teclado:** el skip link es el primer enfocable y lleva el foco al `h1`; los enlaces del menú, al `h2` de su sección; el menú móvil abre con el foco en «Cerrar menú»; menú móvil y lightbox atrapan Tab, cierran con Escape y devuelven el foco; tabs de espacios con flechas, Inicio y Fin; FAQ con Enter y Espacio; el formulario vacío lleva el foco al resumen de errores y cada enlace al campo.
@@ -158,9 +158,10 @@ El objetivo es **WCAG 2.2 AA**. Este README no afirma conformidad: dice qué se 
 
 - **Contenido ficticio.** Ver Créditos. Todo el sitio lleva `noindex` (meta y cabecera `X-Robots-Tag`) para que no se confunda con un negocio real, y por eso no se genera `sitemap.xml`.
 - **Sin backend.** «Ver fechas libres» y el formulario de cotización validan y simulan el envío (`src/lib/submitQuote.ts`): no hay petición de red y los datos no se guardan.
-- **Aviso de privacidad solo como texto.** El formulario y el footer lo mencionan, pero no hay página ni enlace.
+- **Sin aviso de privacidad.** No hay página; el formulario solo indica que los datos se usan para responder la solicitud.
 - **JSON-LD con datos de ejemplo.** `EventVenue` se genera desde `content/landing.ts`; `aggregateRating` y `sameAs` quedan fuera mientras reseñas y redes sean de ejemplo.
 - **Fotos por URL de Unsplash**, no alojadas en el repo: dependen de su CDN.
+- **Renderizado en el cliente.** La página se renderiza en el cliente, así que en móvil el LCP (el `h1`) espera al JavaScript. La mejora sería prerenderizar en el build, y queda fuera del alcance de esta pieza.
 - **URL absolutas según `VITE_SITE_URL`.** Las URL absolutas de `og:image`, `twitter:image`, `canonical`, `og:url` y el JSON-LD dependen de esa variable. En el sitio publicado ya está definida en Netlify. Si se clona el repo y se construye sin ella, `og:image` y `twitter:image` quedan relativas (`/og-image.jpg`), y `canonical`, `og:url` y `url`/`@id` del JSON-LD se omiten; Open Graph pide una URL absoluta y las redes pueden no mostrar la imagen.
 
 ---
@@ -209,7 +210,7 @@ casa-alcanfor-claude-design/
 │   ├── content/            # landing.ts y designSystem.ts: todo el copy, tipado
 │   ├── lib/                # cn, validación, envío simulado, JSON-LD, Unsplash y hooks
 │   └── styles/             # theme.css (tokens), fonts.css e index.css
-├── e2e/                    # Playwright + axe: anclas, teclado, layout, auditoría y lo que oye el lector
+├── e2e/                    # Playwright + axe: anclas, teclado, layout, auditoría, lo que oye el lector e imágenes
 ├── design/                 # export de Claude Design (sin su runtime), solo referencia
 ├── docs/                   # cover.jpg (portada de este README, diseñada en Claude Design) y screens/ (capturas a 2x)
 ├── public/                 # íconos, imagen para redes (og-image.jpg, diseñada en Claude Design), site.webmanifest y robots.txt

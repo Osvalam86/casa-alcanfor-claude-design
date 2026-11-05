@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { landing } from '@/content/landing'
-import { photoProps } from '@/lib/unsplash'
+import { BOX_ASPECT, photoProps } from '@/lib/unsplash'
 import { Eyebrow } from '@/components/atoms/Eyebrow'
 import { Heading } from '@/components/atoms/Heading'
 import { Button } from '@/components/atoms/Button'
@@ -53,10 +53,13 @@ export function Hero({ onTour, quickCheck, trustBar }: HeroProps) {
             <div aria-hidden="true" className="absolute -top-5 -right-5 aspect-portrait w-full rounded-arch border border-border-decor" />
             <div className="relative aspect-portrait overflow-hidden rounded-arch bg-surface-placeholder shadow-2">
               <motion.img
-                {...photoProps(hero.image, '(min-width: 1024px) 520px, 100vw')}
+                // Caja: hasta 520 px y el ancho del contenedor en móvil, × 1.15 por scale-115; recortada a 4:5
+                {...photoProps(hero.image, '(min-width: 600px) 598px, calc((100vw - 40px) * 1.15)', 1600, BOX_ASPECT.portrait)}
                 alt={hero.image.alt}
                 loading="eager"
-                fetchPriority="high"
+                // auto, no high: en móvil la foto queda bajo la primera pantalla y competía con el JS que necesita
+                // el LCP (el h1). Lighthouse a 360 px: LCP 4.5 → 2.9 s; a 1440 px sin cambio (0.84 s, aquí sí es el LCP)
+                fetchPriority="auto"
                 decoding="async"
                 style={reduceMotion ? undefined : { y }}
                 className="absolute inset-0 size-full scale-115 object-cover"
@@ -64,7 +67,8 @@ export function Hero({ onTour, quickCheck, trustBar }: HeroProps) {
               <div aria-hidden="true" className="absolute inset-0 bg-linear-to-b from-transparent from-40% to-image-tint" />
             </div>
             <ShapedImage
-              {...photoProps(hero.detailImage, '240px', 768)}
+              // 11/25 de la caja del hero menos el borde de 6 px por lado (antes "240px": en móvil se pintaba a 111–152 px)
+              {...photoProps(hero.detailImage, '(min-width: 600px) 217px, calc((100vw - 40px) * 0.44 - 12px)', 768, BOX_ASPECT.photo)}
               alt={hero.detailImage.alt}
               shape="corner"
               aspect="photo"

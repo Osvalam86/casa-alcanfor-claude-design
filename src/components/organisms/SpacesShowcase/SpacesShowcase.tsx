@@ -1,7 +1,7 @@
 import { useRef, type KeyboardEvent, type MouseEventHandler } from 'react'
 import { landing } from '@/content/landing'
 import { cn } from '@/lib/cn'
-import { photoProps } from '@/lib/unsplash'
+import { BOX_ASPECT, photoProps } from '@/lib/unsplash'
 import { Eyebrow } from '@/components/atoms/Eyebrow'
 import { Heading } from '@/components/atoms/Heading'
 import { Button } from '@/components/atoms/Button'
@@ -98,7 +98,8 @@ export function SpacesShowcase({ activeIndex, onChange, onVisit }: SpacesShowcas
         >
           <ShapedImage
             key={space.photo.id}
-            {...photoProps(space.photo, '(min-width: 1024px) 640px, 100vw')}
+            // grid-fit-380 con gap-split (5vw): 2 columnas desde 874 px, de 43.5vw; el margen deja de crecer en 1200 px
+            {...photoProps(space.photo, '(min-width: 1280px) 560px, (min-width: 1200px) calc(47.5vw - 48px), (min-width: 874px) 43.5vw, (min-width: 500px) 92vw, calc(100vw - 40px)', 1600, BOX_ASPECT.wide)}
             alt={space.photo.alt}
             shape="corner-lg"
             aspect="wide"

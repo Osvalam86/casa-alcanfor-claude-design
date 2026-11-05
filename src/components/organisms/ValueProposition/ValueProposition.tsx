@@ -1,5 +1,5 @@
 import { landing } from '@/content/landing'
-import { photoProps } from '@/lib/unsplash'
+import { BOX_ASPECT, photoProps } from '@/lib/unsplash'
 import { Heading } from '@/components/atoms/Heading'
 import { Button } from '@/components/atoms/Button'
 import { ShapedImage } from '@/components/atoms/ShapedImage'
@@ -20,7 +20,7 @@ export function ValueProposition() {
       <div aria-hidden="true" className="absolute -top-30 -right-30 h-130 w-105 rounded-arch-top border border-border-inverse-soft" />
       <div className="relative mx-auto grid max-w-page grid-fit-420 items-center gap-split px-gutter">
         <div data-reveal="" className="relative w-full max-w-120">
-          <ShapedImage {...photoProps(value.image, '(min-width: 1024px) 480px, 100vw', 1200)} alt={value.image.alt} shape="arch" aspect="portrait" />
+          <ShapedImage {...photoProps(value.image, '(min-width: 1104px) 480px, (min-width: 966px) 43.5vw, (min-width: 560px) 480px, calc(100vw - 40px)', 1200, BOX_ASPECT.portrait)} alt={value.image.alt} shape="arch" aspect="portrait" />
           <StatItem as="div" variant="card" value={value.stat.value} label={value.stat.label} className="absolute -right-4 bottom-8" />
         </div>
         <div className="flex flex-col gap-10">

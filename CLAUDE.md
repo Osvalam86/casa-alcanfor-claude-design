@@ -97,6 +97,7 @@ src/
 - Contenedor máximo de 1280 px.
 - El grid sigue al diseño: grids `auto-fit`/`auto-fill` con `minmax()` cuyos mínimos son tokens de `theme.css` (`--grid-min-*`). No se fuerza un grid de 4/8/12 columnas.
 - Breakpoints: `sm` 600 px, `md` 768 px y `lg` 1024 px. El responsive se resuelve en CSS, nunca leyendo `window.innerWidth`.
+- Imágenes (`src/lib/unsplash.ts`): el `sizes` de cada foto es el ancho con que se pinta (con `object-cover`, `max(caja, alto × proporción)`, más la escala del transform), no un `vw` aproximado. En rejillas `auto-fill`/`auto-fit` se genera con `sizesFromWidths` (`src/lib/responsiveSizes.ts`). El recorte en origen va con `BOX_ASPECT` en cajas de proporción fija y con `safeCrop` en cajas variables, para no cambiar el encuadre. Si cambias una rejilla, un espaciado o el tamaño de una caja, actualiza su `sizes`: `e2e/images.spec.ts` falla si deja de cubrir lo que se pinta.
 
 ## 7.1 Idioma, fuentes, SEO y formulario
 

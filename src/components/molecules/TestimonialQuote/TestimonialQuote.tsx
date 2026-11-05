@@ -1,5 +1,5 @@
 import { cn } from '@/lib/cn'
-import { photoProps, type Photo } from '@/lib/unsplash'
+import { BOX_ASPECT, photoProps, type Photo } from '@/lib/unsplash'
 import { ShapedImage } from '@/components/atoms/ShapedImage'
 import { Avatar } from '@/components/atoms/Avatar'
 import { RatingStars } from '@/components/atoms/RatingStars'
@@ -47,7 +47,7 @@ export function TestimonialQuote({ quote, author, initials, meta, ratingLabel, p
           className,
         )}
       >
-        <ShapedImage {...photoProps(photo, '(min-width: 768px) 45vw, 100vw', 1200)} alt={photo.alt} shape="corner-bl" aspect="photo" frameClassName="max-w-140" />
+        <ShapedImage {...photoProps(photo, '(min-width: 1280px) 560px, (min-width: 1200px) calc(48vw - 48px), (min-width: 728px) 44vw, (min-width: 500px) 92vw, calc(100vw - 40px)', 1200, BOX_ASPECT.photo)} alt={photo.alt} shape="corner-bl" aspect="photo" frameClassName="max-w-140" />
         <div className="flex flex-col gap-6">
           <span aria-hidden="true" className="h-10 font-display text-quote-mark font-medium text-accent">
             “
