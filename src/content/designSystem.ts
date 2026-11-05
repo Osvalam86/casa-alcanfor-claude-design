@@ -112,7 +112,15 @@ export const designSystem = {
       helper: { label: 'WhatsApp', helper: '10 dígitos, por ejemplo 33 0000 0000' },
       error: { label: 'WhatsApp', value: '33 1234', error: 'Escribe un número de WhatsApp de 10 dígitos.' },
       disabled: { label: 'Input deshabilitado', value: 'No disponible' },
-      select: { label: 'Tipo de evento', placeholder: 'Elige una opción', options: ['Boda', 'XV años', 'Bautizo o primera comunión'] },
+      select: {
+        label: 'Tipo de evento',
+        placeholder: 'Elige una opción',
+        options: [
+          { value: 'wedding', label: 'Boda' },
+          { value: 'quinceanera', label: 'XV años' },
+          { value: 'baptism', label: 'Bautizo' },
+        ],
+      },
       date: { label: 'Fecha tentativa' },
       stepper: { label: 'Invitados', decrement: 'Quitar 10 invitados', increment: 'Sumar 10 invitados' },
       textarea: { label: 'Cuéntanos tu idea', optional: '(opcional)', value: 'Ceremonia en el jardín y cena en el salón…' },

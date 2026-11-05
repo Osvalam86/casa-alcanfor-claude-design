@@ -211,15 +211,54 @@ test('capas fijas: dentro del <footer>, fixed, últimas en el orden de foco y co
   expect(position).toBe('fixed')
 
   // TikTok es el último enlace del footer (el aviso de privacidad es solo texto); Tab sigue a las capas fijas y WhatsApp cierra el orden.
+  // En móvil, «Consulta disponibilidad» solo entra al orden de foco con la barra visible (oculto es inert).
   await footer.getByRole('link', { name: /^TikTok/ }).focus()
   if (isMobile(page)) {
-    await page.keyboard.press('Tab')
-    await expect(footer.getByRole('link', { name: 'Consulta disponibilidad' })).toBeFocused()
+    await page.waitForTimeout(400)
+    const shown = (await page.locator('[data-sticky-cta]').getAttribute('data-sticky-cta')) === 'shown'
+    if (shown) {
+      await page.keyboard.press('Tab')
+      await expect(footer.getByRole('link', { name: 'Consulta disponibilidad' })).toBeFocused()
+    }
   }
   await page.keyboard.press('Tab')
   await expect(whatsapp).toBeFocused()
   // gold-700, no el gold-400 de la superficie oscura del footer. Se espera: `transition` anima outline-color.
   await expect.poll(() => whatsapp.evaluate((el) => getComputedStyle(el).outlineColor)).toBe('rgb(122, 92, 48)')
+})
+
+/** Opción visible → value en inglés y cómo la nombra el aviso de precarga, concordando en número. */
+const NOTE_BY_TYPE = [
+  ['XV años', 'quinceanera', 'tus XV años'],
+  ['Boda', 'wedding', 'tu boda'],
+  ['Bautizo', 'baptism', 'tu bautizo'],
+  ['Primera comunión', 'first-communion', 'tu primera comunión'],
+  ['Corporativo', 'corporate', 'tu evento corporativo'],
+  ['Cumpleaños', 'birthday', 'tu cumpleaños'],
+  ['Aniversario', 'anniversary', 'tu aniversario'],
+  ['Baby shower', 'baby-shower', 'tu baby shower'],
+  ['Graduación', 'graduation', 'tu graduación'],
+  ['Otro', 'other', 'tu evento'],
+] as const
+
+test('verificador → cotización: el tipo viaja en inglés y el aviso lo nombra concordando («tus XV años»)', async ({ page }) => {
+  const quick = page.getByRole('form', { name: 'Verifica tu fecha' })
+  const iso = new Date(Date.now() + 60 * 24 * 3600 * 1000).toISOString().slice(0, 10)
+  const longDate = await page.evaluate(
+    (d) => new Date(`${d}T12:00`).toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' }),
+    iso,
+  )
+
+  for (const [label, value, phrase] of NOTE_BY_TYPE) {
+    await quick.getByLabel('¿Qué celebras?').selectOption({ label })
+    await quick.getByLabel('Fecha tentativa').fill(iso)
+    await quick.getByRole('button', { name: 'Ver fechas libres' }).click()
+
+    await expect(page.locator('#quote-tipo')).toHaveValue(value)
+    await expect(page.locator('#contacto [role="status"]')).toHaveText(
+      `Anotamos ${phrase} para el ${longDate} con 120 invitados. Completa tus datos y te confirmamos qué espacios están libres.`,
+    )
+  }
 })
 
 test('NumberStepper: + y − anuncian el nuevo valor en una región viva', async ({ page }) => {

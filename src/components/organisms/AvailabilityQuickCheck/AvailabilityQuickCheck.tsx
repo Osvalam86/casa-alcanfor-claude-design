@@ -18,6 +18,7 @@ type AvailabilityQuickCheckProps = {
 }
 
 /**
+ * La tarjeta es contenedor (@container): la distribución depende de su ancho, no del viewport.
  * <form> con nombre (aria-labelledby al título visible) → landmark "form" localizable.
  * El error es un solo mensaje bajo los campos, en una región viva que existe desde el inicio;
  * los campos culpables llevan aria-invalid y aria-describedby a ese mensaje.
@@ -66,12 +67,14 @@ export function AvailabilityQuickCheck({ onSubmit }: AvailabilityQuickCheckProps
       noValidate
       aria-labelledby={titleId}
       onSubmit={handleSubmit}
-      className="flex flex-col gap-3.5 rounded-md bg-surface-alt p-5 shadow-1"
+      className="@container flex flex-col gap-3.5 rounded-md bg-surface-alt p-5 shadow-1"
     >
       <p id={titleId} className="m-0 font-sans text-overline font-semibold uppercase text-text-muted">
         {copy.title}
       </p>
-      <div className="grid grid-fit-150 items-end gap-3">
+      {/* Cortes propios, medidos en la tarjeta (tokens --container-quick-check-*): una columna; dos (tipo y fecha,
+          invitados y botón); desde la fila, la distribución original con columnas de al menos --grid-min-quick-check */}
+      <div className="grid items-end gap-3 @quick-check-pairs:grid-cols-2 @quick-check-row:grid-fit-quick-check">
         <FormField label={copy.tipo.label} labelSize="sm">
           {(field) => (
             <Select
@@ -87,7 +90,9 @@ export function AvailabilityQuickCheck({ onSubmit }: AvailabilityQuickCheckProps
             >
               <option value="">{copy.tipo.placeholder}</option>
               {EVENT_TYPES.map((type) => (
-                <option key={type}>{type}</option>
+                <option key={type.value} value={type.value}>
+                  {type.label}
+                </option>
               ))}
             </Select>
           )}

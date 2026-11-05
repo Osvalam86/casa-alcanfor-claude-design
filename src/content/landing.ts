@@ -7,14 +7,25 @@ import type { IconName } from '@/components/atoms/Icon'
  * DEMO: los valores marcados con `// DEMO` son de ejemplo y deben reemplazarse con datos reales (D4/D6).
  */
 
+/**
+ * Tipos de evento de los formularios (verificador y cotización), uno por opción: `value` es el identificador
+ * estable que viaja en el formulario; `label`, el texto visible; `inNote`, cómo se nombra en el aviso de precarga
+ * («Anotamos tu boda…»), con el posesivo incluido para que concuerde en número: «tus XV años», pero «tu cumpleaños»
+ * (singular aunque termine en s).
+ */
 export const EVENT_TYPES = [
-  'Boda',
-  'XV años',
-  'Bautizo o primera comunión',
-  'Cumpleaños o aniversario',
-  'Baby shower o graduación',
-  'Evento corporativo',
+  { value: 'wedding', label: 'Boda', inNote: 'tu boda' },
+  { value: 'quinceanera', label: 'XV años', inNote: 'tus XV años' },
+  { value: 'baptism', label: 'Bautizo', inNote: 'tu bautizo' },
+  { value: 'first-communion', label: 'Primera comunión', inNote: 'tu primera comunión' },
+  { value: 'corporate', label: 'Corporativo', inNote: 'tu evento corporativo' },
+  { value: 'birthday', label: 'Cumpleaños', inNote: 'tu cumpleaños' },
+  { value: 'anniversary', label: 'Aniversario', inNote: 'tu aniversario' },
+  { value: 'baby-shower', label: 'Baby shower', inNote: 'tu baby shower' },
+  { value: 'graduation', label: 'Graduación', inNote: 'tu graduación' },
+  { value: 'other', label: 'Otro', inNote: 'tu evento' },
 ] as const
+export type EventType = (typeof EVENT_TYPES)[number]['value']
 
 export const GALLERY_FILTERS = ['Todos', 'Bodas', 'XV años', 'Bautizos', 'Corporativos'] as const
 export type GalleryFilter = (typeof GALLERY_FILTERS)[number]
@@ -99,8 +110,9 @@ export const landing = {
     packageIdea: (name: string) => `Me interesa el paquete ${name}.`,
     packageNote: (name: string) =>
       `Anotamos tu interés en el paquete ${name}. Completa tus datos y tu coordinador te envía la cotización.`,
+    /** `tipo` es el value del select (EVENT_TYPES). */
     quickCheckNote: (tipo: string, fecha: string, invitados: number) =>
-      `Anotamos tu ${tipo.toLowerCase()} para el ${fecha} con ${invitados} invitados. Completa tus datos y te confirmamos qué espacios están libres.`,
+      `Anotamos ${EVENT_TYPES.find((type) => type.value === tipo)?.inNote ?? 'tu evento'} para el ${fecha} con ${invitados} invitados. Completa tus datos y te confirmamos qué espacios están libres.`,
   },
 
   hero: {

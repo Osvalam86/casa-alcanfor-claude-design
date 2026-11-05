@@ -8,7 +8,7 @@ import { LandingTemplate, CONTACT_HEADING_ID } from '@/components/templates/Land
 import { ProjectNotice } from '@/components/organisms/ProjectNotice'
 import { SiteHeader } from '@/components/organisms/SiteHeader'
 import { MobileMenu } from '@/components/organisms/MobileMenu'
-import { Hero } from '@/components/organisms/Hero'
+import { Hero, HERO_CTA_ID } from '@/components/organisms/Hero'
 import { AvailabilityQuickCheck, type QuickCheckValues } from '@/components/organisms/AvailabilityQuickCheck'
 import { TrustBar } from '@/components/organisms/TrustBar'
 import { EventTypesGrid } from '@/components/organisms/EventTypesGrid'
@@ -148,7 +148,7 @@ export function LandingPage() {
         <SiteFooter
           fixedActions={
             <>
-              <MobileStickyCTA />
+              <MobileStickyCTA triggerId={HERO_CTA_ID} destinationId={landing.cta.contactHref.slice(1)} />
               <WhatsAppFloatingButton />
             </>
           }

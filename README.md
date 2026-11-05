@@ -57,6 +57,8 @@ Las decisiones D1–D12 y los ajustes de accesibilidad se aprobaron en el plan d
 | D7 | «Recorre el salón» | Abre un «recorrido en video» que es una sola foto con ícono de reproducir | Abre los 3 espacios en el lightbox, con ícono de galería y contador | No prometer un video que no existe |
 | D9 | Enlace «Design System» del footer | Visible en la landing | Retirado; el catálogo solo se abre por su URL | Es una herramienta interna, no contenido del sitio |
 | D12 | «Ver fechas libres» y formulario | — | Validación completa con envío simulado | No hay backend ni destino definido |
+| — | «Verifica tu fecha» en escritorio | Tres campos en una fila y el botón debajo | 2×2 (tipo y fecha; invitados y botón) mientras la tarjeta mide menos de 564 px, que en el hero de dos columnas es siempre | En la fila de tres campos la fecha quedaba en 164 px, justo lo que ocupa con su ícono, sin aire; con columnas de 180 px no se aprieta |
+| — | Tipos de evento en los formularios | Seis opciones, cuatro combinadas con «o» («Bautizo o primera comunión», «Cumpleaños o aniversario»…) | Una opción por evento: Boda, XV años, Bautizo, Primera comunión, Corporativo, Cumpleaños, Aniversario, Baby shower, Graduación y Otro, con `value` en inglés (`wedding`, `first-communion`…) | Separar las opciones evita que el texto elegido se corte (todas caben en el select de 180 px) y que alguien tenga que buscar su evento dentro de una opción combinada |
 | — | Aviso de proyecto conceptual | No existe | Franja no fija antes del header, contraste 8.02:1 | Dejar claro que negocio, datos y reseñas son ficticios |
 
 ---

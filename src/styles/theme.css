@@ -49,9 +49,26 @@
      (fila + 2 × --header-pad-compact) y la actualiza con ResizeObserver */
   --header-height: 60px;
 
-  /* Reserva inferior al llevar algo a la vista (foco, anclas): libra la barra móvil fija (~70px)
-     y el botón flotante de WhatsApp (24px + 56px) para que no tapen el foco (WCAG 2.4.11) */
-  --scroll-offset-bottom: 96px;
+  /* Barra fija inferior de móvil (MobileStickyCTA): padding vertical y alto de sus controles (size-12 / min-h-12) */
+  --sticky-pad: 10px;
+  --sticky-control: 3rem;
+  /* Hasta dónde sube cada capa desde el borde inferior: WhatsApp solo (estado inicial) y la barra completa con su borde */
+  --sticky-reach-whatsapp: calc(var(--sticky-pad) + var(--sticky-control) + env(safe-area-inset-bottom));
+  --sticky-reach-bar: calc(var(--sticky-reach-whatsapp) + var(--sticky-pad) + 1px);
+  /* Aire sobre la capa para el anillo de foco (3px de grosor + 3px de separación) */
+  --focus-clearance: 12px;
+
+  /* Reserva inferior al llevar algo a la vista (foco, anclas) para que las capas fijas no tapen el foco
+     (WCAG 2.4.11). En móvil corresponde a lo visible: WhatsApp solo o la barra completa (regla :has de abajo) */
+  --scroll-offset-bottom: calc(var(--sticky-reach-whatsapp) + var(--focus-clearance));
+
+  /* Hero (bloque de imágenes, @container): cuánto sobresale la foto pequeña a la izquierda del arco y cuánto se
+     desplaza el contorno arriba y a la derecha. Escalan con el ancho del bloque (cqi) y llegan a 24px y 20px a
+     706px (el bloque a 768px de viewport), así que desde ahí la composición es la de siempre */
+  --hero-overhang: clamp(0.5rem, 3.4cqi, 1.5rem);
+  --hero-frame-offset: clamp(0.5rem, 2.84cqi, 1.25rem);
+  /* Ancho del arco: 520px como máximo y, en bloques angostos, lo que dejan la foto pequeña y el contorno */
+  --hero-media-width: min(32.5rem, 100cqi - var(--hero-overhang) - var(--hero-frame-offset));
 
   /* Esquinas asimétricas de marca: solo las consumen las utilidades rounded-corner* (no generan rounded-*) */
   --corner: 48px;
@@ -59,6 +76,19 @@
 
   /* Color de foco: depende de la superficie, por eso vive fuera de @theme (se usa como outline-(--focus-ring)) */
   --focus-ring: var(--gold-700);
+}
+
+/* Barra móvil visible: la reserva cubre la barra completa */
+:root:has([data-sticky-cta='shown']) {
+  --scroll-offset-bottom: calc(var(--sticky-reach-bar) + var(--focus-clearance));
+}
+
+/* Desde md no hay barra: libra el botón flotante de WhatsApp (bottom-6 + size-15 = 84px) */
+@media (min-width: 48rem) {
+  :root,
+  :root:has([data-sticky-cta='shown']) {
+    --scroll-offset-bottom: 96px;
+  }
 }
 
 /* Superficies oscuras: el anillo de foco pasa a dorado claro (gold-700 sobre sage-900 = 1.83:1) */
@@ -220,6 +250,9 @@
   --spacing-quote: clamp(32px, 4vw, 48px);
   --spacing-quote-x: clamp(24px, 4vw, 64px);
   --spacing-panel: clamp(20px, 4vw, 48px);
+  /* Hero: desplazamientos de la composición del arco, relativos al bloque de imágenes (cqi) */
+  --spacing-hero-overhang: var(--hero-overhang);
+  --spacing-hero-frame: var(--hero-frame-offset);
 
   /* ── Forma ── */
   --radius-xs: 2px;
@@ -249,6 +282,12 @@
   --container-measure: 52ch;
   --container-measure-md: 56ch;
   --container-measure-lg: 68ch;
+  /* Verificador de fecha del hero (AvailabilityQuickCheck), medidos en la tarjeta (@container, ancho de su rejilla).
+     Columna mínima: 164px que pide la fecha con valor y su ícono (field-sizing: content) + 16px de aire; el control
+     de invitados pide 132px con «450». Cortes: 2 columnas = 2 × 180 + gap-3 (12) = 372px; fila original con
+     3 columnas = 3 × 180 + 2 × 12 = 564px */
+  --container-quick-check-pairs: 23.25rem;
+  --container-quick-check-row: 35.25rem;
 
   --aspect-portrait: 4 / 5;
   --aspect-photo: 3 / 2;
@@ -257,6 +296,7 @@
 
   /* Mínimos de los grids auto-fit del diseño (D2) */
   --grid-min-150: 150px;
+  --grid-min-quick-check: 180px;
   --grid-min-200: 200px;
   --grid-min-220: 220px;
   --grid-min-230: 230px;
@@ -299,6 +339,18 @@
   border-radius: var(--radius-md) var(--radius-md) var(--corner-lg) var(--radius-md);
 }
 
+/* Caja del arco del hero, dentro del bloque de imágenes (@container). Centrada como siempre cuando cabe; si no,
+   se corre lo justo para que la foto pequeña (izquierda) y el contorno (derecha) queden dentro del bloque.
+   El margen posiciona la caja, no separa hermanos */
+@utility hero-media-box {
+  width: var(--hero-media-width);
+  margin-inline-start: clamp(
+    var(--hero-overhang),
+    (100cqi - var(--hero-media-width)) / 2,
+    100cqi - var(--hero-media-width) - var(--hero-frame-offset)
+  );
+}
+
 /* Duraciones como tokens: duration-base, duration-slow… */
 @utility duration-fast {
   transition-duration: var(--duration-fast);
@@ -328,7 +380,7 @@
 
 /* Barra fija inferior en móvil: respeta el área segura del dispositivo */
 @utility pb-safe {
-  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  padding-bottom: calc(var(--sticky-pad) + env(safe-area-inset-bottom));
 }
 
 /* Header abierto / compacto. Al compactar, el margen inferior repone el padding que pierde: el header

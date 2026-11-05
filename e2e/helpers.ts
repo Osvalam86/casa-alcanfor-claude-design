@@ -40,6 +40,16 @@ export async function browseText(locator: Locator) {
   return parts.join('').replace(/\s+/g, ' ').trim()
 }
 
+/** true si Chrome deja el elemento fuera del árbol de accesibilidad (ignorado o ausente), p. ej. por inert. */
+export async function axIgnored(locator: Locator) {
+  try {
+    const { start } = await axTree(locator)
+    return !!start.ignored
+  } catch {
+    return true
+  }
+}
+
 /** Valor de una propiedad del nodo de accesibilidad de Chrome (p. ej. "invalid", "required"). */
 export async function axProperty(locator: Locator, name: string) {
   const { start } = await axTree(locator)
@@ -57,6 +67,48 @@ export async function revealAll(page: Page) {
     window.scrollTo(0, 0)
   })
   await page.waitForTimeout(900)
+}
+
+/**
+ * WCAG 2.4.11 para el elemento enfocado: espera a que el scroll y las transiciones de las capas fijas se
+ * asienten y devuelve qué capa fixed/sticky lo tapa ('' si ninguna). null si no hay foco en un elemento.
+ * Una capa tapa si se solapa con el foco y, en el centro de la zona solapada, queda por encima de él.
+ * Las piezas ocultas de la barra móvil no cuentan: no reciben eventos (pointer-events: none) y
+ * elementFromPoint no las devuelve.
+ */
+export function focusObscured(page: Page) {
+  return page.evaluate(async () => {
+    // Con scroll-behavior: smooth el foco desplaza animando: se mide cuando el scroll se asienta.
+    let last = -1
+    while (last !== window.scrollY) {
+      last = window.scrollY
+      await new Promise((resolve) => setTimeout(resolve, 80))
+    }
+    // La barra móvil puede cambiar de estado con ese scroll: se espera a que termine su transición.
+    const sticky = document.querySelector('[data-sticky-cta]')
+    if (sticky) await Promise.all(sticky.getAnimations({ subtree: true }).map((a) => a.finished))
+    const el = document.activeElement as HTMLElement | null
+    if (!el || el === document.body) return null
+    const key = el.id || el.outerHTML.slice(0, 80)
+    const overlays = [...document.querySelectorAll<HTMLElement>('body *')].filter((node) => {
+      const pos = getComputedStyle(node).position
+      return (pos === 'fixed' || pos === 'sticky') && node.checkVisibility() && !node.contains(el) && node.getBoundingClientRect().height < window.innerHeight / 2
+    })
+    const r = el.getBoundingClientRect()
+    const hits = overlays.filter((o) => {
+      const b = o.getBoundingClientRect()
+      const left = Math.max(r.left, b.left)
+      const right = Math.min(r.right, b.right)
+      const top = Math.max(r.top, b.top)
+      const bottom = Math.min(r.bottom, b.bottom)
+      if (right - left <= 1 || bottom - top <= 1) return false
+      const topmost = document.elementFromPoint((left + right) / 2, (top + bottom) / 2)
+      return !!topmost && o.contains(topmost) && !el.contains(topmost)
+    })
+    const name = (el.getAttribute('aria-label') ?? el.textContent ?? '').trim().slice(0, 40) || el.getAttribute('name') || el.id
+    const by = hits.map((o) => `${o.tagName.toLowerCase()}.${String(o.className).split(' ').slice(0, 3).join('.')}`).join(', ')
+    return { key, hit: hits.length ? `${el.tagName} "${name}" tapado por ${by} (top ${Math.round(r.top)}, bottom ${Math.round(r.bottom)}, vh ${window.innerHeight})` : '' }
+  })
 }
 
 /** Nombre accesible aproximado del elemento enfocado (aria-label o texto). */

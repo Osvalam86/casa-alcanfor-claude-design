@@ -152,7 +152,9 @@ export function QuoteForm({ labelledBy, values, onValuesChange, prefillNote, onR
             <Select {...f} name="tipo" aria-required="true" value={values.tipo} onChange={onChange} onBlur={onBlur}>
               <option value="">{copy.fields.tipo.placeholder}</option>
               {EVENT_TYPES.map((type) => (
-                <option key={type}>{type}</option>
+                <option key={type.value} value={type.value}>
+                  {type.label}
+                </option>
               ))}
             </Select>
           )}

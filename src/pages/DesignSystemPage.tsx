@@ -268,7 +268,9 @@ export function DesignSystemPage() {
                   <Select {...field} defaultValue="">
                     <option value="">{ds.atoms.fields.select.placeholder}</option>
                     {ds.atoms.fields.select.options.map((o) => (
-                      <option key={o}>{o}</option>
+                      <option key={o.value} value={o.value}>
+                        {o.label}
+                      </option>
                     ))}
                   </Select>
                 )}
@@ -301,7 +303,9 @@ export function DesignSystemPage() {
                   <Select {...field} tone="quiet" defaultValue="">
                     <option value="">{ds.atoms.fields.select.placeholder}</option>
                     {ds.atoms.fields.select.options.map((o) => (
-                      <option key={o}>{o}</option>
+                      <option key={o.value} value={o.value}>
+                        {o.label}
+                      </option>
                     ))}
                   </Select>
                 )}

@@ -1,1 +1,1 @@
-export { Hero } from './Hero'
+export { Hero, HERO_CTA_ID } from './Hero'

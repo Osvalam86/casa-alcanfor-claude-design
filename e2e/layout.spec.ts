@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test'
-import { revealAll } from './helpers'
+import { focusObscured, revealAll } from './helpers'
 
 const PAGES = ['/', '/design-system.html']
 
@@ -85,36 +85,7 @@ test('ningún foco queda tapado por WhatsApp, la barra móvil o el header', asyn
   const seen = new Set<string>()
   for (let i = 0; i < 260; i++) {
     await page.keyboard.press('Tab')
-    const result = await page.evaluate(async () => {
-      // Con scroll-behavior: smooth el foco desplaza animando: se mide cuando el scroll se asienta.
-      let last = -1
-      while (last !== window.scrollY) {
-        last = window.scrollY
-        await new Promise((resolve) => setTimeout(resolve, 80))
-      }
-      const el = document.activeElement as HTMLElement | null
-      if (!el || el === document.body) return null
-      const key = el.id || el.outerHTML.slice(0, 80)
-      const overlays = [...document.querySelectorAll<HTMLElement>('body *')].filter((node) => {
-        const pos = getComputedStyle(node).position
-        return (pos === 'fixed' || pos === 'sticky') && node.checkVisibility() && !node.contains(el) && node.getBoundingClientRect().height < window.innerHeight / 2
-      })
-      const r = el.getBoundingClientRect()
-      // Hay solape y, en el centro de la zona solapada, la capa queda por encima del foco
-      const hits = overlays.filter((o) => {
-        const b = o.getBoundingClientRect()
-        const left = Math.max(r.left, b.left)
-        const right = Math.min(r.right, b.right)
-        const top = Math.max(r.top, b.top)
-        const bottom = Math.min(r.bottom, b.bottom)
-        if (right - left <= 1 || bottom - top <= 1) return false
-        const topmost = document.elementFromPoint((left + right) / 2, (top + bottom) / 2)
-        return !!topmost && o.contains(topmost) && !el.contains(topmost)
-      })
-      const name = (el.getAttribute('aria-label') ?? el.textContent ?? '').trim().slice(0, 40) || el.getAttribute('name') || el.id
-      const by = hits.map((o) => `${o.tagName.toLowerCase()}.${String(o.className).split(' ').slice(0, 3).join('.')}`).join(', ')
-      return { key, hit: hits.length ? `${el.tagName} "${name}" tapado por ${by} (top ${Math.round(r.top)}, bottom ${Math.round(r.bottom)}, vh ${window.innerHeight})` : '' }
-    })
+    const result = await focusObscured(page)
     if (!result) continue
     if (seen.has(result.key) && i > 20) break
     seen.add(result.key)
