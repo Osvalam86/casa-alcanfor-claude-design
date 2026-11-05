@@ -53,7 +53,7 @@ export function LandingPage() {
   useAnchorFocus()
 
   const [menuOpen, setMenuOpen] = useState(false)
-  const [filter, setFilter] = useState<GalleryFilter>('Todos')
+  const [filter, setFilter] = useState<GalleryFilter>('all')
   const [spaceIndex, setSpaceIndex] = useState(0)
   const [lightbox, setLightbox] = useState<{ open: boolean; mode: LightboxMode; index: number }>({
     open: false,
@@ -66,7 +66,7 @@ export function LandingPage() {
   const [formKey, setFormKey] = useState(0)
 
   const galleryPhotos = useMemo(
-    () => (filter === 'Todos' ? landing.gallery.photos : landing.gallery.photos.filter((p) => p.category === filter)),
+    () => (filter === 'all' ? landing.gallery.photos : landing.gallery.photos.filter((p) => p.category === filter)),
     [filter],
   )
   const tourPhotos = useMemo(() => landing.spaces.items.map((space) => space.photo), [])

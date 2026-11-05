@@ -79,8 +79,8 @@ export function GalleryMasonry({ filter, photos, onFilter, onOpen }: GalleryMaso
           </div>
           <div role="group" aria-label={gallery.filtersLabel} className="flex flex-wrap gap-2">
             {GALLERY_FILTERS.map((option) => (
-              <Chip key={option} pressed={option === filter} onClick={() => onFilter(option)}>
-                {option}
+              <Chip key={option.value} pressed={option.value === filter} onClick={() => onFilter(option.value)}>
+                {option.label}
               </Chip>
             ))}
           </div>

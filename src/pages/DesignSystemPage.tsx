@@ -81,7 +81,7 @@ function Caption({ children }: { children: ReactNode }) {
 export function DesignSystemPage() {
   const stepperId = useId()
   const [guests, setGuests] = useState(120)
-  const [chip, setChip] = useState<string>(ds.atoms.chips.items[0])
+  const [chip, setChip] = useState<string>(ds.atoms.chips.items[0].value)
   const [openFaq, setOpenFaq] = useState<number | null>(1)
 
   return (
@@ -318,8 +318,8 @@ export function DesignSystemPage() {
             <Specimen title={ds.atoms.chips.title}>
               <div role="group" aria-label={ds.atoms.chips.title} className="flex flex-wrap gap-2">
                 {ds.atoms.chips.items.map((item) => (
-                  <Chip key={item} pressed={chip === item} onClick={() => setChip(item)}>
-                    {item}
+                  <Chip key={item.value} pressed={chip === item.value} onClick={() => setChip(item.value)}>
+                    {item.label}
                   </Chip>
                 ))}
               </div>

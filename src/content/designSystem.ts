@@ -125,7 +125,15 @@ export const designSystem = {
       stepper: { label: 'Invitados', decrement: 'Quitar 10 invitados', increment: 'Sumar 10 invitados' },
       textarea: { label: 'Cuéntanos tu idea', optional: '(opcional)', value: 'Ceremonia en el jardín y cena en el salón…' },
     },
-    chips: { title: 'Chip · Badge', items: ['Todos', 'Bodas', 'XV años'], badges: ['Más elegido', 'Nuevo'] },
+    chips: {
+      title: 'Chip · Badge',
+      items: [
+        { value: 'all', label: 'Todos' },
+        { value: 'weddings', label: 'Bodas' },
+        { value: 'quinceaneras', label: 'XV años' },
+      ],
+      badges: ['Más elegido', 'Nuevo'],
+    },
     icons: { title: 'Icon · trazo 1.5px' },
     misc: {
       title: 'Divider · Avatar · Rating · Logo',

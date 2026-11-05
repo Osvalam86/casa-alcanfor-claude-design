@@ -27,9 +27,19 @@ export const EVENT_TYPES = [
 ] as const
 export type EventType = (typeof EVENT_TYPES)[number]['value']
 
-export const GALLERY_FILTERS = ['Todos', 'Bodas', 'XV años', 'Bautizos', 'Corporativos'] as const
-export type GalleryFilter = (typeof GALLERY_FILTERS)[number]
-export type GalleryCategory = Exclude<GalleryFilter, 'Todos'>
+/** Filtros de la galería: `value` es el identificador estable (estado y categoría de cada foto); `label`, el texto del chip. */
+export const GALLERY_FILTERS = [
+  { value: 'all', label: 'Todos' },
+  { value: 'weddings', label: 'Bodas' },
+  { value: 'quinceaneras', label: 'XV años' },
+  { value: 'baptisms', label: 'Bautizos' },
+  { value: 'corporate', label: 'Corporativos' },
+] as const
+export type GalleryFilter = (typeof GALLERY_FILTERS)[number]['value']
+export type GalleryCategory = Exclude<GalleryFilter, 'all'>
+
+/** Texto visible de un filtro a partir de su value. */
+export const galleryFilterLabel = (value: GalleryFilter) => GALLERY_FILTERS.find((f) => f.value === value)?.label ?? value
 
 export type GalleryPhoto = Photo & { category: GalleryCategory; ratio: 'portrait' | 'photo' | 'wide' }
 
@@ -164,7 +174,7 @@ export const landing = {
         title: 'Bodas',
         description: 'El sí que soñaste, con jardín al atardecer y salón para la fiesta.',
         link: 'Ver ideas para bodas',
-        filter: 'Bodas',
+        filter: 'weddings',
         // sourceAspect: el original es vertical (2/3); la caja de la tarjeta destacada cambia de proporción
         photo: { id: '1704455305845-d5f66a560e6f', alt: 'Novios abrazados frente a una reja de hierro forjado', width: 1200, height: 1200, sourceAspect: 2 / 3 },
       },
@@ -172,35 +182,35 @@ export const landing = {
         title: 'XV años',
         description: 'Una noche a su medida, con pista, luces y el vals que siempre imaginó.',
         link: 'Ver ideas para XV años',
-        filter: 'XV años',
+        filter: 'quinceaneras',
         photo: photo('1714972383570-44ddc9738355', 'Pareja bailando en la pista iluminada del salón'),
       },
       {
         title: 'Bautizos y primeras comuniones',
         description: 'Reuniones familiares cálidas, cómodas para todas las edades.',
         link: 'Ver ideas para bautizos',
-        filter: 'Bautizos',
+        filter: 'baptisms',
         photo: photo('1561593367-66c79c2294e6', 'Mesa montada con vajilla blanca para una comida familiar'),
       },
       {
         title: 'Cumpleaños y aniversarios',
         description: 'Brinda por los años vividos con quienes más quieres.',
         link: 'Ver ideas para cumpleaños',
-        filter: 'Todos',
+        filter: 'all',
         photo: photo('1527529482837-4698179dc6ce', 'Invitados levantando sus copas en un brindis'),
       },
       {
         title: 'Baby shower y graduaciones',
         description: 'Celebraciones a medio día con menús ligeros y ambiente relajado.',
         link: 'Ver ideas para baby shower',
-        filter: 'Todos',
+        filter: 'all',
         photo: photo('1786550765782-64143480ba12', 'Jardín con luces colgantes entre los árboles durante el día'),
       },
       {
         title: 'Corporativos',
         description: 'Cenas de fin de año, lanzamientos y convenciones con soporte técnico incluido.',
         link: 'Ver ideas para corporativos',
-        filter: 'Corporativos',
+        filter: 'corporate',
         photo: photo('1587825140708-dfaf72ae4b04', 'Ponente en escenario frente a un auditorio lleno'),
       },
     ] satisfies { title: string; description: string; link: string; filter: GalleryFilter; photo: Photo }[],
@@ -298,23 +308,24 @@ export const landing = {
     eyebrow: 'Galería',
     title: 'Momentos que ya sucedieron aquí',
     filtersLabel: 'Filtrar galería por tipo de evento',
-    count: (n: number, filter: GalleryFilter) => `${n} ${n === 1 ? 'foto' : 'fotos'}${filter === 'Todos' ? '' : ` de ${filter}`}`,
+    count: (n: number, filter: GalleryFilter) =>
+      `${n} ${n === 1 ? 'foto' : 'fotos'}${filter === 'all' ? '' : ` de ${galleryFilterLabel(filter)}`}`,
     openLabel: (alt: string) => `Ampliar foto: ${alt}`,
     // sourceAspect: proporción del original en Unsplash (horizontal 3/2 o vertical 2/3), medida con
     // naturalWidth/naturalHeight. Con ella GalleryMasonry recorta en origen sin cambiar el encuadre.
     photos: [
-      { ...portrait('1635362926140-4491578be6ba', 'Novia sosteniendo su ramo de flores'), sourceAspect: 3 / 2, category: 'Bodas', ratio: 'portrait' },
-      { ...photo('1592318072094-2694c98adb73', 'Candil de cristal encendido sobre la pista del salón'), sourceAspect: 3 / 2, category: 'XV años', ratio: 'photo' },
-      { ...wide('1768508950719-4d76978fdf44', 'Cena formal de empresa con centros de mesa florales'), sourceAspect: 2 / 3, category: 'Corporativos', ratio: 'wide' },
-      { ...portrait('1758705477576-8783430d55b6', 'Mesa decorada con vela encendida y flores'), sourceAspect: 3 / 2, category: 'Bautizos', ratio: 'portrait' },
-      { ...photo('1543932927-a9def13a0e7c', 'Novio besando la frente de la novia'), sourceAspect: 2 / 3, category: 'Bodas', ratio: 'photo' },
-      { ...portrait('1648154164366-d067faecdc51', 'Baile en la pista durante la fiesta'), sourceAspect: 2 / 3, category: 'XV años', ratio: 'portrait' },
-      { ...wide('1549997966-5dd46b8e2b06', 'Pareja bajo un árbol iluminado de noche'), sourceAspect: 2 / 3, category: 'Bodas', ratio: 'wide' },
-      { ...photo('1519225421980-715cb0215aed', 'Copas de cristal sobre mesa montada para comida familiar'), sourceAspect: 3 / 2, category: 'Bautizos', ratio: 'photo' },
-      { ...portrait('1540575467063-178a50c2df87', 'Auditorio montado para conferencia con invitados sentados'), sourceAspect: 3 / 2, category: 'Corporativos', ratio: 'portrait' },
-      { ...portrait('1511795409834-ef04bbd61622', 'Mesa elegante con centro floral'), sourceAspect: 3 / 2, category: 'Bodas', ratio: 'portrait' },
-      { ...portrait('1595407753234-0882f1e77954', 'Novios tomados de la mano junto a un muro de madera'), sourceAspect: 3 / 2, category: 'Bodas', ratio: 'portrait' },
-      { ...photo('1502635385003-ee1e6a1a742d', 'Copas de vino alineadas sobre mesa de banquete'), sourceAspect: 2 / 3, category: 'Corporativos', ratio: 'photo' },
+      { ...portrait('1635362926140-4491578be6ba', 'Novia sosteniendo su ramo de flores'), sourceAspect: 3 / 2, category: 'weddings', ratio: 'portrait' },
+      { ...photo('1592318072094-2694c98adb73', 'Candil de cristal encendido sobre la pista del salón'), sourceAspect: 3 / 2, category: 'quinceaneras', ratio: 'photo' },
+      { ...wide('1768508950719-4d76978fdf44', 'Cena formal de empresa con centros de mesa florales'), sourceAspect: 2 / 3, category: 'corporate', ratio: 'wide' },
+      { ...portrait('1758705477576-8783430d55b6', 'Mesa decorada con vela encendida y flores'), sourceAspect: 3 / 2, category: 'baptisms', ratio: 'portrait' },
+      { ...photo('1543932927-a9def13a0e7c', 'Novio besando la frente de la novia'), sourceAspect: 2 / 3, category: 'weddings', ratio: 'photo' },
+      { ...portrait('1648154164366-d067faecdc51', 'Baile en la pista durante la fiesta'), sourceAspect: 2 / 3, category: 'quinceaneras', ratio: 'portrait' },
+      { ...wide('1549997966-5dd46b8e2b06', 'Pareja bajo un árbol iluminado de noche'), sourceAspect: 2 / 3, category: 'weddings', ratio: 'wide' },
+      { ...photo('1519225421980-715cb0215aed', 'Copas de cristal sobre mesa montada para comida familiar'), sourceAspect: 3 / 2, category: 'baptisms', ratio: 'photo' },
+      { ...portrait('1540575467063-178a50c2df87', 'Auditorio montado para conferencia con invitados sentados'), sourceAspect: 3 / 2, category: 'corporate', ratio: 'portrait' },
+      { ...portrait('1511795409834-ef04bbd61622', 'Mesa elegante con centro floral'), sourceAspect: 3 / 2, category: 'weddings', ratio: 'portrait' },
+      { ...portrait('1595407753234-0882f1e77954', 'Novios tomados de la mano junto a un muro de madera'), sourceAspect: 3 / 2, category: 'weddings', ratio: 'portrait' },
+      { ...photo('1502635385003-ee1e6a1a742d', 'Copas de vino alineadas sobre mesa de banquete'), sourceAspect: 2 / 3, category: 'corporate', ratio: 'photo' },
     ] satisfies GalleryPhoto[],
   },
 
