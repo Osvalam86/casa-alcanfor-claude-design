@@ -108,7 +108,7 @@ src/
 - **noindex:** el sitio es un proyecto conceptual. Todas las páginas llevan `<meta name="robots" content="noindex">` y `netlify.toml` envía `X-Robots-Tag: noindex`. No se genera `sitemap.xml` ni la línea `Sitemap:` de `robots.txt`.
 - Íconos: `pnpm icons` los regenera en `public/` desde el monograma del Logo (`scripts/generate-icons.ts`, con Playwright, sin dependencias nuevas).
 - Portadas: diseño propio hecho en Claude Design, **no las genera ningún script ni el build**. `docs/cover.jpg` (2400×1260) es la portada del README (caso de estudio, herramientas y WCAG); `public/og-image.jpg` (1200×630, menos de 300 KB) es la de `og:image`/`twitter:image`, neutra para clientes: solo el negocio y «Proyecto conceptual», sin herramientas ni stack. Se reemplazan a mano; si cambian, reescribe su `alt` mirando la imagen nueva.
-- Capturas: `pnpm screens` construye el sitio y genera capturas limpias a 2x en `docs/screens/` (`scripts/generate-screens.ts`). No toca las portadas.
+- Capturas: `pnpm screens` construye el sitio y genera capturas limpias a 2x en `docs/screens/` (`scripts/generate-screens.ts`), en JPG de calidad 92 como `docs/cover.jpg`; en PNG pesaban unas 3.5 veces más. No toca las portadas.
 - `QuoteForm`: mientras no se defina un destino, el envío es simulado (validación completa + estados loading/success/error) detrás de una función `submitQuote` en `src/lib/`. No conectes servicios externos sin preguntar.
 
 ## 8. Flujo de trabajo y checkpoints

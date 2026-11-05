@@ -1,11 +1,11 @@
 /**
  * Capturas limpias del sitio a 2x, sin marcos ni fondos, para documentación.
  *   pnpm screens   (construye el sitio y después corre este script)
- * Salida en docs/screens/:
- *   desktop-hero.png      1440 px, primera pantalla.
- *   desktop-espacios.png  1440 px, la sección de espacios con sus pestañas.
- *   mobile-hero.png       360 px, primera pantalla, sin la barra fija ni el botón de WhatsApp.
- *   mobile-galeria.png    360 px, la galería recortada a una pantalla: título, filtros y las primeras fotos.
+ * Salida en docs/screens/, en JPG de calidad 92 (la misma que docs/cover.jpg; en PNG pesaban ~3.5×):
+ *   desktop-hero.jpg      1440 px, primera pantalla.
+ *   desktop-espacios.jpg  1440 px, la sección de espacios con sus pestañas.
+ *   mobile-hero.jpg       360 px, primera pantalla, sin la barra fija ni el botón de WhatsApp.
+ *   mobile-galeria.jpg    360 px, la galería recortada a una pantalla: título, filtros y las primeras fotos.
  *
  * Con movimiento reducido: sin reveal ni parallax, así no quedan secciones vacías. Sin dependencias nuevas:
  * sirve dist/ con el preview de Vite y captura con el Chromium de Playwright.
@@ -17,6 +17,8 @@ import { preview } from 'vite'
 
 const root = (path: string) => fileURLToPath(new URL(`../${path}`, import.meta.url))
 const OUT = 'docs/screens'
+/** Calidad JPG de las capturas: la misma que la portada del README (docs/cover.jpg). */
+const QUALITY = 92
 
 // Capas que taparían el contenido. Solo se ocultan en la captura, con la opción `style` de Playwright.
 const FIXED_LAYERS = 'footer > [data-surface="default"]' // barra fija móvil y botón de WhatsApp
@@ -38,10 +40,10 @@ const DESKTOP = { width: 1440, height: 900 }
 const MOBILE = { width: 360, height: 800 }
 
 const SHOTS: Shot[] = [
-  { file: 'desktop-hero.png', viewport: DESKTOP },
-  { file: 'desktop-espacios.png', viewport: DESKTOP, section: '#espacios', style: HIDE_FOR_SECTION },
-  { file: 'mobile-hero.png', viewport: MOBILE, style: HIDE(FIXED_LAYERS) },
-  { file: 'mobile-galeria.png', viewport: MOBILE, section: '#galeria', maxHeight: MOBILE.height, style: HIDE_FOR_SECTION },
+  { file: 'desktop-hero.jpg', viewport: DESKTOP },
+  { file: 'desktop-espacios.jpg', viewport: DESKTOP, section: '#espacios', style: HIDE_FOR_SECTION },
+  { file: 'mobile-hero.jpg', viewport: MOBILE, style: HIDE(FIXED_LAYERS) },
+  { file: 'mobile-galeria.jpg', viewport: MOBILE, section: '#galeria', maxHeight: MOBILE.height, style: HIDE_FOR_SECTION },
 ]
 
 // Corren en el navegador; van como texto porque tsconfig.node.json no incluye los tipos del DOM.
@@ -76,10 +78,10 @@ for (const shot of SHOTS) {
     await page.waitForLoadState('networkidle')
     const box = (await page.evaluate(documentBox(shot.section))) as Box
     const clip = { ...box, height: shot.maxHeight ? Math.min(box.height, shot.maxHeight) : box.height }
-    await page.screenshot({ path, fullPage: true, clip, style: shot.style, animations: 'disabled' })
+    await page.screenshot({ path, type: 'jpeg', quality: QUALITY, fullPage: true, clip, style: shot.style, animations: 'disabled' })
   } else {
     await page.evaluate(imagesReady('body'))
-    await page.screenshot({ path, style: shot.style, animations: 'disabled' })
+    await page.screenshot({ path, type: 'jpeg', quality: QUALITY, style: shot.style, animations: 'disabled' })
   }
 
   await context.close()

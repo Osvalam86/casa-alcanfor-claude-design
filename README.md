@@ -21,6 +21,25 @@ Caso de estudio de maquetación y accesibilidad: la landing de un jardín y sal�
 
 ---
 
+## Capturas
+
+Capturas del build a 2×, con movimiento reducido. `pnpm screens` las regenera en [`docs/screens/`](docs/screens/).
+
+**Escritorio, 1440 px**
+
+![Primera pantalla de Casa Alcanfor en escritorio: la franja «Proyecto conceptual · Negocio, datos y reseñas ficticios», el header con el logo, la navegación y «Agenda tu visita»; a la izquierda, el titular «Celebra donde cada momento se vuelve recuerdo», el texto de presentación, los botones «Consulta disponibilidad» y «Recorre el salón» y el inicio del verificador de fecha; a la derecha, la foto en arco de un pasillo de ceremonia nocturno entre sillas blancas bajo series de luces.](docs/screens/desktop-hero.jpg)
+
+![Sección de espacios en escritorio: «Tres espacios que se adaptan a tu celebración», con las pestañas Salón Gran Alcanfor, Jardín Los Fresnos y Terraza Mirador y su capacidad; la primera está activa y muestra la foto de un salón con mesas largas, sillas doradas y luces colgantes, su descripción, la capacidad, la superficie, el clima y la pista, y el botón «Agenda una visita guiada».](docs/screens/desktop-espacios.jpg)
+
+**Móvil, 360 px**
+
+<p>
+  <img src="docs/screens/mobile-hero.jpg" width="300" alt="Primera pantalla en móvil: la franja de proyecto conceptual, el logo y el botón de menú; el titular «Celebra donde cada momento se vuelve recuerdo», el texto de presentación y los botones «Consulta disponibilidad» y «Recorre el salón».">
+  <img src="docs/screens/mobile-galeria.jpg" width="300" alt="Galería en móvil: el título «Momentos que ya sucedieron aquí», los filtros Todos (activo), Bodas, XV años, Bautizos y Corporativos, el contador «12 fotos» y las primeras fotos: un ramo de flores en arco, luces colgantes de noche y el inicio de una mesa con invitados.">
+</p>
+
+---
+
 ## Decisiones respecto al diseño
 
 Las decisiones D1–D12 y los ajustes de accesibilidad se aprobaron en el plan de la Fase 1. Estas son las que cambian algo visible o de comportamiento:
@@ -167,7 +186,7 @@ Abre <http://localhost:5173>. Para las pruebas, descarga primero el navegador: `
 | `pnpm lint` | ESLint con `jsx-a11y` en modo strict |
 | `pnpm test:e2e` | Build + Playwright y axe a 390 y 1440 px |
 | `pnpm icons` | Regenera el favicon y los íconos de `public/` desde el monograma del logo |
-| `pnpm screens` | Construye el sitio y genera 4 capturas limpias a 2x en `docs/screens/`: primera pantalla y espacios a 1440 px, primera pantalla y galería a 360 px |
+| `pnpm screens` | Construye el sitio y genera 4 capturas limpias a 2x, en JPG de calidad 92, en `docs/screens/`: primera pantalla y espacios a 1440 px, primera pantalla y galería a 360 px |
 | `pnpm preview` | Sirve `dist/` en `localhost:4173` |
 
 **Variables de entorno.** `VITE_SITE_URL` es el dominio público, sin `/` final (ver [`.env.example`](.env.example)). Con valor, el build agrega `canonical`, `og:url` y `url`/`@id` al JSON-LD, y vuelve absolutas `og:image` y `twitter:image`; vacía, omite todo eso. En local va en `.env.local` (ignorado por git).
