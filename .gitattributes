@@ -1,0 +1,10 @@
+# Fin de línea LF en el repo y en disco, también en Windows (anula core.autocrlf=true)
+* text=auto eol=lf
+
+# Binarios: sin conversión ni diff de texto
+*.jpg   binary
+*.jpeg  binary
+*.png   binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
