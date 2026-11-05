@@ -2,7 +2,7 @@
 
 Caso de estudio de maquetación y accesibilidad: la landing de un jardín y salón de eventos en Zapopan, generada con Claude Design y llevada a React, TypeScript y Tailwind CSS v4. El negocio es ficticio y es la excusa. Lo que se demuestra es convertir un prototipo de un solo archivo (estilos inline, hex sueltos y responsive resuelto con JS) en un sistema de tokens y componentes Atomic Design, documentar cada cambio respecto al diseño y construir lo que el prototipo no resolvía: teclado, foco, diálogos, formularios y lectores de pantalla.
 
-**Demo:** pendiente de publicar en Netlify (`https://<sitio>.netlify.app`) · catálogo de componentes en `/design-system.html`
+**Demo:** [casa-alcanfor.netlify.app](https://casa-alcanfor.netlify.app) · catálogo de componentes en [`/design-system.html`](https://casa-alcanfor.netlify.app/design-system.html)
 
 **Diseño:** generado con [Claude Design](https://claude.ai) a partir de un brief propio. El export está en [`design/`](design/) como referencia: no se importa desde `src/` ni se modifica. No incluye `support.js`, el runtime de Claude Design, así que el `.dc.html` se lee como código pero no se abre como prototipo.
 
@@ -161,7 +161,7 @@ El objetivo es **WCAG 2.2 AA**. Este README no afirma conformidad: dice qué se 
 - **Aviso de privacidad solo como texto.** El formulario y el footer lo mencionan, pero no hay página ni enlace.
 - **JSON-LD con datos de ejemplo.** `EventVenue` se genera desde `content/landing.ts`; `aggregateRating` y `sameAs` quedan fuera mientras reseñas y redes sean de ejemplo.
 - **Fotos por URL de Unsplash**, no alojadas en el repo: dependen de su CDN.
-- **Imagen OG relativa sin dominio.** Open Graph pide una URL absoluta: hasta definir `VITE_SITE_URL`, `og:image` es `/og-image.jpg` y las redes pueden no mostrarla.
+- **URL absolutas según `VITE_SITE_URL`.** Las URL absolutas de `og:image`, `twitter:image`, `canonical`, `og:url` y el JSON-LD dependen de esa variable. En el sitio publicado ya está definida en Netlify. Si se clona el repo y se construye sin ella, `og:image` y `twitter:image` quedan relativas (`/og-image.jpg`), y `canonical`, `og:url` y `url`/`@id` del JSON-LD se omiten; Open Graph pide una URL absoluta y las redes pueden no mostrar la imagen.
 
 ---
 
