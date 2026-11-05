@@ -504,7 +504,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.7;cursor:pointer}
               <div style="display:flex;flex-direction:column;gap:6px">
                 <label for="f-wa" style="font:600 14px/1.4 'Manrope',sans-serif;color:#1E1A17">WhatsApp</label>
                 <input id="f-wa" name="wa" type="tel" inputmode="tel" autocomplete="tel-national" value="{{ form.wa }}" onChange="{{ onField }}" onBlur="{{ onBlur }}" aria-invalid="{{ inv.wa }}" aria-describedby="{{ desc.wa }}" style="min-height:48px;padding:0 14px;border:1px solid {{ bc.wa }};border-radius:2px;background:#FFFDF9;color:#1E1A17;font:400 16px 'Manrope',sans-serif;width:100%">
-                <p id="f-wa-help" style="margin:0;font:400 13px/1.4 'Manrope',sans-serif;color:#4A423B">10 dígitos, por ejemplo 33 1234 5678</p>
+                <p id="f-wa-help" style="margin:0;font:400 13px/1.4 'Manrope',sans-serif;color:#4A423B">10 dígitos, por ejemplo 33 0000 0000</p>
                 <sc-if value="{{ errors.wa }}" hint-placeholder-val="{{ false }}"><p id="f-wa-err" style="margin:0;display:flex;gap:6px;font:500 14px/1.4 'Manrope',sans-serif;color:#A3362B"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5v.01"></path></svg>{{ errors.wa }}</p></sc-if>
               </div>
               <div style="display:flex;flex-direction:column;gap:6px">
@@ -579,8 +579,8 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.7;cursor:pointer}
       </nav>
       <div style="display:flex;flex-direction:column;gap:4px">
         <p style="margin:0 0 8px;font:600 12px/1.4 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#C9A46A">Contacto</p>
-        <a href="tel:+523312345678" style="color:#E2DACB;text-decoration:none;font:400 15px/1 'Manrope',sans-serif;padding:8px 0">33 1234 5678</a>
-        <a href="mailto:hola@casaalcanfor.mx" style="color:#E2DACB;text-decoration:none;font:400 15px/1 'Manrope',sans-serif;padding:8px 0">hola@casaalcanfor.mx</a>
+        <a href="tel:+523300000000" style="color:#E2DACB;text-decoration:none;font:400 15px/1 'Manrope',sans-serif;padding:8px 0">33 0000 0000</a>
+        <a href="mailto:hola@casaalcanfor.example" style="color:#E2DACB;text-decoration:none;font:400 15px/1 'Manrope',sans-serif;padding:8px 0">hola@casaalcanfor.example</a>
         <span style="font:400 15px/1.5 'Manrope',sans-serif;padding:8px 0">Zapopan, Jalisco</span>
       </div>
       <div style="display:flex;flex-direction:column;gap:4px">
@@ -797,7 +797,7 @@ class Component extends DCLogic {
       nav, today: this.today(), heroImg: this.heroImg,
       visit: e => this.prefill({ idea: s.form.idea || 'Quiero agendar una visita guiada.' }, 'Cuéntanos cuándo te gustaría visitarnos. Las visitas guiadas son de lunes a sábado, de 10:00 a 19:00.', e),
       openTour: () => this.openLayer({ tour: true }, this.lbRef),
-      waHref: 'https://wa.me/523312345678?text=' + encodeURIComponent('Hola, quiero información para mi evento en Casa Alcanfor.'),
+      waHref: 'https://wa.me/523300000000?text=' + encodeURIComponent('Hola, quiero información para mi evento en Casa Alcanfor.'),
 
       qc: s.qc, qcErr: s.qcErr,
       onQc: e => { const { name, value } = e.target; this.setState(st => ({ qc: { ...st.qc, [name]: value }, qcErr: '' })); },

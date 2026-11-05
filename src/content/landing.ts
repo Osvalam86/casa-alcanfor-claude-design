@@ -366,7 +366,7 @@ export const landing = {
     instructions: 'Todos los campos son obligatorios, salvo los marcados como opcionales.',
     fields: {
       name: { label: 'Nombre completo' },
-      wa: { label: 'WhatsApp', helper: '10 dígitos, por ejemplo 33 1234 5678' },
+      wa: { label: 'WhatsApp', helper: '10 dígitos, por ejemplo 33 0000 0000' },
       email: { label: 'Correo' },
       tipo: { label: 'Tipo de evento', placeholder: 'Elige una opción' },
       fecha: { label: 'Fecha tentativa' },

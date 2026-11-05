@@ -109,7 +109,7 @@ export const designSystem = {
     fields: {
       title: 'Campos de formulario',
       name: { label: 'Nombre completo', value: 'Andrea López' },
-      helper: { label: 'WhatsApp', helper: '10 dígitos, por ejemplo 33 1234 5678' },
+      helper: { label: 'WhatsApp', helper: '10 dígitos, por ejemplo 33 0000 0000' },
       error: { label: 'WhatsApp', value: '33 1234', error: 'Escribe un número de WhatsApp de 10 dígitos.' },
       disabled: { label: 'Input deshabilitado', value: 'No disponible' },
       select: { label: 'Tipo de evento', placeholder: 'Elige una opción', options: ['Boda', 'XV años', 'Bautizo o primera comunión'] },
