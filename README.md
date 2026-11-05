@@ -126,6 +126,7 @@ El objetivo es **WCAG 2.2 AA**. Este README no afirma conformidad: dice qué se 
 **Queda abierto:**
 
 - Sin volver a probar con NVDA después de estas correcciones: están verificadas en el árbol de accesibilidad de Chrome (`e2e/screen-reader.spec.ts`), no de oído.
+- **Foco inicial del menú móvil con NVDA, sin causa aislada.** Con NVDA activo, Insert+Tab reportó el foco en «Agenda tu visita» al abrir el menú. Sin NVDA no se reproduce: en Chrome 156.0.8078.80 con interfaz, registrando 2 s de cambios de foco en 16 casos (build y servidor de desarrollo, viewport emulado y ventana real de 604 px, Enter, Espacio, Enter sostenido y clic), el foco queda en «Cerrar menú» desde que `showModal()` abre el diálogo, con anillo visible, y nada lo mueve; el diálogo no tiene animación de apertura. La prueba e2e ahora espera a que terminen las animaciones y vigila el foco durante 1 s (detecta un foco movido 300 ms después o al final de una animación). Falta repetir con NVDA para ver si lo mueve el propio lector.
 - Sin probar: NVDA con Firefox, TalkBack, VoiceOver y alto contraste de Windows.
 - axe corre sobre la página cargada, no con los diálogos abiertos ni con el formulario en estado de error.
 - Solo Chromium en las pruebas automáticas: Firefox y Safari sin probar.

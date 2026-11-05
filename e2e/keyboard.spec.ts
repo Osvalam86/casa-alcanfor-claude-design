@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test'
-import { activeName, focusInsideOpenDialog, isMobile, tabTo } from './helpers'
+import { activeName, focusInsideOpenDialog, isMobile, settledFocus, tabTo } from './helpers'
 
 /** Da `presses` vueltas de Tab (y luego Shift+Tab) y comprueba en cada paso que el foco no sale del diálogo. */
 async function expectTabTrapped(page: Page, presses: number) {
@@ -30,11 +30,16 @@ test('menú principal: un enlace lleva el foco al h2 de la sección', async ({ p
   await expect(page.locator('#preguntas h2')).toBeFocused()
 })
 
-test('menú móvil: al abrir, el foco va a "Cerrar menú"', async ({ page }) => {
+test('menú móvil: al abrir, el foco va a "Cerrar menú" y ahí se queda', async ({ page }) => {
   test.skip(!isMobile(page), 'El botón de menú solo existe por debajo de lg')
   await tabTo(page, 'Abrir menú')
   await page.keyboard.press('Enter')
-  await expect(page.getByRole('dialog', { name: 'Menú' }).getByRole('button', { name: 'Cerrar menú' })).toBeFocused()
+  const dialog = page.getByRole('dialog', { name: 'Menú' })
+  await expect(dialog.getByRole('button', { name: 'Cerrar menú' })).toBeFocused()
+  // No basta el instante: tras las animaciones y durante 1 s, nada debe mover el foco a otro control
+  const { changes, active } = await settledFocus(dialog)
+  expect(changes, 'el foco cambió después de abrir').toEqual([])
+  expect(active).toBe('Cerrar menú')
 })
 
 test('logo: el nombre accesible empieza con el texto visible (WCAG 2.5.3)', async ({ page }) => {

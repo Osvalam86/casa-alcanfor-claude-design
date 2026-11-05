@@ -77,6 +77,24 @@ export async function tabTo(page: Page, name: string, max = 80) {
   throw new Error(`No se llegó con Tab a "${name}" en ${max} pasos`)
 }
 
+/**
+ * Foco ya asentado en un diálogo: espera a que terminen sus animaciones (hoy no tiene; si se agrega una de
+ * apertura, se espera) y registra durante `holdMs` cualquier cambio de foco. Devuelve los cambios vistos
+ * y el elemento enfocado al final, para detectar lo que mueve el foco después de abrir, no solo al instante.
+ */
+export async function settledFocus(dialog: Locator, holdMs = 1000) {
+  await dialog.evaluate((el) => Promise.all(el.getAnimations({ subtree: true }).map((a) => a.finished)))
+  return dialog.page().evaluate(async (ms) => {
+    const describe = (el: Element | null) => (el?.getAttribute('aria-label') ?? el?.textContent ?? String(el)).trim()
+    const changes: string[] = []
+    const onFocus = (event: FocusEvent) => changes.push(describe(event.target as Element))
+    document.addEventListener('focusin', onFocus, true)
+    await new Promise((resolve) => setTimeout(resolve, ms))
+    document.removeEventListener('focusin', onFocus, true)
+    return { changes, active: describe(document.activeElement) }
+  }, holdMs)
+}
+
 /** true si el foco está dentro del <dialog open>. */
 export function focusInsideOpenDialog(page: Page) {
   return page.evaluate(() => {
