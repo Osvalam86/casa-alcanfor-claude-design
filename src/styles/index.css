@@ -8,6 +8,18 @@
     scroll-padding-top: var(--header-height, 60px);
     scroll-padding-bottom: var(--scroll-offset-bottom);
     -webkit-text-size-adjust: 100%;
+    /* El fondo va en html: pinta todo el lienzo, también el canal de la barra de scroll */
+    background-color: var(--color-surface);
+    background-image: var(--noise);
+  }
+
+  /*
+   * Solo en páginas con modales (landing: menú y lightbox): reserva el canal de la barra para que al
+   * abrir un diálogo, con overflow: hidden, el contenido no salte. En la 404 y el catálogo queda en auto
+   * y el aviso y el header llegan al borde derecho cuando no hay scroll.
+   */
+  html:has(dialog) {
+    scrollbar-gutter: stable;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -18,8 +30,6 @@
 
   body {
     margin: 0;
-    background-color: var(--color-surface);
-    background-image: var(--noise);
     color: var(--color-text);
     font-family: var(--font-sans);
     /* Solo variantes reales: Cormorant 500 itálica está cargada; nada se sintetiza */
@@ -66,8 +76,34 @@
     .js-reveal [data-reveal]:nth-child(n + 7) { transition-delay: 360ms; }
   }
 
-  /* Destinos de foco programático (secciones, títulos): sin anillo, no son controles */
-  [tabindex='-1']:focus {
+  /*
+   * Destinos de foco por script (<main>, encabezados de useAnchorFocus, resumen de errores): sin anillo,
+   * no son controles. Los controles con tabindex="-1" (pestaña inactiva del roving tabindex, enlaces,
+   * botones, campos) conservan el contorno.
+   */
+  [tabindex='-1']:not(
+      a[href],
+      button,
+      input,
+      select,
+      textarea,
+      summary,
+      [contenteditable],
+      [role='button'],
+      [role='link'],
+      [role='tab'],
+      [role='option'],
+      [role='checkbox'],
+      [role='radio'],
+      [role='switch'],
+      [role='slider'],
+      [role='spinbutton'],
+      [role='combobox'],
+      [role='textbox'],
+      [role^='menuitem'],
+      [role='treeitem'],
+      [role='gridcell']
+    ):focus {
     outline: none;
   }
 

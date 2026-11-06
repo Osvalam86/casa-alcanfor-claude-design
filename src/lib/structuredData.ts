@@ -1,6 +1,6 @@
 import { landing } from '@/content/landing'
 import { GUESTS } from '@/lib/validation'
-import { unsplashUrl } from '@/lib/unsplash'
+import { unsplashJpgUrl } from '@/lib/unsplash'
 
 /** Campos del JSON-LD que salen de datos de ejemplo (`// DEMO` en content/landing.ts). */
 export const STRUCTURED_DATA_DEMO_FIELDS = ['address.streetAddress', 'address.postalCode', 'telephone', 'email']
@@ -22,7 +22,8 @@ export function structuredData(siteUrl: string) {
     ...(siteUrl && { '@id': `${siteUrl}/#venue`, url: `${siteUrl}/` }),
     name: brand.name,
     description: hero.lead,
-    image: unsplashUrl(hero.image.id, 1200),
+    // Foto real del lugar (la del hero), en JPG y con URL absoluta; no la imagen OG, que es una maqueta
+    image: unsplashJpgUrl(hero.image.id, 1200),
     address: {
       '@type': 'PostalAddress',
       streetAddress: `${address.street}, ${address.neighborhood}`, // DEMO

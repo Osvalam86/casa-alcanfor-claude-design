@@ -60,6 +60,7 @@ Las decisiones D1–D12 y los ajustes de accesibilidad se aprobaron en el plan d
 | — | «Verifica tu fecha» en escritorio | Tres campos en una fila y el botón debajo | 2×2 (tipo y fecha; invitados y botón) mientras la tarjeta mide menos de 564 px, que en el hero de dos columnas es siempre | En la fila de tres campos la fecha quedaba en 164 px, justo lo que ocupa con su ícono, sin aire; con columnas de 180 px no se aprieta |
 | — | Tipos de evento en los formularios | Seis opciones, cuatro combinadas con «o» («Bautizo o primera comunión», «Cumpleaños o aniversario»…) | Una opción por evento: Boda, XV años, Bautizo, Primera comunión, Corporativo, Cumpleaños, Aniversario, Baby shower, Graduación y Otro, con `value` en inglés (`wedding`, `first-communion`…) | Separar las opciones evita que el texto elegido se corte (todas caben en el select de 180 px) y que alguien tenga que buscar su evento dentro de una opción combinada |
 | — | Aviso de proyecto conceptual | No existe | Franja no fija antes del header, contraste 8.02:1 | Dejar claro que negocio, datos y reseñas son ficticios |
+| — | Página 404 | No existe (contenido nuevo, fuera del diseño) | `404.html` con los tokens, fuentes y átomos de la landing: aviso, header con la marca enlazada al inicio, «No encontramos esta página» y los enlaces «Volver al inicio» y «Agenda tu visita»; `noindex` y sin Open Graph ni JSON-LD. Si el hosting manda una ruta desconocida a `index.html`, el cliente muestra la misma página | Netlify mostraba su página genérica en inglés en las rutas inexistentes |
 
 ---
 

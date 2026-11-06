@@ -13,7 +13,8 @@
 
 # Sin redirecciones: es una sola página con anclas (#eventos, #contacto…), sin rutas del lado del cliente.
 # /design-system.html es un archivo real del build. Un fallback "/* → /index.html 200" convertiría
-# cualquier URL inexistente en la landing con estado 200, así que no se agrega.
+# cualquier URL inexistente en la landing con estado 200, así que no se agrega: Netlify sirve dist/404.html
+# con estado 404 en las rutas que no existen.
 
 # Proyecto conceptual: ninguna respuesta se indexa (refuerza el <meta name="robots" content="noindex">).
 [[headers]]
@@ -22,6 +23,12 @@
     X-Robots-Tag = "noindex"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+# El manifiesto con su tipo propio (por extensión, Netlify lo enviaría como texto u octet-stream).
+[[headers]]
+  for = "/site.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
 
 # Vite pone un hash en los nombres de /assets: se pueden guardar en caché para siempre.
 [[headers]]

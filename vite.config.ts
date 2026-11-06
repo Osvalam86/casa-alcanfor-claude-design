@@ -61,6 +61,8 @@ export default defineConfig(({ mode }) => {
         input: {
           main: fileURLToPath(new URL('./index.html', import.meta.url)),
           designSystem: fileURLToPath(new URL('./design-system.html', import.meta.url)),
+          // Netlify sirve dist/404.html en cualquier ruta inexistente
+          notFound: fileURLToPath(new URL('./404.html', import.meta.url)),
         },
       },
     },

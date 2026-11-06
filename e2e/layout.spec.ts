@@ -1,7 +1,7 @@
 import { test, expect, type Page } from '@playwright/test'
 import { focusObscured, revealAll } from './helpers'
 
-const PAGES = ['/', '/design-system.html']
+const PAGES = ['/', '/design-system.html', '/404.html']
 
 async function horizontalOverflow(page: Page) {
   return page.evaluate(() => {

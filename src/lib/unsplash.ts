@@ -30,6 +30,14 @@ export function unsplashUrl(id: string, width: number, quality = 70, crop?: numb
   return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${width}${height}&q=${quality}`
 }
 
+/**
+ * URL absoluta en JPG, sin `auto=format` (que entrega WebP o AVIF según el navegador). Para los
+ * consumidores que no negocian formato, como la `image` del JSON-LD.
+ */
+export function unsplashJpgUrl(id: string, width: number, quality = 80) {
+  return `https://images.unsplash.com/photo-${id}?fm=jpg&fit=crop&w=${width}&q=${quality}`
+}
+
 /** srcset con anchos estándar; el navegador elige según `sizes`. */
 export function unsplashSrcSet(id: string, maxWidth = 1600, crop?: number) {
   return WIDTHS.filter((w) => w <= maxWidth)
