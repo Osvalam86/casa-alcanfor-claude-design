@@ -2,8 +2,18 @@ import { landing } from '@/content/landing'
 import { GUESTS } from '@/lib/validation'
 import { unsplashJpgUrl } from '@/lib/unsplash'
 
-/** Campos del JSON-LD que salen de datos de ejemplo (`// DEMO` en content/landing.ts). */
-export const STRUCTURED_DATA_DEMO_FIELDS = ['address.streetAddress', 'address.postalCode', 'telephone', 'email']
+const { street, postalCode } = landing.location.addressParts
+
+/**
+ * Campos del JSON-LD que salen de datos de ejemplo (`// DEMO` en content/landing.ts). Calle y código
+ * postal solo cuentan si existen: hoy el domicilio es solo «Zapopan, Jalisco».
+ */
+export const STRUCTURED_DATA_DEMO_FIELDS = [
+  ...(street ? ['address.streetAddress'] : []),
+  ...(postalCode ? ['address.postalCode'] : []),
+  'telephone',
+  'email',
+]
 
 /**
  * JSON-LD EventVenue con los datos de content/landing.ts. Lo inyecta en index.html el plugin `seo` de
@@ -26,8 +36,9 @@ export function structuredData(siteUrl: string) {
     image: unsplashJpgUrl(hero.image.id, 1200),
     address: {
       '@type': 'PostalAddress',
-      streetAddress: `${address.street}, ${address.neighborhood}`, // DEMO
-      postalCode: address.postalCode, // DEMO
+      // Opcionales: se omiten mientras el domicilio sea solo municipio y estado
+      ...(address.street && { streetAddress: address.street }),
+      ...(address.postalCode && { postalCode: address.postalCode }),
       addressLocality: address.locality,
       addressRegion: address.region,
       addressCountry: address.country,

@@ -14,10 +14,14 @@ Contexto y reglas del proyecto. Léelo completo antes de cualquier tarea y resp�
 
 ## 2. Origen del diseño
 
-- El diseño llega desde Claude Design (handoff bundle o export HTML) y vive en la carpeta `design/` en la raíz. Es solo referencia: no se importa desde `src/` ni se modifica.
+- El diseño llega desde Claude Design (handoff bundle o export HTML) y vive en la carpeta `design/` en la raíz. Es solo referencia: no se importa desde `src/` ni se modifica, salvo la excepción de abajo.
 - **No reconstruyas desde cero:** usa el código del diseño como referencia y refactorízalo a la arquitectura de este documento.
 - El copy, los colores, la tipografía y el espaciado del diseño son la fuente de verdad. No inventes contenido ni cambies textos.
 - Si algo del diseño es ambiguo o rompe una regla de accesibilidad, anótalo en el reporte de la fase en lugar de decidir en silencio.
+
+### Excepciones aprobadas
+
+- **Datos de ejemplo en `design/`:** se permite reemplazar los datos de ejemplo que parezcan reales (teléfono, correo, domicilio, dominio) por los ficticios del proyecto, los mismos de `content/landing.ts` (p. ej. el domicilio solo «Zapopan, Jalisco», también en el mapa y en «Cómo llegar»). Nunca se cambia el diseño, el copy ni la estructura.
 
 ## 3. Arquitectura (Atomic Design)
 

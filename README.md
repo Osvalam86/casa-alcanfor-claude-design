@@ -4,7 +4,7 @@ Caso de estudio de maquetación y accesibilidad: la landing de un jardín y sal�
 
 **Demo:** [casa-alcanfor.netlify.app](https://casa-alcanfor.netlify.app) · catálogo de componentes en [`/design-system.html`](https://casa-alcanfor.netlify.app/design-system.html)
 
-**Diseño:** generado con [Claude Design](https://claude.ai) a partir de un brief propio. El export está en [`design/`](design/) como referencia: no se importa desde `src/` ni se modifica. No incluye `support.js`, el runtime de Claude Design, así que el `.dc.html` se lee como código pero no se abre como prototipo.
+**Diseño:** generado con [Claude Design](https://claude.ai) a partir de un brief propio. El export está en [`design/`](design/) como referencia: no se importa desde `src/` ni se modifica, salvo para reemplazar datos de ejemplo que parecían reales (teléfono, correo, domicilio, dominio) por los ficticios del proyecto, sin tocar el diseño, el copy ni la estructura. No incluye `support.js`, el runtime de Claude Design, así que el `.dc.html` se lee como código pero no se abre como prototipo.
 
 [![Sobre fondo verde oscuro, el texto: Caso de estudio. Casa Alcanfor. Diseño de Claude Design llevado a React, TypeScript y Tailwind CSS v4. Atomic Design, WCAG 2.2 AA y «Probado con Playwright, axe y NVDA», cada uno con su ícono. Osvaldo Ocampo · Maquetación y accesibilidad. A la derecha, una laptop con la primera pantalla del sitio, el titular «Celebra donde cada momento se vuelve recuerdo» y la foto en arco de un pasillo de ceremonia con luces, y delante un teléfono inclinado con la galería «Momentos que ya sucedieron aquí», sus filtros y las primeras fotos.](docs/cover.jpg)](docs/cover.jpg)
 
@@ -60,6 +60,7 @@ Las decisiones D1–D12 y los ajustes de accesibilidad se aprobaron en el plan d
 | — | «Verifica tu fecha» en escritorio | Tres campos en una fila y el botón debajo | 2×2 (tipo y fecha; invitados y botón) mientras la tarjeta mide menos de 564 px, que en el hero de dos columnas es siempre | En la fila de tres campos la fecha quedaba en 164 px, justo lo que ocupa con su ícono, sin aire; con columnas de 180 px no se aprieta |
 | — | Tipos de evento en los formularios | Seis opciones, cuatro combinadas con «o» («Bautizo o primera comunión», «Cumpleaños o aniversario»…) | Una opción por evento: Boda, XV años, Bautizo, Primera comunión, Corporativo, Cumpleaños, Aniversario, Baby shower, Graduación y Otro, con `value` en inglés (`wedding`, `first-communion`…) | Separar las opciones evita que el texto elegido se corte (todas caben en el select de 180 px) y que alguien tenga que buscar su evento dentro de una opción combinada |
 | — | Aviso de proyecto conceptual | No existe | Franja no fija antes del header, contraste 8.02:1 | Dejar claro que negocio, datos y reseñas son ficticios |
+| — | Domicilio | Calle, número, colonia y código postal; el mapa y «Cómo llegar» apuntan a una calle | Solo «Zapopan, Jalisco» en el texto, el mapa, «Cómo llegar» y el JSON-LD (sin `streetAddress` ni `postalCode`) | El negocio es ficticio: un domicilio inventado puede coincidir con uno real |
 | — | Página 404 | No existe (contenido nuevo, fuera del diseño) | `404.html` con los tokens, fuentes y átomos de la landing: aviso, header con la marca enlazada al inicio, «No encontramos esta página» y los enlaces «Volver al inicio» y «Agenda tu visita»; `noindex` y sin Open Graph ni JSON-LD. Si el hosting manda una ruta desconocida a `index.html`, el cliente muestra la misma página | Netlify mostraba su página genérica en inglés en las rutas inexistentes |
 
 ---
@@ -239,7 +240,7 @@ casa-alcanfor-claude-design/
 
 **Contenido ficticio.**
 
-- El negocio Casa Alcanfor y su dirección, teléfono y WhatsApp (33 0000 0000), correo (`hola@casaalcanfor.example`, dominio reservado) y redes, marcados `// DEMO` en `content/landing.ts`.
+- El negocio Casa Alcanfor y su ubicación (solo «Zapopan, Jalisco», sin calle, colonia ni código postal), teléfono y WhatsApp (33 0000 0000), correo (`hola@casaalcanfor.example`, dominio reservado) y redes, marcados `// DEMO` en `content/landing.ts`.
 - Las cifras: eventos realizados, años de experiencia y la calificación de 4.9 con 320 reseñas en Google.
 - Los testimonios y sus autores, los paquetes y sus precios.
 

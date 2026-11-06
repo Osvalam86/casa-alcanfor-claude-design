@@ -43,18 +43,28 @@ export const galleryFilterLabel = (value: GalleryFilter) => GALLERY_FILTERS.find
 
 export type GalleryPhoto = Photo & { category: GalleryCategory; ratio: 'portrait' | 'photo' | 'wide' }
 
-/** Partes de la dirección: arman el texto visible y el PostalAddress del JSON-LD. */
-const ADDRESS_PARTS = {
-  street: 'Av. de los Alcanfores 1450', // DEMO
-  neighborhood: 'Jardines del Valle', // DEMO
-  postalCode: '45138', // DEMO
+/**
+ * Partes de la dirección: arman el texto visible, el mapa y el PostalAddress del JSON-LD. Calle y código
+ * postal son opcionales: el negocio es ficticio y un domicilio inventado puede coincidir con uno real
+ * (la colonia de la versión anterior existe en Zapopan), así que solo se publican municipio y estado.
+ */
+type AddressParts = {
+  street?: string
+  postalCode?: string
+  locality: string
+  region: string
+  country: string
+}
+const ADDRESS_PARTS: AddressParts = {
   locality: 'Zapopan',
   region: 'Jalisco',
-  regionShort: 'Jal.',
   country: 'MX',
-} as const
-const ADDRESS = `${ADDRESS_PARTS.street}, ${ADDRESS_PARTS.neighborhood}, ${ADDRESS_PARTS.postalCode} ${ADDRESS_PARTS.locality}, ${ADDRESS_PARTS.regionShort}`
-const ADDRESS_QUERY = `${ADDRESS_PARTS.street}, ${ADDRESS_PARTS.neighborhood}, ${ADDRESS_PARTS.locality}, ${ADDRESS_PARTS.region}`
+}
+const ADDRESS = [ADDRESS_PARTS.street, ADDRESS_PARTS.postalCode, `${ADDRESS_PARTS.locality}, ${ADDRESS_PARTS.region}`]
+  .filter(Boolean)
+  .join(', ')
+/** Sin calle, el mapa y «Cómo llegar» apuntan al municipio en general. */
+const ADDRESS_QUERY = ADDRESS
 /** DEMO: número y correo de relleno que no pertenecen a nadie (dominio reservado .example, RFC 2606). */
 const PHONE = { label: '33 0000 0000', e164: '+523300000000' } // DEMO
 const WHATSAPP_NUMBER = PHONE.e164.slice(1) // DEMO
@@ -421,7 +431,7 @@ export const landing = {
   location: {
     label: 'Ubicación y contacto',
     mapTitle: 'Mapa de ubicación de Casa Alcanfor',
-    mapSrc: `https://maps.google.com/maps?q=${encodeURIComponent(ADDRESS_QUERY)}&z=15&output=embed`,
+    mapSrc: `https://maps.google.com/maps?q=${encodeURIComponent(ADDRESS_QUERY)}&z=${ADDRESS_PARTS.street ? 15 : 12}&output=embed`,
     addressTerm: 'Dirección',
     address: ADDRESS,
     addressParts: ADDRESS_PARTS,
